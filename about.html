@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/2kdlogo-removebg-preview.png">
+  <title>2KD Hood Cleaning</title>
+  <meta name="description" content="2KD Hood Cleaning offers commercial restaurant kitchen hood cleaning, fan belt, and filter exchange services to restaurants and businesses in Northern NJ and Southern NY.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BANNER -->
+  <div class="banner" id="topBanner">
+    📍 Now servicing businesses in <strong>Union County NJ</strong>.
+    <a href="/service-areas/">See service areas →</a>
+    <button class="banner-close" onclick="document.getElementById('topBanner').style.display='none'" aria-label="Close">✕</button>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+        <a href="index.html" class="logo-img">
+  <img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning">
+</a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="services.html">Services</a>
+            <ul>
+              <li><a href="/services/exhaust-hood-cleaning/">Hood Cleaning</a></li>
+              <li><a href="/services/fan-belt-service/">Filter Change</a></li>
+              <li><a href="/services/dumpster-pad-cleaning/">Exhaust Fan Cleaning</a></li>
+              <li><a href="/services/exhaust-fan-cleaning/">Pressure Washing</a></li>
+              <li><a href="/services/filter-exchange/">Kitchen Cleaning</a></li>
+              <li><a href="/services/pressure-washing/">Dumpster Pad Cleaning</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="serviceareas.html">Service Areas</a></li>
+          <li><a href="#footer">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-cta">
+        <a href="tel:9086037259" class="btn-phone">908-603-7259</a>
+        <a href="index.html#quote" class="btn-quote">Get a Quote</a>
+      </div>
+      <button class="mobile-toggle" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+<section class="page-section">
+
+<div class="container">
+
+<h1>About Our Company</h1>
+
+<p>
+We specialize in commercial kitchen exhaust cleaning for restaurants,
+cafeterias, hotels, and food trucks.
+</p>
+
+<p>
+Our technicians ensure your system stays clean, compliant,
+and operating safely.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer id="footer">
+
+  <div class="footer-main">
+    <div class="footer-brand-left">
+      <a href="index.html"><img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning" height="64"></a>
+      <p>Commercial hood cleaning, exhaust system maintenance, and fire safety compliance for restaurants and businesses across New Jersey.</p>
+<div class="footer-inquiry">
+  <div class="footer-inquiry-title">Get In Touch</div>
+  <input type="email" class="footer-inquiry-email" placeholder="Your email address..." required>
+  <textarea class="footer-inquiry-box" placeholder="Write any questions you have here..."></textarea>
+  <button class="footer-inquiry-btn" onclick="sendInquiry()">Send</button>
+</div>
+    </div>
+
+    <div class="footer-top-grid">
+      <div class="footer-col-centered">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/services/exhaust-hood-cleaning/">Hood Cleaning</a></li>
+          <li><a href="/services/exhaust-fan-cleaning/">Exhaust Fan Cleaning</a></li>
+          <li><a href="/services/fan-belt-service/">Fan Belt Service</a></li>
+          <li><a href="/services/filter-exchange/">Filter Exchange</a></li>
+          <li><a href="/services/dumpster-pad-cleaning/">Dumpster Pad Cleaning</a></li>
+          <li><a href="/services/pressure-washing/">Pressure Washing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col-centered">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="serviceareas.html">Service Areas</a></li>
+          <li><a href="mailto:YOUREMAIL@gmail.com">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-social-centered">
+    <a href="https://www.instagram.com/2kdhoodcleaning/" target="_blank" class="social-icon-circle">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="https://www.facebook.com/2kdhoodcleaning/" target="_blank" class="social-icon-circle">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 2KD Hood Cleaning. All rights reserved.</p>
+  </div>
+
+</footer>
+
+<script>
+  function sendInquiry() {
+    const email = document.querySelector('.footer-inquiry-email').value;
+    const message = document.querySelector('.footer-inquiry-box').value;
+    if (!email || !message) {
+      alert('Please fill in both your email and message.');
+      return;
+    }
+    window.location.href = `mailto:karlaram2005@gmail.com?subject=Website Inquiry from ${email}&body=${encodeURIComponent(message)}%0A%0AFrom: ${email}`;
+  }
+</script>
+</body>
+</html>

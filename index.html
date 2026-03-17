@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/2kdlogo-removebg-preview.png">
+  <title>2KD Hood Cleaning</title>
+  <meta name="description" content="2KD Hood Cleaning offers commercial restaurant kitchen hood cleaning, fan belt, and filter exchange services to restaurants and businesses in Northern NJ and Southern NY.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BANNER -->
+  <div class="banner" id="topBanner">
+    📍 Now servicing businesses in <strong>Union County NJ</strong>.
+    <a href="/service-areas/">See service areas →</a>
+    <button class="banner-close" onclick="document.getElementById('topBanner').style.display='none'" aria-label="Close">✕</button>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+        <a href="index.html" class="logo-img">
+  <img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning">
+</a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="services.html">Services</a>
+            <ul>
+              <li><a href="/services/exhaust-hood-cleaning/">Hood Cleaning</a></li>
+              <li><a href="/services/fan-belt-service/">Filter Change</a></li>
+              <li><a href="/services/dumpster-pad-cleaning/">Exhaust Fan Cleaning</a></li>
+              <li><a href="/services/exhaust-fan-cleaning/">Pressure Washing</a></li>
+              <li><a href="/services/filter-exchange/">Kitchen Cleaning</a></li>
+              <li><a href="/services/pressure-washing/">Dumpster Pad Cleaning</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="serviceareas.html">Service Areas</a></li>
+          <li><a href="#footer">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-cta">
+        <a href="tel:9086037259" class="btn-phone">908-603-7259</a>
+        <a href="index.html#quote" class="btn-quote">Get a Quote</a>
+      </div>
+      <button class="mobile-toggle" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow fade-in">Union County, NJ</div>
+    <h1 class="fade-in">Keep Your Kitchen <span class="flip-wrap"><span id="flip-text">
+        <span>Clean</span>
+        <span>Safe</span>
+        <span>Compliant</span>
+    </span></span></h1>
+    <p class="hero-sub fade-in">Professional hood cleaning, exhaust fan service, and grease containment for commercial kitchens — available 24/7.</p>
+    <div class="hero-actions fade-in">
+      <a href="tel:9086037259" class="btn-primary">Call for a Free Estimate</a>
+      <a href="#quote" class="btn-primary">Request a Quote</a>
+      <a href="/services/" class="btn-secondary">View Services</a>
+    </div>
+  </div>
+  <div class="hero-video-card">
+    <video autoplay muted loop playsinline>
+      <source src="images/herovideo.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<!-- WHO WE ARE -->
+<section class="about-section">
+  <div class="section-inner">
+    <div class="about-card">
+      <div class="about-text">
+        <div class="section-label">Who We Are</div>
+        <h2>What We Do</h2>
+        <p>2KD Hood Cleaning is a family-owned business founded in 2022, built on the belief that every commercial kitchen deserves to operate safely and in full compliance. What started as a small operation in Union County, NJ has grown into a trusted name across Northern New Jersey.</p>
+        <p>We specialize in commercial kitchen hood cleaning, exhaust fan service, grease containment, and fire safety compliance — showing up on time, doing the job right, and treating every client like family.</p>
+        <div class="about-stats">
+          <div class="stat-item">
+            <div class="stat-num">3+</div>
+            <div class="stat-label">Years in Business</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">200+</div>
+            <div class="stat-label">Kitchens Cleaned</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">24/7</div>
+            <div class="stat-label">Availability</div>
+          </div>
+        </div>
+        <a href="about.html" class="btn-primary" style="display:inline-block; margin-top:28px;">Learn More About Us</a>
+      </div>
+      <div class="about-image">
+        <div class="about-img-placeholder">
+          <span>📷</span>
+          <p>Add your photo here</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE FORM -->
+<section class="quote-form-section" id="quote">
+  <video class="quote-video-bg" autoplay muted loop playsinline>
+    <source src="images/quoteparthome.mp4" type="video/mp4">
+  </video>
+  <div class="quote-video-overlay"></div>
+  <div class="section-inner" style="position:relative; z-index:2;">
+    <div class="section-label">Get a Free Estimate</div>
+    <h2>Request a Quote</h2>
+    <form class="quote-form" action="#" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Full Name <span class="required">*</span></label>
+          <input type="text" id="name" name="name" placeholder="John Smith" required>
+        </div>
+        <div class="form-group">
+          <label for="business">Business Name</label>
+          <input type="text" id="business" name="business" placeholder="Joe's Diner">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email <span class="required">*</span></label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number <span class="required">*</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="(908) 555-0000" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="street">Street Address <span class="required">*</span></label>
+          <input type="text" id="street" name="street" placeholder="123 Main St" required>
+        </div>
+        <div class="form-group">
+          <label for="town">Town / City <span class="required">*</span></label>
+          <input type="text" id="town" name="town" placeholder="Newark" required>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary">Submit Request</button>
+    </form>
+  </div>
+</section>
+
+
+
+<!-- COMPLIANCE / NFPA -->
+<section class="compliance-section">
+  <div class="section-inner">
+    <div class="compliance-slider">
+
+      <!-- NFPA PANEL -->
+      <div class="compliance-panel" id="panel-nfpa">
+        <div class="compliance-content">
+          <div class="compliance-eyebrow nfpa-eyebrow">Fire Safety Standard</div>
+          <h2>Don't Risk a Fine You Don't Need!</h2>
+          <p>Businesses that operate commercial kitchens are legally required to maintain their exhaust hood and ventilation systems to reduce the risk of fire hazards. Over time, grease and combustible residue build up inside the hood, ductwork, and exhaust fan. If these systems are not cleaned regularly, the buildup can become extremely dangerous and significantly increase the risk of a kitchen fire. Failure to properly maintain these systems can also lead to serious consequences, including costly fines, insurance violations, failed inspections, or even temporary closure of the business by local authorities.</p>
+          <p>To ensure the highest level of safety and compliance, we strictly follow the cleaning and inspection standards established by the <a href="https://www.nfpa.org" target="_blank"><strong>National Fire Protection Association (NFPA)</strong></a>. Founded in 1896, the NFPA is the leading authority in fire prevention and safety codes used throughout the United States and around the world. Their guidelines—particularly NFPA 96, which focuses on ventilation control and fire protection for commercial cooking operations—are the industry standard used by fire inspectors, insurance companies, and regulatory agencies.</p>
+          <p>By following NFPA standards, we ensure that every cleaning is performed thoroughly and according to the proper safety procedures. Our goal is not only to keep your kitchen compliant with fire codes but also to protect your staff, your customers, and your business from the serious dangers associated with grease fires. Maintaining a clean exhaust system helps improve ventilation efficiency, reduce fire risk, and keep your kitchen operating safely and professionally.</p>
+          <div class="cert-badge nfpa-badge-card glowing-badge nfpa-glow">
+            <img src="images/NFPAlogo.png" alt="NFPA" class="cert-badge-logo" onerror="this.style.display='none'">
+            <div class="cert-badge-text">
+              <div class="cert-badge-label">Proud Member</div>
+              <div class="cert-badge-name">National Fire Protection Association</div>
+              <div class="cert-badge-sub">NFPA Certified</div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-peek nfpa-peek" onclick="switchPanel('mfs')">
+          <div class="peek-arrow-col">
+            <div class="peek-arrow">›</div>
+            <img src="images/mfslogo.png" alt="MFS" class="peek-logo" onerror="this.style.display='none'">
+            <div class="peek-logo-label">MFS School</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MFS PANEL -->
+      <div class="compliance-panel hidden left-layout" id="panel-mfs">
+        <div class="panel-peek mfs-peek" onclick="switchPanel('nfpa')">
+          <div class="peek-arrow-col">
+            <div class="peek-arrow">‹</div>
+            <img src="images/NFPAlogo.png" alt="NFPA" class="peek-logo" onerror="this.style.display='none'">
+            <div class="peek-logo-label">NFPA</div>
+          </div>
+        </div>
+        <div class="compliance-content">
+          <div class="compliance-eyebrow mfs-eyebrow">Certified Training</div>
+          <h2>Certified Through MFS Trade School</h2>
+          <p>At <strong>2KD Kitchen Hood Cleaning</strong>, our technicians are professionally trained and certified through <a href="https://mfstradeschool.com/en-us" target="_blank"><strong>MFS Trade School (MFS)</strong></a>, one of the most recognized institutions in the country for commercial kitchen exhaust hood cleaning certification. This specialized training ensures that our team understands the proper techniques, safety procedures, and industry standards required to clean and maintain commercial kitchen exhaust systems correctly.</p>
+          <p>Through this certification, our technicians are educated on the full cleaning process from removing grease buildup inside the hood canopy to thoroughly cleaning the ductwork and exhaust fan where dangerous grease accumulation often occurs. This training also emphasizes compliance with fire safety standards, proper chemical use, equipment handling, and the correct documentation required during professional hood cleaning services.</p>
+          <p>Being certified through MFS Trade School means our team is trained to perform each job safely, thoroughly, and in accordance with professional industry guidelines. We take pride in maintaining a high level of professionalism and attention to detail on every service. Our goal is not only to leave your system visibly clean, but to help ensure your kitchen remains safe, compliant with regulations, and operating at its best.</p>
+          <p>At <strong>2KD Kitchen Hood Cleaning</strong>, certification is more than just a credential—it reflects our commitment to providing reliable, high-quality service that restaurant owners, kitchen managers, and inspectors can trust.</p>
+          <div class="cert-badge mfs-badge-card glowing-badge mfs-glow">
+            <img src="images/mfslogo.png" alt="MFS Trade School" class="cert-badge-logo" onerror="this.style.display='none'">
+            <div class="cert-badge-text">
+              <div class="cert-badge-label">Certified Through</div>
+              <div class="cert-badge-name">MFS Trade School</div>
+              <div class="cert-badge-sub">Hood Cleaning Certified</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- SERVICE AREAS -->
+<section class="areas-section">
+  <div class="section-inner">
+    <div class="section-label">Where We Work</div>
+    <h2>Serving New Jersey</h2>
+    <p class="section-lead">Click a county to see where we service</p>
+
+    <div class="nj-map-wrap">
+      <div class="nj-map-svg-col">
+<svg viewBox="0 0 1600 3400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+
+  <path class="county-path" data-county="Monmouth" d="m 1121.6,1148.8 158.9,-5.4 44.3,-61.8 -0.9,-2.7 3.1,-3.7 6.8,0 13,6 24.9,32 26.8,85.2 7.3,30 0.6,2.4 8.1,60.3 2.2,26.2 1.4,55.5 2.7,184.4 -128.1,19.7 -32.4,0.9 -80.2,-57.3 -137.1,27.1 -112.6,150.1 -50.1,-67.1 -37.3,-50.5 50,-37 58,-68.5 0,-3.2 -5.3,-9.4 175.9,-313.2"/>
+  <text class="county-label" x="1250" y="1320">Monmouth</text>
+
+  <path class="county-path" data-county="Ocean" d="m 930.4,1697.7 112.6,-150.1 137.1,-27.1 80.2,57.3 32.4,-0.9 128.1,-19.7 -0.5,23.9 5.5,105.4 1.7,29.3 7.6,89.2 19.9,143.3 5,48.2 -0.8,5.1 -20.5,98.1 -54.7,192.4 -23.7,60.1 -29.4,30.6 -119.7,-54.2 13.5,-23.3 3.2,-31.5 -51.9,-224.9 -226.7,-325.5 -18.9,-25.7"/>
+  <text class="county-label" x="1180" y="1950">Ocean</text>
+
+  <path class="county-path" data-county="Essex" d="m 958.3,600.2 156.9,66.7 -6.8,46.5 43.7,138.3 -221,29.7 48.3,-221.8 -21.1,0"/>
+  <text class="county-label" x="1010" y="720">Essex</text>
+
+  <path class="county-path active-county" data-county="Union" d="m 910.1,822 221,-29.7 -14.4,44.7 -19.4,1.3 -4.5,1.5 -2.2,3.5 -9,18.9 6.7,48.3 -40.5,1.3 -10.8,-0.5 -44.6,1.3 -123.6,44.2 -24.8,3.7 -19.8,-96 64.8,-101.8 -3.2,3.3"/>
+  <text class="county-label" x="1000" y="910">Union ★</text>
+
+  <path class="county-path" data-county="Hudson" d="m 1256.7,662 -9.1,121.2 -13,37 -96.9,76.2 14.4,-44.7 -43.7,-138.3 148.3,-51.4"/>
+  <text class="county-label" x="1230" y="760">Hudson</text>
+
+  <path class="county-path" data-county="Bergen" d="m 943.9,288.4 341.1,102 1.5,105.7 -4,48.8 -25.8,117.1 -148.3,51.4 6.8,-46.5 4.5,-4.5 5.9,-47.7 -1.4,-6.8 -39.2,-68.9 -23,-30.9 -41.9,-29.5 -97.4,-36.6 21.2,-153.6"/>
+  <text class="county-label" x="1120" y="480">Bergen</text>
+
+  <path class="county-path" data-county="Middlesex" d="m 1109.3,969.9 0.9,7.2 2.3,15.3 -0.9,21.1 -2.3,5.4 -6.3,0 -6.7,0.6 -13.6,15.7 -0.4,9.9 11.2,25.6 -13.8,31.2 -0.6,1.4 -1.3,14.4 9.9,20.2 7.7,7.7 25.7,3.2 0.5,0 -175.9,313.2 -164.5,-124.9 5.9,-1.7 11.7,-13.5 88.8,-155.2 -1.8,-31.8 -18.9,-6.5 -24.4,-19.8 -25.2,-27 -1.4,-9.4 6.3,-18.6 5.9,-7.2 36.9,-26.5 24.8,-3.7 123.6,-44.2 44.6,-1.3 10.8,0.5 40.5,-1.3"/>
+  <text class="county-label" x="1060" y="1120">Middlesex</text>
+
+  <path class="county-path" data-county="Somerset" d="m 845.2,923.8 19.8,96 -36.9,26.5 -5.9,7.2 -6.3,18.6 1.4,9.4 25.2,27 24.4,19.8 18.9,6.5 1.8,31.8 -88.8,155.2 -11.7,13.5 -5.9,1.7 -5.7,-10.7 -28.9,-3.2 -63.2,36.1 -38.7,-56.3 -6,-8.1 -42.2,-87.5 16.2,-69 6.7,-10.7 10.8,-83.8 -36.1,-102 -7.2,-13.5 -6.3,-4.6 150.1,-85.2 3.1,1.9 6.8,11.2 1.9,8.2 50.4,109.5 52.3,-45.6"/>
+  <text class="county-label" x="820" y="1080">Somerset</text>
+
+  <path class="county-path" data-county="Morris" d="m 685.3,411.8 91.4,58.6 61.8,3.2 62.2,-0.4 57.6,127 -48.3,221.8 -64.8,101.8 -52.3,45.6 -50.4,-109.5 -1.9,-8.2 -6.8,-11.2 -3.1,-1.9 -150.1,85.2 -174.9,-50.8 79.8,-183.5 199.8,-277.7"/>
+  <text class="county-label" x="720" y="650">Morris</text>
+
+  <path class="county-path" data-county="Passaic" d="m 921.4,281.6 22.5,6.8 -21.2,153.6 97.4,36.6 41.9,29.5 23,30.9 39.2,68.9 1.4,6.8 -5.9,47.7 -4.5,4.5 -156.9,-66.7 -57.6,-127 -62.2,0.4 -61.8,-3.2 -91.4,-58.6 95,-178 141.1,47.8"/>
+  <text class="county-label" x="910" y="360">Passaic</text>
+
+  <path class="county-path" data-county="Sussex" d="m 780.3,233.8 -95,178 -199.8,277.7 -244.3,-192.5 -5.4,-6.7 38.4,-54 26.6,-62.7 5.8,-38.8 -1.8,-21.2 -4,-4.1 1.8,-17.6 11.7,-50 4.9,-14.4 23,-47.3 27,-29.3 56.9,-41 354.2,123.9"/>
+  <text class="county-label" x="600" y="320">Sussex</text>
+
+  <path class="county-path" data-county="Warren" d="m 241.2,497 244.3,192.5 -79.8,183.5 -9.3,24.7 -42,80.7 -7.7,10.4 -54.9,55.1 -94.7,105.7 -21.1,36.1 -10.5,-20.3 -6.4,-11.7 -23.8,-92 -10,-77.8 16.4,-38.5 7.6,-2.1 14.4,1.4 14.6,-2 19.7,-27.3 32.4,-99.3 0.5,-7.6 -3.2,-7.6 -91.5,-107.8 105,-196.1"/>
+  <text class="county-label" x="280" y="720">Warren</text>
+
+  <path class="county-path" data-county="Hunterdon" d="m 405.7,873 174.9,50.8 6.3,4.6 7.2,13.5 36.1,102 -10.8,83.8 -6.7,10.7 -16.2,69 42.2,87.5 6,8.1 -51.5,32.4 -28.5,89.6 -67.9,24.4 -9.4,0 -6.4,-3.6 -93.7,-56.8 -73,-146.9 -138.3,-56.4 21.1,-36.1 94.7,-105.7 54.9,-55.1 7.7,-10.4 42,-80.7 9.3,-24.7"/>
+  <text class="county-label" x="400" y="1050">Hunterdon</text>
+
+  <path class="county-path" data-county="Mercer" d="m 644.7,1303 38.7,56.3 63.2,-36.1 28.9,3.2 5.7,10.7 164.5,124.9 5.3,9.4 0,3.2 -58,68.5 -50,37 37.3,50.5 -132.9,18.5 -260,-199.7 9.4,0 67.9,-24.4 28.5,-89.6 51.5,-32.4"/>
+  <text class="county-label" x="680" y="1420">Mercer</text>
+
+  <path class="county-path" data-county="Camden" d="m 400.4,2055.1 73.4,-136.5 382.6,261.8 -101,184.4 -124.8,-98.3 -140.1,-153.7 -52.7,-38.4 -37.4,-19.3"/>
+  <text class="county-label" x="520" y="2100">Camden</text>
+
+  <path class="county-path" data-county="Gloucester" d="m 361.9,2110.1 38.5,-55 37.4,19.3 52.7,38.4 140.1,153.7 124.8,98.3 -76.9,142.5 -89.3,-51.9 -429.5,-178.1 23.9,-42.4 178.3,-124.8"/>
+  <text class="county-label" x="320" y="2250">Gloucester</text>
+
+  <path class="county-path" data-county="Salem" d="m 159.7,2277.3 429.5,178.1 11.8,112.6 0,26.7 -1.4,6.3 -178.9,-95.1 -95.6,158.1 -15.3,102.8 -207.4,-253.3 -9.8,-29.8 31.9,-81.5 35.2,-124.9"/>
+  <text class="county-label" x="220" y="2450">Salem</text>
+
+  <path class="county-path" data-county="Cumberland" d="m 852.8,2722.7 -9.8,196.9 -196.5,-1 -67.7,-15.6 -130.1,-44.8 -116.9,-65.2 -5.8,-6.3 -16.2,-19.9 15.3,-102.8 95.6,-158.1 178.9,95.1 1.4,-6.3 0,-26.7 -11.8,-112.6 89.3,51.9 174.3,215.4"/>
+  <text class="county-label" x="480" y="2650">Cumberland</text>
+
+  <path class="county-path" data-county="Cape May" d="m 852.8,2722.7 314.3,-39.3 -41.1,63.6 -12.2,21.7 -13.9,34.6 -22.1,59.9 -24.3,85.8 0,4 0.4,0.8 1.3,1.4 -36.5,130.3 -26.5,64.4 -33.9,58.2 -50,27.9 -12.6,3.6 -29.7,3.2 -4.6,-2.3 -6.3,-7.7 -1.4,-80.6 1.8,-19.9 5,-27 19,-73.9 2.2,-15.7 0.9,-19.5 -2.3,-40.1 -5.3,-19 -22.2,-16.2 -9.8,-1.3 9.8,-196.9"/>
+  <text class="county-label" x="920" y="2950">Cape May</text>
+
+  <path class="county-path" data-county="Atlantic" d="m 1330.9,2382.8 -163.8,300.6 -314.3,39.3 -174.3,-215.4 76.9,-142.5 101,-184.4 13.6,7.2 55.3,28.4 71.4,70.4 89.2,41.4 23.9,7.2 43.2,8.6 58.2,-15 119.7,54.2"/>
+  <text class="county-label" x="1020" y="2550">Atlantic</text>
+
+  <path class="county-path" data-county="Burlington" d="m 747.4,1649.1 132.9,-18.5 50.1,67.1 18.9,25.7 226.7,325.5 51.9,224.9 -3.2,31.5 -13.5,23.3 -58.2,15 -43.2,-8.6 -23.9,-7.2 -89.2,-41.4 -71.4,-70.4 -55.3,-28.4 -13.6,-7.2 -382.6,-261.8 62.2,-90.6 211.4,-178.9"/>
+  <text class="county-label" x="780" y="2000">Burlington</text>
+
+</svg>
+      </div>
+
+      <div class="nj-map-info-col">
+        <div class="nj-info-box">
+          <div class="nj-glass-inner">
+            <div class="nj-placeholder" id="njPlaceholder">
+              <span class="nj-placeholder-arrow">←</span>
+              <span>Click a county</span>
+            </div>
+            <div class="nj-detail" id="njDetail">
+              <div class="nj-county-name" id="njCountyName"></div>
+              <div class="nj-county-desc" id="njCountyDesc"></div>
+              <div class="nj-city-list" id="njCityList"></div>
+              <div class="nj-more" id="njMore"></div>
+              <a href="serviceareas.html" class="btn-primary" style="display:inline-block;margin-top:20px;">See All Service Areas →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="areas-disclaimer">
+      ⚠ <strong>Jobs requiring one hour or more of travel from our location may be subject to an additional travel fee.</strong>
+    </div>
+
+  </div>
+</section>
+
+
+<script>
+  const njData = {
+    "Sussex":     { desc: "Sussex County, NJ",           cities: [{ n: "Sparta", t: "Township" }, { n: "Newton", t: "Town" }],              more: "+ Vernon, Hardyston & more" },
+    "Passaic":    { desc: "Passaic County, NJ",           cities: [{ n: "Paterson", t: "City" }, { n: "Clifton", t: "City" }],               more: "+ Wayne, Passaic & more" },
+    "Bergen":     { desc: "Bergen County, NJ",            cities: [{ n: "Fort Lee", t: "Borough" }, { n: "Ridgewood", t: "Village" }],        more: "+ Teaneck, Garfield & more" },
+    "Warren":     { desc: "Warren County, NJ",            cities: [{ n: "Phillipsburg", t: "Town" }, { n: "Washington", t: "Borough" }],      more: "+ Hackettstown & more" },
+    "Morris":     { desc: "Morris County, NJ",            cities: [{ n: "Morristown", t: "Town" }, { n: "Denville", t: "Township" }],         more: "+ Dover, Butler & more" },
+    "Essex":      { desc: "Essex County, NJ",             cities: [{ n: "Newark", t: "City" }, { n: "Montclair", t: "Township" }],            more: "+ Belleville, Bloomfield & more" },
+    "Hudson":     { desc: "Hudson County, NJ",            cities: [{ n: "Jersey City", t: "City" }, { n: "Hoboken", t: "City" }],             more: "+ Bayonne, Secaucus & more" },
+    "Hunterdon":  { desc: "Hunterdon County, NJ",         cities: [{ n: "Flemington", t: "Borough" }, { n: "Clinton", t: "Town" }],           more: "+ Raritan & more" },
+    "Somerset":   { desc: "Somerset County, NJ",          cities: [{ n: "Somerville", t: "Borough" }, { n: "Bridgewater", t: "Township" }],   more: "+ Bound Brook & more" },
+    "Union":      { desc: "★ Primary service area",       cities: [{ n: "Elizabeth", t: "City" }, { n: "Kenilworth", t: "Borough" }],         more: "+ Linden, Plainfield, Westfield & more" },
+    "Middlesex":  { desc: "Middlesex County, NJ",         cities: [{ n: "New Brunswick", t: "City" }, { n: "Edison", t: "Township" }],        more: "+ Perth Amboy, Woodbridge & more" },
+    "Mercer":     { desc: "Mercer County, NJ",            cities: [{ n: "Trenton", t: "City" }, { n: "Princeton", t: "Borough" }],            more: "+ Hamilton, Lawrence & more" },
+    "Monmouth":   { desc: "Monmouth County, NJ",          cities: [{ n: "Asbury Park", t: "City" }, { n: "Red Bank", t: "Borough" }],         more: "+ Long Branch, Freehold & more" },
+    "Burlington": { desc: "Burlington County, NJ",        cities: [{ n: "Burlington", t: "City" }, { n: "Mount Holly", t: "Township" }],      more: "+ Moorestown & more" },
+    "Ocean":      { desc: "Ocean County, NJ",             cities: [{ n: "Toms River", t: "Township" }, { n: "Lakewood", t: "Township" }],     more: "+ Brick, Barnegat & more" },
+    "Camden":     { desc: "Camden County, NJ",            cities: [{ n: "Camden", t: "City" }, { n: "Cherry Hill", t: "Township" }],          more: "+ Gloucester City & more" },
+    "Gloucester": { desc: "Gloucester County, NJ",        cities: [{ n: "Woodbury", t: "City" }, { n: "Washington Twp", t: "Township" }],     more: "+ Glassboro & more" },
+    "Salem":      { desc: "Salem County, NJ",             cities: [{ n: "Salem", t: "City" }, { n: "Pennsville", t: "Township" }],            more: "+ Woodstown & more" },
+    "Atlantic":   { desc: "Atlantic County, NJ",          cities: [{ n: "Atlantic City", t: "City" }, { n: "Egg Harbor", t: "Township" }],    more: "+ Hammonton, Galloway & more" },
+    "Cumberland": { desc: "Cumberland County, NJ",        cities: [{ n: "Vineland", t: "City" }, { n: "Bridgeton", t: "City" }],              more: "+ Millville & more" },
+    "Cape May":   { desc: "Cape May County, NJ",          cities: [{ n: "Cape May", t: "City" }, { n: "Wildwood", t: "City" }],               more: "+ Ocean City & more" }
+  };
+
+  document.querySelectorAll('.county-path').forEach(path => {
+    path.addEventListener('click', () => {
+      document.querySelectorAll('.county-path').forEach(p => p.classList.remove('active-county'));
+      document.querySelectorAll('.county-label').forEach(t => t.classList.remove('active-label'));
+      path.classList.add('active-county');
+      const county = path.dataset.county;
+      const info = njData[county];
+      if (!info) return;
+      document.getElementById('njPlaceholder').style.display = 'none';
+      document.getElementById('njDetail').style.display = 'block';
+      document.getElementById('njCountyName').textContent = county + ' County';
+      document.getElementById('njCountyDesc').textContent = info.desc;
+      document.getElementById('njMore').textContent = info.more;
+      document.getElementById('njCityList').innerHTML = info.cities.map(c => `
+        <div class="nj-city-item">
+          <div class="nj-city-name">${c.n}</div>
+          <div class="nj-city-type">${c.t}</div>
+        </div>`).join('');
+    });
+  });
+
+  document.querySelector('.compliance-section').classList.add('bg-nfpa');
+
+  document.querySelector('.mobile-toggle').addEventListener('click', function() {
+    document.querySelector('nav').classList.toggle('nav-open');
+  });
+</script>
+
+
+<!-- CTA BAND -->
+<section class="cta-section">
+  <h2 class="wave-text">
+    <span>R</span><span>e</span><span>a</span><span>d</span><span>y</span>
+    <span>&nbsp;</span>
+    <span>t</span><span>o</span>
+    <span>&nbsp;</span>
+    <span>S</span><span>c</span><span>h</span><span>e</span><span>d</span><span>u</span><span>l</span><span>e</span>
+    <span>&nbsp;</span>
+    <span>Y</span><span>o</span><span>u</span><span>r</span>
+    <span>&nbsp;</span>
+    <span>C</span><span>l</span><span>e</span><span>a</span><span>n</span><span>i</span><span>n</span><span>g</span><span>?</span>
+  </h2>
+  <p>Call us today for a free estimate — we're available 24/7.</p>
+  <a href="tel:9086037259" class="btn-cta-white">Call 908-603-7259</a>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+
+  <div class="footer-main">
+    <div class="footer-brand-left">
+      <a href="index.html"><img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning" height="64"></a>
+      <p>Commercial hood cleaning, exhaust system maintenance, and fire safety compliance for restaurants and businesses across New Jersey.</p>
+<div class="footer-inquiry">
+  <div class="footer-inquiry-title">Get In Touch</div>
+  <input type="email" class="footer-inquiry-email" placeholder="Your email address..." required>
+  <textarea class="footer-inquiry-box" placeholder="Write any questions you have here..."></textarea>
+  <button class="footer-inquiry-btn" onclick="sendInquiry()">Send</button>
+</div>
+    </div>
+
+    <div class="footer-top-grid">
+      <div class="footer-col-centered">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/services/exhaust-hood-cleaning/">Hood Cleaning</a></li>
+          <li><a href="/services/exhaust-fan-cleaning/">Exhaust Fan Cleaning</a></li>
+          <li><a href="/services/fan-belt-service/">Fan Belt Service</a></li>
+          <li><a href="/services/filter-exchange/">Filter Exchange</a></li>
+          <li><a href="/services/dumpster-pad-cleaning/">Dumpster Pad Cleaning</a></li>
+          <li><a href="/services/pressure-washing/">Pressure Washing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col-centered">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="serviceareas.html">Service Areas</a></li>
+          <li><a href="mailto:YOUREMAIL@gmail.com">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-social-centered">
+    <a href="https://www.instagram.com/2kdhoodcleaning/" target="_blank" class="social-icon-circle">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="https://www.facebook.com/2kdhoodcleaning/" target="_blank" class="social-icon-circle">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+    </a>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 2KD Hood Cleaning. All rights reserved.</p>
+  </div>
+
+</footer>
+
+<script>
+  function sendInquiry() {
+    const email = document.querySelector('.footer-inquiry-email').value;
+    const message = document.querySelector('.footer-inquiry-box').value;
+    if (!email || !message) {
+      alert('Please fill in both your email and message.');
+      return;
+    }
+    window.location.href = `mailto:karlaram2005@gmail.com?subject=Website Inquiry from ${email}&body=${encodeURIComponent(message)}%0A%0AFrom: ${email}`;
+  }
+</script>
+
+
+
+
+<script>
+  function switchPanel(show) {
+    const nfpa = document.getElementById('panel-nfpa');
+    const mfs = document.getElementById('panel-mfs');
+    const section = document.querySelector('.compliance-section');
+
+    if (show === 'mfs') {
+      nfpa.classList.add('slide-out-left');
+      setTimeout(() => {
+        nfpa.classList.add('hidden');
+        nfpa.classList.remove('slide-out-left');
+        mfs.classList.remove('hidden');
+        mfs.classList.add('slide-in-right');
+        section.classList.remove('bg-nfpa');
+        section.classList.add('bg-mfs');
+        setTimeout(() => mfs.classList.remove('slide-in-right'), 400);
+      }, 350);
+    } else {
+      mfs.classList.add('slide-out-right');
+      setTimeout(() => {
+        mfs.classList.add('hidden');
+        mfs.classList.remove('slide-out-right');
+        nfpa.classList.remove('hidden');
+        nfpa.classList.add('slide-in-left');
+        section.classList.remove('bg-mfs');
+        section.classList.add('bg-nfpa');
+        setTimeout(() => nfpa.classList.remove('slide-in-left'), 400);
+      }, 350);
+    }
+  }
+
+  // Set initial background on page load
+  document.querySelector('.compliance-section').classList.add('bg-nfpa');
+
+  // Mobile hamburger menu
+  document.querySelector('.mobile-toggle').addEventListener('click', function() {
+    document.querySelector('nav').classList.toggle('nav-open');
+  });
+</script>
+
+</body>
+</html>
