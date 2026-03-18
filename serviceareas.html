@@ -3,28 +3,384 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Areas — 2KD Hood Cleaning</title>
+  <meta name="description" content="2KD Hood Cleaning services restaurants and commercial kitchens across New Jersey. Find your county and see if we service your area.">
   <link rel="icon" type="image/png" href="images/2kdlogo-removebg-preview.png">
-  <title>2KD Hood Cleaning</title>
-  <meta name="description" content="2KD Hood Cleaning offers commercial restaurant kitchen hood cleaning, fan belt, and filter exchange services to restaurants and businesses in Northern NJ and Southern NY.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── PAGE LAYOUT ── */
+    .sa-page {
+      display: flex;
+      height: calc(100vh - 90px);
+      overflow: hidden;
+      margin-top: 0;
+    }
+
+    /* ── LEFT: FIXED MAP PANEL ── */
+    .sa-map-col {
+      flex: 0 0 420px;
+      position: sticky;
+      top: 0px;
+      height: calc(100vh - 90px);
+      background: #0a0a0a;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sa-map-header {
+      padding: 24px 28px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+
+    .sa-map-label {
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #c8102e;
+      margin-bottom: 6px;
+    }
+
+    .sa-map-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .sa-search {
+      position: relative;
+    }
+
+    .sa-search input {
+      width: 100%;
+      padding: 10px 16px 10px 36px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 13px;
+      outline: none;
+      backdrop-filter: blur(8px);
+      transition: border-color 0.2s;
+    }
+
+    .sa-search input::placeholder { color: #555; }
+    .sa-search input:focus { border-color: rgba(197,30,48,0.5); }
+
+    .sa-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #555;
+      font-size: 13px;
+    }
+
+    .sa-search-results {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      z-index: 50;
+      display: none;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .sa-search-result-item {
+      padding: 10px 16px;
+      font-size: 13px;
+      color: #ccc;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.15s;
+    }
+
+    .sa-search-result-item:hover { background: rgba(197,30,48,0.15); color: #fff; }
+    .sa-search-result-item span { color: #666; font-size: 11px; margin-left: 6px; }
+
+    .sa-map-svg-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 20px;
+      overflow: hidden;
+    }
+
+    .sa-map-svg-wrap svg {
+      max-height: 100%;
+      width: auto;
+    }
+
+    .sa-county-path {
+      fill: #1e1e1e;
+      stroke: #3a3a3a;
+      stroke-width: 8;
+      cursor: pointer;
+      transition: fill 0.2s, filter 0.2s;
+    }
+
+    .sa-county-path:hover {
+      fill: #c8102e;
+      filter: drop-shadow(0 0 6px rgba(200,16,46,0.6));
+    }
+
+    .sa-county-path.sa-active {
+      fill: #c8102e;
+      filter: drop-shadow(0 0 12px rgba(200,16,46,0.9));
+    }
+
+    .sa-county-path.sa-dimmed {
+      fill: #111;
+      opacity: 0.4;
+    }
+
+    .sa-county-label {
+      font-size: 52px;
+      fill: #fff;
+      pointer-events: none;
+      text-anchor: middle;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ── RIGHT: SCROLLABLE DETAILS ── */
+    .sa-detail-col {
+      flex: 1;
+      overflow-y: auto;
+      background: #111;
+      scroll-behavior: smooth;
+    }
+
+    .sa-detail-col::-webkit-scrollbar { width: 6px; }
+    .sa-detail-col::-webkit-scrollbar-track { background: #0a0a0a; }
+    .sa-detail-col::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+    }
+
+    /* Hero intro */
+    .sa-intro {
+      padding: 48px 48px 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: linear-gradient(135deg, #0d0d0d 0%, #1a0a0a 100%);
+    }
+
+    .sa-intro-label {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #c8102e;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sa-intro-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #c8102e;
+    }
+
+    .sa-intro h1 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.0;
+    }
+
+    .sa-intro p {
+      font-size: 15px;
+      color: #888;
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    .sa-disclaimer {
+      margin-top: 20px;
+      padding: 12px 18px;
+      background: rgba(255,200,0,0.05);
+      border: 1px solid rgba(255,200,0,0.15);
+      border-radius: 6px;
+      font-size: 12px;
+      color: #ffcc00;
+      max-width: 520px;
+    }
+
+    /* County sections */
+    .sa-county-section {
+      padding: 40px 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.3s;
+      scroll-margin-top: 0;
+    }
+
+    .sa-county-section.sa-highlighted {
+      background: rgba(197,30,48,0.04);
+    }
+
+    .sa-county-section-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 16px;
+    }
+
+    .sa-county-num {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c8102e;
+      margin-bottom: 4px;
+    }
+
+    .sa-county-name-large {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .sa-county-badge {
+      flex-shrink: 0;
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(197,30,48,0.15);
+      border: 1px solid rgba(197,30,48,0.3);
+      color: #c8102e;
+    }
+
+    .sa-county-badge.primary {
+      background: rgba(197,30,48,0.25);
+      border-color: #c8102e;
+      color: #ff6b6b;
+    }
+
+    .sa-city-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .sa-city-tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 6px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #ccc;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      cursor: default;
+    }
+
+    .sa-city-tag:hover {
+      background: rgba(197,30,48,0.1);
+      border-color: rgba(197,30,48,0.3);
+      color: #fff;
+    }
+
+    .sa-city-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #c8102e;
+      flex-shrink: 0;
+    }
+
+    .sa-county-cta {
+      margin-top: 20px;
+    }
+
+    .sa-county-cta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #c8102e;
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+
+    .sa-county-cta a:hover { gap: 14px; }
+
+    /* No results */
+    .sa-no-results {
+      padding: 48px;
+      text-align: center;
+      color: #555;
+      font-family: var(--font-display);
+      font-size: 16px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: none;
+    }
+
+    /* Mobile */
+    @media (max-width: 860px) {
+      .sa-page { flex-direction: column; height: auto; overflow: auto; }
+      .sa-map-col { flex: none; position: relative; top: 0; height: 480px; width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .sa-detail-col { overflow-y: visible; }
+      .sa-intro, .sa-county-section { padding: 32px 24px; }
+    }
+  </style>
 </head>
 <body>
-
-  <!-- ANNOUNCEMENT BANNER -->
-  <div class="banner" id="topBanner">
-    📍 Now servicing businesses in <strong>Union County NJ</strong>.
-    <a href="/service-areas/">See service areas →</a>
-    <button class="banner-close" onclick="document.getElementById('topBanner').style.display='none'" aria-label="Close">✕</button>
-  </div>
 
   <!-- HEADER -->
   <header>
     <div class="header-inner">
-        <a href="index.html" class="logo-img">
-  <img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning">
-</a>
+      <a href="index.html" class="logo-img">
+        <img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning">
+      </a>
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
@@ -52,70 +408,671 @@
     </div>
   </header>
 
+  <div class="sa-page">
 
-<!-- FOOTER -->
-<footer id="footer">
+    <!-- LEFT: FIXED MAP -->
+    <div class="sa-map-col">
+      <div class="sa-map-header">
+        <div class="sa-map-label">Coverage Map</div>
+        <div class="sa-map-title">New Jersey</div>
+        <div class="sa-search">
+          <span class="sa-search-icon">🔍</span>
+          <input type="text" id="saSearch" placeholder="Search city or county..." autocomplete="off">
+          <div class="sa-search-results" id="saSearchResults"></div>
+        </div>
+      </div>
+      <div class="sa-map-svg-wrap">
+        <svg viewBox="0 0 1600 3400" xmlns="http://www.w3.org/2000/svg">
 
-  <div class="footer-main">
-    <div class="footer-brand-left">
-      <a href="index.html"><img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning" height="64"></a>
-      <p>Commercial hood cleaning, exhaust system maintenance, and fire safety compliance for restaurants and businesses across New Jersey.</p>
-<div class="footer-inquiry">
-  <div class="footer-inquiry-title">Get In Touch</div>
-  <input type="email" class="footer-inquiry-email" placeholder="Your email address..." required>
-  <textarea class="footer-inquiry-box" placeholder="Write any questions you have here..."></textarea>
-  <button class="footer-inquiry-btn" onclick="sendInquiry()">Send</button>
-</div>
+          <path class="sa-county-path" data-county="Monmouth" d="m 1121.6,1148.8 158.9,-5.4 44.3,-61.8 -0.9,-2.7 3.1,-3.7 6.8,0 13,6 24.9,32 26.8,85.2 7.3,30 0.6,2.4 8.1,60.3 2.2,26.2 1.4,55.5 2.7,184.4 -128.1,19.7 -32.4,0.9 -80.2,-57.3 -137.1,27.1 -112.6,150.1 -50.1,-67.1 -37.3,-50.5 50,-37 58,-68.5 0,-3.2 -5.3,-9.4 175.9,-313.2"/>
+          <text class="sa-county-label" x="1250" y="1320">Monmouth</text>
+
+          <path class="sa-county-path" data-county="Ocean" d="m 930.4,1697.7 112.6,-150.1 137.1,-27.1 80.2,57.3 32.4,-0.9 128.1,-19.7 -0.5,23.9 5.5,105.4 1.7,29.3 7.6,89.2 19.9,143.3 5,48.2 -0.8,5.1 -20.5,98.1 -54.7,192.4 -23.7,60.1 -29.4,30.6 -119.7,-54.2 13.5,-23.3 3.2,-31.5 -51.9,-224.9 -226.7,-325.5 -18.9,-25.7"/>
+          <text class="sa-county-label" x="1180" y="1950">Ocean</text>
+
+          <path class="sa-county-path" data-county="Essex" d="m 958.3,600.2 156.9,66.7 -6.8,46.5 43.7,138.3 -221,29.7 48.3,-221.8"/>
+          <text class="sa-county-label" x="1010" y="720">Essex</text>
+
+          <path class="sa-county-path sa-active" data-county="Union" d="m 910.1,822 221,-29.7 -14.4,44.7 -19.4,1.3 -4.5,1.5 -2.2,3.5 -9,18.9 6.7,48.3 -40.5,1.3 -10.8,-0.5 -44.6,1.3 -123.6,44.2 -24.8,3.7 -19.8,-96 64.8,-101.8"/>
+          <text class="sa-county-label" x="1000" y="910">Union ★</text>
+
+          <path class="sa-county-path" data-county="Hudson" d="m 1256.7,662 -9.1,121.2 -13,37 -96.9,76.2 14.4,-44.7 -43.7,-138.3 148.3,-51.4"/>
+          <text class="sa-county-label" x="1230" y="760">Hudson</text>
+
+          <path class="sa-county-path" data-county="Bergen" d="m 943.9,288.4 341.1,102 1.5,105.7 -4,48.8 -25.8,117.1 -148.3,51.4 6.8,-46.5 4.5,-4.5 5.9,-47.7 -1.4,-6.8 -39.2,-68.9 -23,-30.9 -41.9,-29.5 -97.4,-36.6 21.2,-153.6"/>
+          <text class="sa-county-label" x="1120" y="480">Bergen</text>
+
+          <path class="sa-county-path" data-county="Middlesex" d="m 1109.3,969.9 0.9,7.2 2.3,15.3 -0.9,21.1 -2.3,5.4 -6.3,0 -6.7,0.6 -13.6,15.7 -0.4,9.9 11.2,25.6 -13.8,31.2 -0.6,1.4 -1.3,14.4 9.9,20.2 7.7,7.7 25.7,3.2 0.5,0 -175.9,313.2 -164.5,-124.9 5.9,-1.7 11.7,-13.5 88.8,-155.2 -1.8,-31.8 -18.9,-6.5 -24.4,-19.8 -25.2,-27 -1.4,-9.4 6.3,-18.6 5.9,-7.2 36.9,-26.5 24.8,-3.7 123.6,-44.2 44.6,-1.3 10.8,0.5 40.5,-1.3"/>
+          <text class="sa-county-label" x="1060" y="1120">Middlesex</text>
+
+          <path class="sa-county-path" data-county="Somerset" d="m 845.2,923.8 19.8,96 -36.9,26.5 -5.9,7.2 -6.3,18.6 1.4,9.4 25.2,27 24.4,19.8 18.9,6.5 1.8,31.8 -88.8,155.2 -11.7,13.5 -5.9,1.7 -5.7,-10.7 -28.9,-3.2 -63.2,36.1 -38.7,-56.3 -6,-8.1 -42.2,-87.5 16.2,-69 6.7,-10.7 10.8,-83.8 -36.1,-102 -7.2,-13.5 -6.3,-4.6 150.1,-85.2 3.1,1.9 6.8,11.2 1.9,8.2 50.4,109.5 52.3,-45.6"/>
+          <text class="sa-county-label" x="820" y="1080">Somerset</text>
+
+          <path class="sa-county-path" data-county="Morris" d="m 685.3,411.8 91.4,58.6 61.8,3.2 62.2,-0.4 57.6,127 -48.3,221.8 -64.8,101.8 -52.3,45.6 -50.4,-109.5 -1.9,-8.2 -6.8,-11.2 -3.1,-1.9 -150.1,85.2 -174.9,-50.8 79.8,-183.5 199.8,-277.7"/>
+          <text class="sa-county-label" x="720" y="650">Morris</text>
+
+          <path class="sa-county-path" data-county="Passaic" d="m 921.4,281.6 22.5,6.8 -21.2,153.6 97.4,36.6 41.9,29.5 23,30.9 39.2,68.9 1.4,6.8 -5.9,47.7 -4.5,4.5 -156.9,-66.7 -57.6,-127 -62.2,0.4 -61.8,-3.2 -91.4,-58.6 95,-178 141.1,47.8"/>
+          <text class="sa-county-label" x="910" y="360">Passaic</text>
+
+          <path class="sa-county-path" data-county="Sussex" d="m 780.3,233.8 -95,178 -199.8,277.7 -244.3,-192.5 -5.4,-6.7 38.4,-54 26.6,-62.7 5.8,-38.8 -1.8,-21.2 -4,-4.1 1.8,-17.6 11.7,-50 4.9,-14.4 23,-47.3 27,-29.3 56.9,-41 354.2,123.9"/>
+          <text class="sa-county-label" x="600" y="320">Sussex</text>
+
+          <path class="sa-county-path" data-county="Warren" d="m 241.2,497 244.3,192.5 -79.8,183.5 -9.3,24.7 -42,80.7 -7.7,10.4 -54.9,55.1 -94.7,105.7 -21.1,36.1 -10.5,-20.3 -6.4,-11.7 -23.8,-92 -10,-77.8 16.4,-38.5 7.6,-2.1 14.4,1.4 14.6,-2 19.7,-27.3 32.4,-99.3 0.5,-7.6 -3.2,-7.6 -91.5,-107.8 105,-196.1"/>
+          <text class="sa-county-label" x="280" y="720">Warren</text>
+
+          <path class="sa-county-path" data-county="Hunterdon" d="m 405.7,873 174.9,50.8 6.3,4.6 7.2,13.5 36.1,102 -10.8,83.8 -6.7,10.7 -16.2,69 42.2,87.5 6,8.1 -51.5,32.4 -28.5,89.6 -67.9,24.4 -9.4,0 -6.4,-3.6 -93.7,-56.8 -73,-146.9 -138.3,-56.4 21.1,-36.1 94.7,-105.7 54.9,-55.1 7.7,-10.4 42,-80.7 9.3,-24.7"/>
+          <text class="sa-county-label" x="400" y="1050">Hunterdon</text>
+
+          <path class="sa-county-path" data-county="Mercer" d="m 644.7,1303 38.7,56.3 63.2,-36.1 28.9,3.2 5.7,10.7 164.5,124.9 5.3,9.4 0,3.2 -58,68.5 -50,37 37.3,50.5 -132.9,18.5 -260,-199.7 9.4,0 67.9,-24.4 28.5,-89.6 51.5,-32.4"/>
+          <text class="sa-county-label" x="680" y="1420">Mercer</text>
+
+          <path class="sa-county-path" data-county="Camden" d="m 400.4,2055.1 73.4,-136.5 382.6,261.8 -101,184.4 -124.8,-98.3 -140.1,-153.7 -52.7,-38.4 -37.4,-19.3"/>
+          <text class="sa-county-label" x="520" y="2100">Camden</text>
+
+          <path class="sa-county-path" data-county="Gloucester" d="m 361.9,2110.1 38.5,-55 37.4,19.3 52.7,38.4 140.1,153.7 124.8,98.3 -76.9,142.5 -89.3,-51.9 -429.5,-178.1 23.9,-42.4 178.3,-124.8"/>
+          <text class="sa-county-label" x="320" y="2250">Gloucester</text>
+
+          <path class="sa-county-path" data-county="Salem" d="m 159.7,2277.3 429.5,178.1 11.8,112.6 0,26.7 -1.4,6.3 -178.9,-95.1 -95.6,158.1 -15.3,102.8 -207.4,-253.3 -9.8,-29.8 31.9,-81.5 35.2,-124.9"/>
+          <text class="sa-county-label" x="220" y="2450">Salem</text>
+
+          <path class="sa-county-path" data-county="Cumberland" d="m 852.8,2722.7 -9.8,196.9 -196.5,-1 -67.7,-15.6 -130.1,-44.8 -116.9,-65.2 -5.8,-6.3 -16.2,-19.9 15.3,-102.8 95.6,-158.1 178.9,95.1 1.4,-6.3 0,-26.7 -11.8,-112.6 89.3,51.9 174.3,215.4"/>
+          <text class="sa-county-label" x="480" y="2650">Cumberland</text>
+
+          <path class="sa-county-path" data-county="Cape May" d="m 852.8,2722.7 314.3,-39.3 -41.1,63.6 -12.2,21.7 -13.9,34.6 -22.1,59.9 -24.3,85.8 0,4 0.4,0.8 1.3,1.4 -36.5,130.3 -26.5,64.4 -33.9,58.2 -50,27.9 -12.6,3.6 -29.7,3.2 -4.6,-2.3 -6.3,-7.7 -1.4,-80.6 1.8,-19.9 5,-27 19,-73.9 2.2,-15.7 0.9,-19.5 -2.3,-40.1 -5.3,-19 -22.2,-16.2 -9.8,-1.3 9.8,-196.9"/>
+          <text class="sa-county-label" x="920" y="2950">Cape May</text>
+
+          <path class="sa-county-path" data-county="Atlantic" d="m 1330.9,2382.8 -163.8,300.6 -314.3,39.3 -174.3,-215.4 76.9,-142.5 101,-184.4 13.6,7.2 55.3,28.4 71.4,70.4 89.2,41.4 23.9,7.2 43.2,8.6 58.2,-15 119.7,54.2"/>
+          <text class="sa-county-label" x="1020" y="2550">Atlantic</text>
+
+          <path class="sa-county-path" data-county="Burlington" d="m 747.4,1649.1 132.9,-18.5 50.1,67.1 18.9,25.7 226.7,325.5 51.9,224.9 -3.2,31.5 -13.5,23.3 -58.2,15 -43.2,-8.6 -23.9,-7.2 -89.2,-41.4 -71.4,-70.4 -55.3,-28.4 -13.6,-7.2 -382.6,-261.8 62.2,-90.6 211.4,-178.9"/>
+          <text class="sa-county-label" x="780" y="2000">Burlington</text>
+
+        </svg>
+      </div>
     </div>
 
-    <div class="footer-top-grid">
-      <div class="footer-col-centered">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="/services/exhaust-hood-cleaning/">Hood Cleaning</a></li>
-          <li><a href="/services/exhaust-fan-cleaning/">Exhaust Fan Cleaning</a></li>
-          <li><a href="/services/fan-belt-service/">Fan Belt Service</a></li>
-          <li><a href="/services/filter-exchange/">Filter Exchange</a></li>
-          <li><a href="/services/dumpster-pad-cleaning/">Dumpster Pad Cleaning</a></li>
-          <li><a href="/services/pressure-washing/">Pressure Washing</a></li>
-        </ul>
+    <!-- RIGHT: SCROLLABLE DETAILS -->
+    <div class="sa-detail-col" id="saDetailCol">
+
+      <div class="sa-intro">
+        <div class="sa-intro-label">Service Coverage</div>
+        <h1>Where We Work</h1>
+        <p>We service commercial kitchens, restaurants, and businesses across New Jersey. Click any county on the map or search for your city to find your area.</p>
+        <div class="sa-disclaimer">
+          ⚠ <strong>Jobs requiring one hour or more of travel from our location may be subject to an additional travel fee.</strong>
+        </div>
       </div>
-      <div class="footer-col-centered">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="about.html">About</a></li>
-          <li><a href="serviceareas.html">Service Areas</a></li>
-          <li><a href="mailto:YOUREMAIL@gmail.com">Contact Us</a></li>
-        </ul>
+
+      <div class="sa-no-results" id="saNoResults">No cities found matching your search.</div>
+
+      <!-- Union -->
+      <div class="sa-county-section" id="section-Union" data-county="Union">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">Primary Area</div>
+            <div class="sa-county-name-large">Union County</div>
+          </div>
+          <div class="sa-county-badge primary">★ Home Base</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Elizabeth</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Kenilworth</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Linden</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Plainfield</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Westfield</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Summit</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cranford</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Rahway</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Roselle</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Clark</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
+
+      <!-- Essex -->
+      <div class="sa-county-section" id="section-Essex" data-county="Essex">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 02</div>
+            <div class="sa-county-name-large">Essex County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Newark</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Montclair</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Belleville</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bloomfield</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>East Orange</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Irvington</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Maplewood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Millburn</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Bergen -->
+      <div class="sa-county-section" id="section-Bergen" data-county="Bergen">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 03</div>
+            <div class="sa-county-name-large">Bergen County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Fort Lee</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ridgewood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Teaneck</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Garfield</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hackensack</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Paramus</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Englewood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bergenfield</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Passaic -->
+      <div class="sa-county-section" id="section-Passaic" data-county="Passaic">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 04</div>
+            <div class="sa-county-name-large">Passaic County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Paterson</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Clifton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Passaic</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wayne</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lodi</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hawthorne</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pompton Lakes</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Morris -->
+      <div class="sa-county-section" id="section-Morris" data-county="Morris">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 05</div>
+            <div class="sa-county-name-large">Morris County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Morristown</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Denville</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Dover</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Butler</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Parsippany</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Rockaway</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Madison</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Morris Plains</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Hudson -->
+      <div class="sa-county-section" id="section-Hudson" data-county="Hudson">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 06</div>
+            <div class="sa-county-name-large">Hudson County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Jersey City</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hoboken</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bayonne</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Secaucus</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Kearny</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>North Bergen</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Weehawken</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Sussex -->
+      <div class="sa-county-section" id="section-Sussex" data-county="Sussex">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 07</div>
+            <div class="sa-county-name-large">Sussex County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Sparta</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Newton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Vernon</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hardyston</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hamburg</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Warren -->
+      <div class="sa-county-section" id="section-Warren" data-county="Warren">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 08</div>
+            <div class="sa-county-name-large">Warren County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Phillipsburg</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Washington</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hackettstown</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Belvidere</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Hunterdon -->
+      <div class="sa-county-section" id="section-Hunterdon" data-county="Hunterdon">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 09</div>
+            <div class="sa-county-name-large">Hunterdon County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Flemington</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Clinton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Raritan</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Frenchtown</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lambertville</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Somerset -->
+      <div class="sa-county-section" id="section-Somerset" data-county="Somerset">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 10</div>
+            <div class="sa-county-name-large">Somerset County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Somerville</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bridgewater</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bound Brook</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bernards</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Manville</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Middlesex -->
+      <div class="sa-county-section" id="section-Middlesex" data-county="Middlesex">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 11</div>
+            <div class="sa-county-name-large">Middlesex County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>New Brunswick</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Edison</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Perth Amboy</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Woodbridge</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Piscataway</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Sayreville</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>South Brunswick</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Mercer -->
+      <div class="sa-county-section" id="section-Mercer" data-county="Mercer">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 12</div>
+            <div class="sa-county-name-large">Mercer County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Trenton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Princeton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hamilton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lawrence</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ewing</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Monmouth -->
+      <div class="sa-county-section" id="section-Monmouth" data-county="Monmouth">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 13</div>
+            <div class="sa-county-name-large">Monmouth County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Asbury Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Red Bank</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Long Branch</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Freehold</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Keyport</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Keansburg</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Burlington -->
+      <div class="sa-county-section" id="section-Burlington" data-county="Burlington">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 14</div>
+            <div class="sa-county-name-large">Burlington County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Burlington</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mount Holly</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Moorestown</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Evesham</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Medford</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Ocean -->
+      <div class="sa-county-section" id="section-Ocean" data-county="Ocean">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 15</div>
+            <div class="sa-county-name-large">Ocean County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Toms River</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lakewood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Brick</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Barnegat</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Jackson</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Camden -->
+      <div class="sa-county-section" id="section-Camden" data-county="Camden">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 16</div>
+            <div class="sa-county-name-large">Camden County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Camden</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cherry Hill</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Gloucester City</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Voorhees</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Gloucester -->
+      <div class="sa-county-section" id="section-Gloucester" data-county="Gloucester">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 17</div>
+            <div class="sa-county-name-large">Gloucester County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Woodbury</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Washington Twp</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Glassboro</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Deptford</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Salem -->
+      <div class="sa-county-section" id="section-Salem" data-county="Salem">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 18</div>
+            <div class="sa-county-name-large">Salem County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Salem</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pennsville</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Woodstown</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Carneys Point</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Atlantic -->
+      <div class="sa-county-section" id="section-Atlantic" data-county="Atlantic">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 19</div>
+            <div class="sa-county-name-large">Atlantic County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Atlantic City</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Egg Harbor</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hammonton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Galloway</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Absecon</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Cumberland -->
+      <div class="sa-county-section" id="section-Cumberland" data-county="Cumberland">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 20</div>
+            <div class="sa-county-name-large">Cumberland County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Vineland</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bridgeton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Millville</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Greenwich</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
+      <!-- Cape May -->
+      <div class="sa-county-section" id="section-Cape May" data-county="Cape May">
+        <div class="sa-county-section-header">
+          <div>
+            <div class="sa-county-num">County 21</div>
+            <div class="sa-county-name-large">Cape May County</div>
+          </div>
+          <div class="sa-county-badge">Serviced</div>
+        </div>
+        <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cape May</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wildwood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ocean City</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Avalon</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Sea Isle City</div>
+        </div>
+        <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
+      </div>
+
     </div>
   </div>
 
-  <div class="footer-social-centered">
-    <a href="https://www.instagram.com/2kdhoodcleaning/" target="_blank" class="social-icon-circle">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-    </a>
-    <a href="https://www.facebook.com/2kdhoodcleaning/" target="_blank" class="social-icon-circle">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-    </a>
-  </div>
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-main">
+      <div class="footer-brand-left">
+        <a href="index.html"><img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning" height="64"></a>
+        <p>Commercial hood cleaning, exhaust system maintenance, and fire safety compliance for restaurants and businesses across New Jersey.</p>
+      </div>
+      <div class="footer-top-grid">
+        <div class="footer-col-centered">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="/services/exhaust-hood-cleaning/">Hood Cleaning</a></li>
+            <li><a href="/services/exhaust-fan-cleaning/">Exhaust Fan Cleaning</a></li>
+            <li><a href="/services/fan-belt-service/">Fan Belt Service</a></li>
+            <li><a href="/services/filter-exchange/">Filter Exchange</a></li>
+            <li><a href="/services/dumpster-pad-cleaning/">Dumpster Pad Cleaning</a></li>
+            <li><a href="/services/pressure-washing/">Pressure Washing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col-centered">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="serviceareas.html">Service Areas</a></li>
+            <li><a href="mailto:YOUREMAIL@gmail.com">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-social-centered">
+      <a href="https://www.instagram.com/2kdhoodcleaning/" target="_blank" class="social-icon-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://www.facebook.com/2kdhoodcleaning/" target="_blank" class="social-icon-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 2KD Hood Cleaning. All rights reserved.</p>
+    </div>
+  </footer>
 
-  <div class="footer-bottom">
-    <p>© 2026 2KD Hood Cleaning. All rights reserved.</p>
-  </div>
+  <div class="custom-cursor" id="cursor"></div>
 
-</footer>
+  <script>
+    // ── CURSOR ──
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
+    document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
+    document.querySelectorAll('a, button, .sa-county-path, .sa-city-tag').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
 
-<script>
-  function sendInquiry() {
-    const email = document.querySelector('.footer-inquiry-email').value;
-    const message = document.querySelector('.footer-inquiry-box').value;
-    if (!email || !message) {
-      alert('Please fill in both your email and message.');
-      return;
-    }
-    window.location.href = `mailto:karlaram2005@gmail.com?subject=Website Inquiry from ${email}&body=${encodeURIComponent(message)}%0A%0AFrom: ${email}`;
-  }
-</script>
+    // ── MAP + SCROLL SYNC ──
+    const sections = document.querySelectorAll('.sa-county-section');
+    const paths = document.querySelectorAll('.sa-county-path');
+    const detailCol = document.getElementById('saDetailCol');
+
+    // Click map → scroll to section
+    paths.forEach(path => {
+      path.addEventListener('click', () => {
+        const county = path.dataset.county;
+        const section = document.getElementById('section-' + county);
+        if (!section) return;
+        paths.forEach(p => p.classList.remove('sa-active', 'sa-dimmed'));
+        paths.forEach(p => {
+          if (p.dataset.county !== county) p.classList.add('sa-dimmed');
+        });
+        path.classList.add('sa-active');
+        sections.forEach(s => s.classList.remove('sa-highlighted'));
+        section.classList.add('sa-highlighted');
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Scroll right → highlight map county
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const county = entry.target.dataset.county;
+          paths.forEach(p => p.classList.remove('sa-active', 'sa-dimmed'));
+          paths.forEach(p => {
+            if (p.dataset.county !== county) p.classList.add('sa-dimmed');
+            else p.classList.add('sa-active');
+          });
+        }
+      });
+    }, { root: detailCol, threshold: 0.4 });
+
+    sections.forEach(s => observer.observe(s));
+
+    // ── SEARCH ──
+    const cityIndex = [];
+    sections.forEach(section => {
+      const county = section.dataset.county;
+      section.querySelectorAll('.sa-city-tag').forEach(tag => {
+        cityIndex.push({ city: tag.textContent.trim(), county });
+      });
+    });
+
+    const searchInput = document.getElementById('saSearch');
+    const searchResults = document.getElementById('saSearchResults');
+
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.trim().toLowerCase();
+      if (!q) { searchResults.style.display = 'none'; return; }
+      const matches = cityIndex.filter(item =>
+        item.city.toLowerCase().includes(q) || item.county.toLowerCase().includes(q)
+      );
+      if (matches.length === 0) {
+        searchResults.innerHTML = '<div class="sa-search-result-item" style="color:#555;cursor:default;">No results found</div>';
+      } else {
+        searchResults.innerHTML = matches.slice(0, 8).map(m =>
+          `<div class="sa-search-result-item" data-county="${m.county}">${m.city} <span>${m.county} County</span></div>`
+        ).join('');
+        searchResults.querySelectorAll('.sa-search-result-item[data-county]').forEach(item => {
+          item.addEventListener('click', () => {
+            const county = item.dataset.county;
+            searchInput.value = item.firstChild.textContent.trim();
+            searchResults.style.display = 'none';
+            const section = document.getElementById('section-' + county);
+            const path = document.querySelector(`.sa-county-path[data-county="${county}"]`);
+            if (section) {
+              paths.forEach(p => p.classList.remove('sa-active', 'sa-dimmed'));
+              paths.forEach(p => { if (p.dataset.county !== county) p.classList.add('sa-dimmed'); });
+              if (path) path.classList.add('sa-active');
+              sections.forEach(s => s.classList.remove('sa-highlighted'));
+              section.classList.add('sa-highlighted');
+              section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        });
+      }
+      searchResults.style.display = 'block';
+    });
+
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.sa-search')) searchResults.style.display = 'none';
+    });
+
+    // Mobile toggle
+    document.querySelector('.mobile-toggle').addEventListener('click', function() {
+      document.querySelector('nav').classList.toggle('nav-open');
+    });
+  </script>
+
 </body>
 </html>
