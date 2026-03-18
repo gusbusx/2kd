@@ -364,6 +364,31 @@
       display: none;
     }
 
+        /* ── CTA ── */
+    .about-cta-section {
+      background: var(--red);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .about-cta-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.0;
+    }
+
+    .about-cta-section p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 36px;
+    }
+
+
     /* Mobile */
     @media (max-width: 860px) {
       .sa-page { flex-direction: column; height: auto; overflow: auto; }
@@ -387,12 +412,12 @@
           <li>
             <a href="services.html">Services</a>
             <ul>
-              <li><a href="/services/exhaust-hood-cleaning/">Hood Cleaning</a></li>
-              <li><a href="/services/fan-belt-service/">Filter Change</a></li>
-              <li><a href="/services/dumpster-pad-cleaning/">Exhaust Fan Cleaning</a></li>
-              <li><a href="/services/exhaust-fan-cleaning/">Pressure Washing</a></li>
-              <li><a href="/services/filter-exchange/">Kitchen Cleaning</a></li>
-              <li><a href="/services/pressure-washing/">Dumpster Pad Cleaning</a></li>
+              <li><a href="services.html#hood-cleaning">Hood Cleaning</a></li>
+              <li><a href="services.html#exhaust-fan">Exhaust Fan Cleaning</a></li>
+              <li><a href="services.html#fan-belt">Fan Belt Service</a></li>
+              <li><a href="services.html#filter-exchange">Filter Exchange</a></li>
+              <li><a href="services.html#dumpster-pad">Dumpster Pad Cleaning</a></li>
+              <li><a href="services.html#pressure-washing">Pressure Washing</a></li>
             </ul>
           </li>
           <li><a href="about.html">About</a></li>
@@ -922,6 +947,23 @@
 
     </div>
   </div>
+
+    <!-- CTA -->
+  <section class="about-cta-section">
+    <h2 class="wave-text">
+  <span>R</span><span>e</span><span>a</span><span>d</span><span>y</span>
+  <span>&nbsp;</span>
+  <span>T</span><span>o</span>
+  <span>&nbsp;</span>
+  <span>W</span><span>o</span><span>r</span><span>k</span>
+  <span>&nbsp;</span>
+  <span>W</span><span>i</span><span>t</span><span>h</span>
+  <span>&nbsp;</span>
+  <span>U</span><span>s</span><span>?</span>
+</h2>
+    <p>Get a free estimate today — we're available 24/7 across all of New Jersey.</p>
+    <a href="index.html#quote" class="btn-cta-white">Request a Quote</a>
+  </section>
 
   <!-- FOOTER -->
   <footer id="footer">
