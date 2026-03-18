@@ -3,40 +3,608 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — 2KD Hood Cleaning</title>
+  <meta name="description" content="2KD Hood Cleaning offers professional hood cleaning, exhaust fan service, fan belt service, filter exchange, dumpster pad cleaning, and pressure washing across New Jersey.">
   <link rel="icon" type="image/png" href="images/2kdlogo-removebg-preview.png">
-  <title>2KD Hood Cleaning</title>
-  <meta name="description" content="2KD Hood Cleaning offers commercial restaurant kitchen hood cleaning, fan belt, and filter exchange services to restaurants and businesses in Northern NJ and Southern NY.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* ── SERVICES HERO ── */
+    .srv-hero {
+      position: relative;
+      height: 52vh;
+      min-height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0a0a 100%);
+    }
+
+    .srv-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 4px
+      );
+    }
+
+    .srv-hero-accent {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 6px;
+      background: var(--red);
+      box-shadow: 0 0 24px rgba(197,30,48,0.8);
+    }
+
+    .srv-hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .srv-hero-eyebrow {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .srv-hero-eyebrow::before,
+    .srv-hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .srv-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 8vw, 88px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .srv-hero h1 em {
+      color: var(--red);
+      font-style: normal;
+    }
+
+    .srv-hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      color: #777;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── SERVICE CARDS GRID ── */
+    .srv-cards-section {
+      background: #0d0d0d;
+      padding: 80px 24px;
+    }
+
+    .srv-cards-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .srv-cards-label {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .srv-cards-label::before {
+      content: '';
+      width: 32px;
+      height: 2px;
+      background: var(--red);
+      display: block;
+    }
+
+    .srv-cards-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #fff;
+      margin-bottom: 48px;
+      line-height: 1.0;
+    }
+
+    .srv-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .srv-card {
+      background: #161616;
+      padding: 40px 36px;
+      border-top: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, background 0.3s;
+      cursor: pointer;
+    }
+
+    .srv-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(197,30,48,0.04) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .srv-card:hover::before { opacity: 1; }
+    .srv-card:hover { border-color: var(--red); background: #1a1a1a; }
+    .srv-card:hover .srv-card-arrow { transform: translateX(6px); color: var(--red); }
+
+    .srv-card-num {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+      opacity: 0.7;
+    }
+
+    .srv-card-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .srv-card-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+
+    .srv-card-desc {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .srv-card-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      text-decoration: none;
+      transition: gap 0.2s;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .srv-card-btn:hover { gap: 14px; }
+
+    .srv-card-arrow {
+      font-size: 16px;
+      transition: transform 0.2s, color 0.2s;
+      color: #444;
+    }
+
+    /* ── DIVIDER ── */
+    .srv-divider {
+      position: relative;
+      height: 2px;
+      background: #0a0a0a;
+      overflow: visible;
+    }
+
+    .srv-divider::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(to right, transparent, var(--red), transparent);
+    }
+
+    /* ── SERVICE DETAIL SECTIONS ── */
+    .srv-detail {
+      padding: 100px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .srv-detail:nth-child(odd) { background: #080808; }
+    .srv-detail:nth-child(even) { background: #0d0d0d; }
+
+    .srv-detail-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    /* Alternating layout */
+    .srv-detail:nth-child(even) .srv-detail-inner {
+      direction: rtl;
+    }
+
+    .srv-detail:nth-child(even) .srv-detail-text,
+    .srv-detail:nth-child(even) .srv-detail-media {
+      direction: ltr;
+    }
+
+    /* Scroll animations */
+    .srv-detail-text {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .srv-detail:nth-child(even) .srv-detail-text {
+      transform: translateX(60px);
+    }
+
+    .srv-detail-media {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.8s ease 0.15s, transform 0.8s ease 0.15s;
+    }
+
+    .srv-detail:nth-child(even) .srv-detail-media {
+      transform: translateX(-60px);
+    }
+
+    .srv-detail.srv-visible .srv-detail-text,
+    .srv-detail.srv-visible .srv-detail-media {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Cinematic left accent */
+    .srv-detail::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, transparent, var(--red), transparent);
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    .srv-detail.srv-visible::before { opacity: 1; }
+
+    .srv-detail-num {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .srv-detail-num::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .srv-detail-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      color: #fff;
+      line-height: 1.0;
+      margin-bottom: 28px;
+    }
+
+    /* Illuminate text inside service */
+    .srv-illuminate {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.85;
+      color: #222;
+    }
+
+    .srv-illuminate-word {
+      display: inline;
+      transition: color 0.3s ease;
+    }
+
+    .srv-detail-cta {
+      margin-top: 32px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* Before/After in service */
+    .srv-ba-wrap {
+      position: relative;
+    }
+
+    .srv-ba-slider {
+      position: relative;
+      overflow: hidden;
+      cursor: col-resize;
+      height: 380px;
+      border-radius: 4px;
+      user-select: none;
+      touch-action: none;
+      background: #111;
+    }
+
+    .srv-ba-after,
+    .srv-ba-before {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .srv-ba-before {
+      width: 50%;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .srv-ba-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .srv-ba-placeholder span { font-size: 24px; opacity: 0.25; }
+    .srv-ba-placeholder p { margin: 0; }
+
+    .srv-ba-placeholder.before {
+      background: #1a1a1a;
+      color: #444;
+      min-width: 200%;
+    }
+
+    .srv-ba-placeholder.after {
+      background: #0d1a0d;
+      color: #3a5a3a;
+    }
+
+    .srv-ba-placeholder img,
+    .srv-ba-after img,
+    .srv-ba-before img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    .srv-ba-before img { min-width: 200%; }
+
+    .srv-ba-handle {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .srv-ba-line {
+      flex: 1;
+      width: 2px;
+      background: rgba(255,255,255,0.8);
+      box-shadow: 0 0 6px rgba(255,255,255,0.3);
+    }
+
+    .srv-ba-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      font-size: 10px;
+      color: #111;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+      flex-shrink: 0;
+    }
+
+    .srv-ba-labels {
+      position: absolute;
+      bottom: 12px;
+      left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 12px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .srv-ba-label-b,
+    .srv-ba-label-a {
+      font-family: var(--font-display);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+
+    .srv-ba-label-b { background: rgba(0,0,0,0.65); color: #aaa; }
+    .srv-ba-label-a { background: rgba(197,30,48,0.75); color: #fff; }
+
+    /* Cinematic full-width image divider */
+    .srv-cinematic-div {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .srv-cinematic-div::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.9) 0%,
+        rgba(0,0,0,0.5) 50%,
+        rgba(0,0,0,0.9) 100%
+      );
+      z-index: 1;
+    }
+
+    .srv-cinematic-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0a0505 0%, #1a0808 50%, #0a0505 100%);
+    }
+
+    .srv-cinematic-text {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.5vw, 28px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.15);
+    }
+
+    .srv-cinematic-text em {
+      color: rgba(197,30,48,0.5);
+      font-style: normal;
+    }
+
+    /* ── CTA BAND ── */
+    .srv-cta {
+      background: var(--red);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .srv-cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #fff;
+      margin-bottom: 14px;
+      line-height: 1.0;
+    }
+
+    .srv-cta p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 32px;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      .srv-cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .srv-detail-inner { grid-template-columns: 1fr; gap: 40px; }
+      .srv-detail:nth-child(even) .srv-detail-inner { direction: ltr; }
+      .srv-detail-text { transform: translateY(40px) !important; }
+      .srv-detail-media { transform: translateY(40px) !important; }
+      .srv-ba-slider { height: 280px; }
+    }
+
+    @media (max-width: 560px) {
+      .srv-cards-grid { grid-template-columns: 1fr; }
+    }
+
+  </style>
 </head>
 <body>
-
-  <!-- ANNOUNCEMENT BANNER -->
-  <div class="banner" id="topBanner">
-    📍 Now servicing businesses in <strong>Union County NJ</strong>.
-    <a href="/service-areas/">See service areas →</a>
-    <button class="banner-close" onclick="document.getElementById('topBanner').style.display='none'" aria-label="Close">✕</button>
-  </div>
 
   <!-- HEADER -->
   <header>
     <div class="header-inner">
-        <a href="index.html" class="logo-img">
-  <img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning">
-</a>
+      <a href="index.html" class="logo-img">
+        <img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning">
+      </a>
       <nav>
         <ul>
           <li><a href="index.html">Home</a></li>
           <li>
             <a href="services.html">Services</a>
             <ul>
-              <li><a href="/services/exhaust-hood-cleaning/">Hood Cleaning</a></li>
-              <li><a href="/services/fan-belt-service/">Filter Change</a></li>
-              <li><a href="/services/dumpster-pad-cleaning/">Exhaust Fan Cleaning</a></li>
-              <li><a href="/services/exhaust-fan-cleaning/">Pressure Washing</a></li>
-              <li><a href="/services/filter-exchange/">Kitchen Cleaning</a></li>
-              <li><a href="/services/pressure-washing/">Dumpster Pad Cleaning</a></li>
+              <li><a href="#hood-cleaning">Hood Cleaning</a></li>
+              <li><a href="#exhaust-fan">Exhaust Fan Cleaning</a></li>
+              <li><a href="#fan-belt">Fan Belt Service</a></li>
+              <li><a href="#filter-exchange">Filter Exchange</a></li>
+              <li><a href="#dumpster-pad">Dumpster Pad Cleaning</a></li>
+              <li><a href="#pressure-washing">Pressure Washing</a></li>
             </ul>
           </li>
           <li><a href="about.html">About</a></li>
@@ -51,113 +619,478 @@
       <button class="mobile-toggle" aria-label="Open menu">☰</button>
     </div>
   </header>
-  
-  <!-- SERVICES -->
-  <section class="services-section">
-    <div class="section-inner">
-      <div class="section-label">What We Do</div>
-      <h2>Our Services</h2>
-      <p class="section-lead">Comprehensive exhaust system maintenance to keep your kitchen running safely and your business code-compliant.</p>
-      <div class="services-grid">
-        <a href="/services/exhaust-hood-cleaning/" class="service-card">
-          <div class="service-num">01</div><h3>Exhaust Hood Cleaning</h3>
-          <p>Full degreasing of hood interiors, baffles, plenums, and ductwork to NFPA 96 standards.</p>
-          <span class="service-arrow">→</span>
-        </a>
-        <a href="/services/exhaust-fan-cleaning/" class="service-card">
-          <div class="service-num">02</div><h3>Exhaust Fan Cleaning</h3>
-          <p>Rooftop fan inspection and cleaning to maintain proper airflow and prevent fire hazards.</p>
-          <span class="service-arrow">→</span>
-        </a>
-        <a href="/services/fan-belt-service/" class="service-card">
-          <div class="service-num">03</div><h3>Fan Belt Service</h3>
-          <p>Inspection, adjustment, and replacement of fan belts to keep your ventilation system running efficiently.</p>
-          <span class="service-arrow">→</span>
-        </a>
-        <a href="/services/filter-exchange/" class="service-card">
-          <div class="service-num">04</div><h3>Filter Exchange</h3>
-          <p>Regular grease filter swap-out service to ensure continuous protection and optimal hood performance.</p>
-          <span class="service-arrow">→</span>
-        </a>
-        <a href="/services/dumpster-pad-cleaning/" class="service-card">
-          <div class="service-num">05</div><h3>Dumpster Pad Cleaning</h3>
-          <p>High-pressure cleaning of dumpster areas to remove grease, debris, and odors.</p>
-          <span class="service-arrow">→</span>
-        </a>
-        <a href="/services/pressure-washing/" class="service-card">
-          <div class="service-num">06</div><h3>Pressure Washing</h3>
-          <p>Commercial-grade power washing for kitchen exteriors, loading docks, and parking areas.</p>
-          <span class="service-arrow">→</span>
-        </a>
+
+  <!-- HERO -->
+  <section class="srv-hero">
+    <div class="srv-hero-accent"></div>
+    <div class="srv-hero-content">
+      <div class="srv-hero-eyebrow">What We Do</div>
+      <h1>Our <em>Services</em></h1>
+      <p class="srv-hero-sub">Professional commercial kitchen cleaning and maintenance — keeping your business safe, compliant, and running clean.</p>
+    </div>
+  </section>
+
+  <!-- SERVICE CARDS -->
+  <section class="srv-cards-section">
+    <div class="srv-cards-inner">
+      <div class="srv-cards-label">All Services</div>
+      <div class="srv-cards-title">Everything We Offer</div>
+      <div class="srv-cards-grid">
+
+        <div class="srv-card" onclick="scrollToService('hood-cleaning')">
+          <div class="srv-card-num">01</div>
+          <span class="srv-card-icon">🔧</span>
+          <div class="srv-card-title">Exhaust Hood Cleaning</div>
+          <div class="srv-card-desc">Deep cleaning of your commercial hood system to remove grease buildup and reduce fire risk.</div>
+          <button class="srv-card-btn">Read More <span class="srv-card-arrow">→</span></button>
+        </div>
+
+        <div class="srv-card" onclick="scrollToService('exhaust-fan')">
+          <div class="srv-card-num">02</div>
+          <span class="srv-card-icon">💨</span>
+          <div class="srv-card-title">Exhaust Fan Cleaning</div>
+          <div class="srv-card-desc">Complete cleaning of exhaust fans to maintain proper airflow and prevent grease accumulation.</div>
+          <button class="srv-card-btn">Read More <span class="srv-card-arrow">→</span></button>
+        </div>
+
+        <div class="srv-card" onclick="scrollToService('fan-belt')">
+          <div class="srv-card-num">03</div>
+          <span class="srv-card-icon">⚙️</span>
+          <div class="srv-card-title">Fan Belt Service</div>
+          <div class="srv-card-desc">Inspection, adjustment, and replacement of fan belts to keep your exhaust system running efficiently.</div>
+          <button class="srv-card-btn">Read More <span class="srv-card-arrow">→</span></button>
+        </div>
+
+        <div class="srv-card" onclick="scrollToService('filter-exchange')">
+          <div class="srv-card-num">04</div>
+          <span class="srv-card-icon">🔄</span>
+          <div class="srv-card-title">Filter Exchange</div>
+          <div class="srv-card-desc">Regular filter replacement service to maintain clean airflow and reduce grease buildup in your hood system.</div>
+          <button class="srv-card-btn">Read More <span class="srv-card-arrow">→</span></button>
+        </div>
+
+        <div class="srv-card" onclick="scrollToService('dumpster-pad')">
+          <div class="srv-card-num">05</div>
+          <span class="srv-card-icon">🚿</span>
+          <div class="srv-card-title">Dumpster Pad Cleaning</div>
+          <div class="srv-card-desc">High-pressure cleaning of dumpster pads to eliminate odors, bacteria, and health code violations.</div>
+          <button class="srv-card-btn">Read More <span class="srv-card-arrow">→</span></button>
+        </div>
+
+        <div class="srv-card" onclick="scrollToService('pressure-washing')">
+          <div class="srv-card-num">06</div>
+          <span class="srv-card-icon">💧</span>
+          <div class="srv-card-title">Pressure Washing</div>
+          <div class="srv-card-desc">Professional pressure washing for kitchen exteriors, parking areas, sidewalks, and more.</div>
+          <button class="srv-card-btn">Read More <span class="srv-card-arrow">→</span></button>
+        </div>
+
       </div>
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SERVICE 1: HOOD CLEANING -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="srv-cinematic-div" id="hood-cleaning">
+    <div class="srv-cinematic-bg"></div>
+    <div class="srv-cinematic-text">Service <em>01</em> — Exhaust Hood Cleaning</div>
+  </div>
 
-
-<!-- FOOTER -->
-<footer id="footer">
-
-  <div class="footer-main">
-    <div class="footer-brand-left">
-      <a href="index.html"><img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning" height="64"></a>
-      <p>Commercial hood cleaning, exhaust system maintenance, and fire safety compliance for restaurants and businesses across New Jersey.</p>
-<div class="footer-inquiry">
-  <div class="footer-inquiry-title">Get In Touch</div>
-  <input type="email" class="footer-inquiry-email" placeholder="Your email address..." required>
-  <textarea class="footer-inquiry-box" placeholder="Write any questions you have here..."></textarea>
-  <button class="footer-inquiry-btn" onclick="sendInquiry()">Send</button>
-</div>
-    </div>
-
-    <div class="footer-top-grid">
-      <div class="footer-col-centered">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="/services/exhaust-hood-cleaning/">Hood Cleaning</a></li>
-          <li><a href="/services/exhaust-fan-cleaning/">Exhaust Fan Cleaning</a></li>
-          <li><a href="/services/fan-belt-service/">Fan Belt Service</a></li>
-          <li><a href="/services/filter-exchange/">Filter Exchange</a></li>
-          <li><a href="/services/dumpster-pad-cleaning/">Dumpster Pad Cleaning</a></li>
-          <li><a href="/services/pressure-washing/">Pressure Washing</a></li>
-        </ul>
+  <section class="srv-detail" data-srv>
+    <div class="srv-detail-inner">
+      <div class="srv-detail-text">
+        <div class="srv-detail-num">Service 01</div>
+        <div class="srv-detail-title">Exhaust Hood Cleaning</div>
+        <div class="srv-illuminate" data-illuminate="Grease accumulates in your commercial exhaust hood every single day. Over time that buildup becomes a serious fire hazard that puts your staff your customers and your entire business at risk. Our certified technicians perform a thorough deep clean of your entire hood system — from the filters and grease traps to the ductwork and fan — removing every trace of grease and leaving your system in full compliance with NFPA 96 standards. We document everything with before and after photos and provide a certificate of service for your records."></div>
+        <div class="srv-detail-cta">
+          <a href="index.html#quote" class="btn-primary">Get a Free Quote</a>
+          <a href="tel:9086037259" class="btn-secondary">Call Now</a>
+        </div>
       </div>
-      <div class="footer-col-centered">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="about.html">About</a></li>
-          <li><a href="serviceareas.html">Service Areas</a></li>
-          <li><a href="mailto:YOUREMAIL@gmail.com">Contact Us</a></li>
-        </ul>
+      <div class="srv-detail-media">
+        <div class="srv-ba-slider" data-slider>
+          <div class="srv-ba-after">
+            <div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div>
+          </div>
+          <div class="srv-ba-before">
+            <div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div>
+          </div>
+          <div class="srv-ba-handle">
+            <div class="srv-ba-line"></div>
+            <div class="srv-ba-circle"><span>◀</span><span>▶</span></div>
+            <div class="srv-ba-line"></div>
+          </div>
+          <div class="srv-ba-labels">
+            <span class="srv-ba-label-b">Before</span>
+            <span class="srv-ba-label-a">After</span>
+          </div>
+        </div>
       </div>
     </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SERVICE 2: EXHAUST FAN -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="srv-cinematic-div" id="exhaust-fan">
+    <div class="srv-cinematic-bg"></div>
+    <div class="srv-cinematic-text">Service <em>02</em> — Exhaust Fan Cleaning</div>
   </div>
 
-  <div class="footer-social-centered">
-    <a href="https://www.instagram.com/2kdhoodcleaning/" target="_blank" class="social-icon-circle">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-    </a>
-    <a href="https://www.facebook.com/2kdhoodcleaning/" target="_blank" class="social-icon-circle">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-    </a>
+  <section class="srv-detail" data-srv>
+    <div class="srv-detail-inner">
+      <div class="srv-detail-text">
+        <div class="srv-detail-num">Service 02</div>
+        <div class="srv-detail-title">Exhaust Fan Cleaning</div>
+        <div class="srv-illuminate" data-illuminate="Your exhaust fan is the heart of your kitchen ventilation system. When it gets clogged with grease it loses efficiency causes odors to back up into your kitchen and becomes a fire risk. Our team disassembles cleans and inspects your rooftop exhaust fan completely — removing all grease deposits from the blades housing and motor area. We also check for any wear or mechanical issues while we have the unit open. A clean fan means better airflow lower energy costs and a safer kitchen environment for everyone inside."></div>
+        <div class="srv-detail-cta">
+          <a href="index.html#quote" class="btn-primary">Get a Free Quote</a>
+          <a href="tel:9086037259" class="btn-secondary">Call Now</a>
+        </div>
+      </div>
+      <div class="srv-detail-media">
+        <div class="srv-ba-slider" data-slider>
+          <div class="srv-ba-after">
+            <div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div>
+          </div>
+          <div class="srv-ba-before">
+            <div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div>
+          </div>
+          <div class="srv-ba-handle">
+            <div class="srv-ba-line"></div>
+            <div class="srv-ba-circle"><span>◀</span><span>▶</span></div>
+            <div class="srv-ba-line"></div>
+          </div>
+          <div class="srv-ba-labels">
+            <span class="srv-ba-label-b">Before</span>
+            <span class="srv-ba-label-a">After</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SERVICE 3: FAN BELT -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="srv-cinematic-div" id="fan-belt">
+    <div class="srv-cinematic-bg"></div>
+    <div class="srv-cinematic-text">Service <em>03</em> — Fan Belt Service</div>
   </div>
 
-  <div class="footer-bottom">
-    <p>© 2026 2KD Hood Cleaning. All rights reserved.</p>
+  <section class="srv-detail" data-srv>
+    <div class="srv-detail-inner">
+      <div class="srv-detail-text">
+        <div class="srv-detail-num">Service 03</div>
+        <div class="srv-detail-title">Fan Belt Service</div>
+        <div class="srv-illuminate" data-illuminate="A worn or misaligned fan belt is one of the most overlooked causes of poor kitchen ventilation. When the belt slips or breaks your exhaust fan stops working properly — leading to smoke buildup heat and failed health inspections. Our technicians inspect your fan belt for wear tension and alignment during every visit. If replacement is needed we carry standard belts on our trucks so we can get your system back up and running the same day. We make sure everything is properly tensioned before we leave so your ventilation system runs at full efficiency."></div>
+        <div class="srv-detail-cta">
+          <a href="index.html#quote" class="btn-primary">Get a Free Quote</a>
+          <a href="tel:9086037259" class="btn-secondary">Call Now</a>
+        </div>
+      </div>
+      <div class="srv-detail-media">
+        <div class="srv-ba-slider" data-slider>
+          <div class="srv-ba-after">
+            <div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div>
+          </div>
+          <div class="srv-ba-before">
+            <div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div>
+          </div>
+          <div class="srv-ba-handle">
+            <div class="srv-ba-line"></div>
+            <div class="srv-ba-circle"><span>◀</span><span>▶</span></div>
+            <div class="srv-ba-line"></div>
+          </div>
+          <div class="srv-ba-labels">
+            <span class="srv-ba-label-b">Before</span>
+            <span class="srv-ba-label-a">After</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SERVICE 4: FILTER EXCHANGE -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="srv-cinematic-div" id="filter-exchange">
+    <div class="srv-cinematic-bg"></div>
+    <div class="srv-cinematic-text">Service <em>04</em> — Filter Exchange</div>
   </div>
 
-</footer>
+  <section class="srv-detail" data-srv>
+    <div class="srv-detail-inner">
+      <div class="srv-detail-text">
+        <div class="srv-detail-num">Service 04</div>
+        <div class="srv-detail-title">Filter Exchange</div>
+        <div class="srv-illuminate" data-illuminate="Grease filters are your hood system's first line of defense — they catch airborne grease before it enters your ductwork. When filters get saturated they stop working and grease passes straight through to your ducts and fan. We offer a complete filter exchange service where we swap out your dirty filters for freshly cleaned replacements on a schedule that keeps your system running clean at all times. No downtime no hassle — we bring the clean filters and take the dirty ones away. This service can be set up on a weekly bi-weekly or monthly schedule depending on your kitchen volume."></div>
+        <div class="srv-detail-cta">
+          <a href="index.html#quote" class="btn-primary">Get a Free Quote</a>
+          <a href="tel:9086037259" class="btn-secondary">Call Now</a>
+        </div>
+      </div>
+      <div class="srv-detail-media">
+        <div class="srv-ba-slider" data-slider>
+          <div class="srv-ba-after">
+            <div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div>
+          </div>
+          <div class="srv-ba-before">
+            <div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div>
+          </div>
+          <div class="srv-ba-handle">
+            <div class="srv-ba-line"></div>
+            <div class="srv-ba-circle"><span>◀</span><span>▶</span></div>
+            <div class="srv-ba-line"></div>
+          </div>
+          <div class="srv-ba-labels">
+            <span class="srv-ba-label-b">Before</span>
+            <span class="srv-ba-label-a">After</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script>
-  function sendInquiry() {
-    const email = document.querySelector('.footer-inquiry-email').value;
-    const message = document.querySelector('.footer-inquiry-box').value;
-    if (!email || !message) {
-      alert('Please fill in both your email and message.');
-      return;
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SERVICE 5: DUMPSTER PAD -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="srv-cinematic-div" id="dumpster-pad">
+    <div class="srv-cinematic-bg"></div>
+    <div class="srv-cinematic-text">Service <em>05</em> — Dumpster Pad Cleaning</div>
+  </div>
+
+  <section class="srv-detail" data-srv>
+    <div class="srv-detail-inner">
+      <div class="srv-detail-text">
+        <div class="srv-detail-num">Service 05</div>
+        <div class="srv-detail-title">Dumpster Pad Cleaning</div>
+        <div class="srv-illuminate" data-illuminate="Your dumpster area is one of the most bacteria-ridden spots on your property. Food waste grease runoff and standing water create the perfect conditions for foul odors pests and health code violations. Our high-pressure hot water cleaning service blasts away grease grime and organic buildup from your dumpster pad and surrounding area — leaving it clean deodorized and compliant. Regular dumpster pad cleaning is often required by local health codes and helps prevent pest infestations that can threaten your entire operation. We make it easy with flexible scheduling that works around your trash pickup days."></div>
+        <div class="srv-detail-cta">
+          <a href="index.html#quote" class="btn-primary">Get a Free Quote</a>
+          <a href="tel:9086037259" class="btn-secondary">Call Now</a>
+        </div>
+      </div>
+      <div class="srv-detail-media">
+        <div class="srv-ba-slider" data-slider>
+          <div class="srv-ba-after">
+            <div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div>
+          </div>
+          <div class="srv-ba-before">
+            <div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div>
+          </div>
+          <div class="srv-ba-handle">
+            <div class="srv-ba-line"></div>
+            <div class="srv-ba-circle"><span>◀</span><span>▶</span></div>
+            <div class="srv-ba-line"></div>
+          </div>
+          <div class="srv-ba-labels">
+            <span class="srv-ba-label-b">Before</span>
+            <span class="srv-ba-label-a">After</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SERVICE 6: PRESSURE WASHING -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="srv-cinematic-div" id="pressure-washing">
+    <div class="srv-cinematic-bg"></div>
+    <div class="srv-cinematic-text">Service <em>06</em> — Pressure Washing</div>
+  </div>
+
+  <section class="srv-detail" data-srv>
+    <div class="srv-detail-inner">
+      <div class="srv-detail-text">
+        <div class="srv-detail-num">Service 06</div>
+        <div class="srv-detail-title">Pressure Washing</div>
+        <div class="srv-illuminate" data-illuminate="First impressions matter. The exterior of your restaurant or commercial kitchen speaks volumes before a single customer walks through the door. Our professional pressure washing service cleans sidewalks parking areas building exteriors kitchen loading docks and more — removing grease stains oil buildup mold and grime that accumulate over time. We use commercial-grade equipment and eco-friendly cleaning solutions that get the job done without damaging surfaces. Whether you need a one-time deep clean or a regular maintenance schedule we have a solution that keeps your property looking professional and welcoming year-round."></div>
+        <div class="srv-detail-cta">
+          <a href="index.html#quote" class="btn-primary">Get a Free Quote</a>
+          <a href="tel:9086037259" class="btn-secondary">Call Now</a>
+        </div>
+      </div>
+      <div class="srv-detail-media">
+        <div class="srv-ba-slider" data-slider>
+          <div class="srv-ba-after">
+            <div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div>
+          </div>
+          <div class="srv-ba-before">
+            <div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div>
+          </div>
+          <div class="srv-ba-handle">
+            <div class="srv-ba-line"></div>
+            <div class="srv-ba-circle"><span>◀</span><span>▶</span></div>
+            <div class="srv-ba-line"></div>
+          </div>
+          <div class="srv-ba-labels">
+            <span class="srv-ba-label-b">Before</span>
+            <span class="srv-ba-label-a">After</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="srv-cta">
+    <h2 class="wave-text">
+      <span>R</span><span>e</span><span>a</span><span>d</span><span>y</span>
+      <span>&nbsp;</span>
+      <span>T</span><span>o</span>
+      <span>&nbsp;</span>
+      <span>B</span><span>o</span><span>o</span><span>k</span><span>?</span>
+    </h2>
+    <p>Call us today or request a free quote — we're available 24/7 across all of New Jersey.</p>
+    <a href="index.html#quote" class="btn-cta-white">Request a Free Quote</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="footer-main">
+      <div class="footer-brand-left">
+        <a href="index.html"><img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning" height="64"></a>
+        <p>Commercial hood cleaning, exhaust system maintenance, and fire safety compliance for restaurants and businesses across New Jersey.</p>
+        <div class="footer-inquiry">
+          <div class="footer-inquiry-title">Get In Touch</div>
+          <input type="email" class="footer-inquiry-email" placeholder="Your email address..." required>
+          <textarea class="footer-inquiry-box" placeholder="Write any questions you have here..."></textarea>
+          <button class="footer-inquiry-btn" onclick="sendInquiry()">Send</button>
+        </div>
+      </div>
+      <div class="footer-top-grid">
+        <div class="footer-col-centered">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#hood-cleaning">Hood Cleaning</a></li>
+            <li><a href="#exhaust-fan">Exhaust Fan Cleaning</a></li>
+            <li><a href="#fan-belt">Fan Belt Service</a></li>
+            <li><a href="#filter-exchange">Filter Exchange</a></li>
+            <li><a href="#dumpster-pad">Dumpster Pad Cleaning</a></li>
+            <li><a href="#pressure-washing">Pressure Washing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col-centered">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="serviceareas.html">Service Areas</a></li>
+            <li><a href="mailto:YOUREMAIL@gmail.com">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-social-centered">
+      <a href="https://www.instagram.com/2kdhoodcleaning/" target="_blank" class="social-icon-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://www.facebook.com/2kdhoodcleaning/" target="_blank" class="social-icon-circle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 2KD Hood Cleaning. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="custom-cursor" id="cursor"></div>
+
+  <script>
+    // ── CURSOR ──
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
+    document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
+    document.querySelectorAll('a, button, .srv-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
+
+    // ── SCROLL TO SERVICE ──
+    function scrollToService(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-    window.location.href = `mailto:karlaram2005@gmail.com?subject=Website Inquiry from ${email}&body=${encodeURIComponent(message)}%0A%0AFrom: ${email}`;
-  }
-</script>
+
+    // ── ILLUMINATE TEXT PER SERVICE ──
+    document.querySelectorAll('.srv-illuminate[data-illuminate]').forEach(el => {
+      const text = el.getAttribute('data-illuminate');
+      el.innerHTML = text.split(' ').map(w =>
+        `<span class="srv-illuminate-word">${w} </span>`
+      ).join('');
+    });
+
+    function updateIlluminateAll() {
+      const vh = window.innerHeight;
+      document.querySelectorAll('.srv-illuminate-word').forEach(word => {
+        const rect = word.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const dist = Math.abs(center - vh * 0.52);
+        const maxDist = vh * 0.42;
+        const brightness = Math.max(0, 1 - dist / maxDist);
+        const r = Math.round(34 + brightness * 187);
+        const g = Math.round(34 + brightness * 187);
+        const b = Math.round(34 + brightness * 187);
+        word.style.color = `rgb(${r},${g},${b})`;
+      });
+    }
+
+    window.addEventListener('scroll', updateIlluminateAll, { passive: true });
+    updateIlluminateAll();
+
+    // ── SECTION SCROLL ANIMATIONS ──
+    const srvSections = document.querySelectorAll('[data-srv]');
+    const srvObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('srv-visible');
+        else entry.target.classList.remove('srv-visible');
+      });
+    }, { threshold: 0.15 });
+
+    srvSections.forEach(s => srvObserver.observe(s));
+
+    // ── BEFORE/AFTER SLIDERS ──
+    document.querySelectorAll('[data-slider]').forEach((slider, i) => {
+      const before = slider.querySelector('.srv-ba-before');
+      const handle = slider.querySelector('.srv-ba-handle');
+      let dragging = false;
+
+      function setPos(x) {
+        const rect = slider.getBoundingClientRect();
+        let pct = (x - rect.left) / rect.width;
+        pct = Math.min(Math.max(pct, 0.02), 0.98);
+        before.style.width = (pct * 100) + '%';
+        handle.style.left = (pct * 100) + '%';
+        handle.style.transform = 'translateX(-50%)';
+      }
+
+      slider.addEventListener('mousedown', e => { dragging = true; setPos(e.clientX); e.preventDefault(); });
+      window.addEventListener('mouseup', () => dragging = false);
+      window.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
+      slider.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
+      window.addEventListener('touchend', () => dragging = false);
+      window.addEventListener('touchmove', e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+    });
+
+    // ── INQUIRY ──
+    function sendInquiry() {
+      const email = document.querySelector('.footer-inquiry-email').value;
+      const message = document.querySelector('.footer-inquiry-box').value;
+      if (!email || !message) { alert('Please fill in both your email and message.'); return; }
+      window.location.href = `mailto:YOUREMAIL@gmail.com?subject=Website Inquiry from ${email}&body=${encodeURIComponent(message)}%0A%0AFrom: ${email}`;
+    }
+
+    // ── MOBILE TOGGLE ──
+    document.querySelector('.mobile-toggle').addEventListener('click', function() {
+      document.querySelector('nav').classList.toggle('nav-open');
+    });
+  </script>
+
 </body>
 </html>
