@@ -10,29 +10,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    /* ── HERO VIDEO FIX ── */
+    /* ── HERO VIDEO — FULL BG ALL DEVICES ── */
+    .hero { min-height: 100svh; }
+
     .hero-video-card {
-      position: absolute;
-      z-index: 1;
-      right: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 0;
-      overflow: hidden;
-      border: none;
-      box-shadow: none;
-      animation: none;
-      backdrop-filter: none;
+      position: absolute !important;
+      z-index: 1 !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      border-radius: 0 !important;
+      overflow: hidden !important;
+      border: none !important;
+      box-shadow: none !important;
+      animation: none !important;
+      backdrop-filter: none !important;
+      transform: none !important;
+      display: block !important;
     }
 
     .hero-video-card video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      opacity: 0.38;
-      filter: brightness(0.6) saturate(0.8) contrast(1.1);
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+      opacity: 0.42 !important;
+      filter: brightness(0.6) saturate(0.8) contrast(1.1) !important;
     }
 
     .hero-video-card::before {
@@ -41,33 +44,59 @@
       inset: 0;
       background: linear-gradient(
         to right,
-        rgba(0,0,0,0.92) 0%,
-        rgba(0,0,0,0.75) 40%,
-        rgba(0,0,0,0.25) 100%
+        rgba(0,0,0,0.88) 0%,
+        rgba(0,0,0,0.65) 45%,
+        rgba(0,0,0,0.2) 100%
       );
       z-index: 2;
       pointer-events: none;
     }
 
-    .hero-video-card::after { display: none; }
+    .hero-video-card::after { display: none !important; }
+    .hero-content { position: relative !important; z-index: 3 !important; }
+    .hero-accent { z-index: 3 !important; }
 
-    /* ── MOBILE NAV ── */
+    /* ── MOBILE NAV WITH FADE ANIMATION ── */
     nav.nav-open {
       display: block !important;
       position: fixed;
       top: 90px;
       left: 0;
       right: 0;
-      background: rgba(10,10,10,0.97);
-      backdrop-filter: blur(16px);
-      padding: 16px 24px 24px;
+      background: rgba(8,8,8,0.97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 20px 24px 28px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-top: 2px solid var(--red);
       z-index: 99;
+      animation: navFadeIn 0.3s ease forwards;
     }
 
-    nav.nav-open ul {
-      flex-direction: column;
-      gap: 0;
+    @keyframes navFadeIn {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    nav.nav-open ul { flex-direction: column; gap: 0; }
+
+    nav.nav-open > ul > li > a {
+      padding: 14px 0;
+      font-size: 17px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      animation: navItemFade 0.3s ease forwards;
+      opacity: 0;
+    }
+
+    nav.nav-open > ul > li:nth-child(1) > a { animation-delay: 0.05s; }
+    nav.nav-open > ul > li:nth-child(2) > a { animation-delay: 0.10s; }
+    nav.nav-open > ul > li:nth-child(3) > a { animation-delay: 0.15s; }
+    nav.nav-open > ul > li:nth-child(4) > a { animation-delay: 0.20s; }
+    nav.nav-open > ul > li:nth-child(5) > a { animation-delay: 0.25s; }
+
+    @keyframes navItemFade {
+      from { opacity: 0; transform: translateX(-12px); }
+      to   { opacity: 1; transform: translateX(0); }
     }
 
     nav.nav-open ul li ul {
@@ -76,9 +105,18 @@
       border-top: none;
       padding-left: 16px;
       display: flex;
+      flex-direction: column;
     }
 
-    /* ── QUOTE FORM ANIMATE ── */
+    .mobile-toggle {
+      transition: transform 0.25s ease, color 0.2s ease;
+    }
+    .mobile-toggle.is-open {
+      transform: rotate(90deg);
+      color: var(--red);
+    }
+
+    /* ── QUOTE FORM ── */
     .quote-illuminate-word {
       display: inline;
       transition: color 0.3s ease;
@@ -117,12 +155,8 @@
       background: var(--red);
     }
 
-    /* Extend quote section height */
-    .quote-form-section {
-      padding: 100px 20px !important;
-    }
+    .quote-form-section { padding: 100px 20px !important; }
 
-    /* Form success message */
     .form-success {
       display: none;
       text-align: center;
@@ -142,14 +176,133 @@
       margin-bottom: 8px;
     }
 
-    .form-success p {
-      color: #888;
-      font-size: 14px;
+    .form-success p { color: #888; font-size: 14px; }
+    .form-success-icon { font-size: 48px; margin-bottom: 16px; }
+
+    /* ── MAP REDESIGN ── */
+    .nj-map-svg-col {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
     }
 
-    .form-success-icon {
-      font-size: 48px;
-      margin-bottom: 16px;
+    .nj-info-box {
+      height: 100%;
+      min-height: 320px;
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nj-info-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 40%;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+      pointer-events: none;
+      border-radius: 14px 14px 0 0;
+    }
+
+    .nj-glass-inner {
+      position: relative;
+      z-index: 1;
+      padding: 36px;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .nj-placeholder {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      color: #333;
+      text-transform: uppercase;
+      margin: auto;
+      align-self: center;
+    }
+
+    .nj-placeholder-arrow {
+      font-size: 20px;
+      animation: arrowPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes arrowPulse {
+      0%, 100% { transform: translateX(0); opacity: 0.3; }
+      50% { transform: translateX(-6px); opacity: 0.9; }
+    }
+
+    .nj-detail { display: none; width: 100%; }
+
+    .nj-county-name {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #fff;
+      margin-bottom: 4px;
+      text-shadow: 0 0 24px rgba(197,30,48,0.4);
+    }
+
+    .nj-county-desc {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    .nj-city-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+
+    .nj-city-item {
+      display: flex;
+      align-items: center;
+      padding: 11px 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-left: 3px solid var(--red);
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .nj-city-item:hover { background: rgba(255,255,255,0.08); }
+
+    .nj-city-name {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #fff;
+    }
+
+    .nj-city-type {
+      font-size: 10px;
+      color: #555;
+      margin-left: auto;
+      font-family: var(--font-display);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .nj-more { font-size: 12px; color: #555; margin-bottom: 4px; font-style: italic; }
+
+    @media (max-width: 760px) {
+      .nj-map-wrap { flex-direction: column; }
+      .nj-map-svg-col { flex: none; width: 100%; padding: 12px; }
     }
   </style>
 </head>
@@ -267,7 +420,7 @@
 
       <!-- FORMSPREE FORM — replace YOUR_FORM_ID with your actual Formspree form ID -->
       <form class="quote-form" id="quoteForm"
-            action="https://formspree.io/f/YOUR_FORM_ID"
+            action="https://formspree.io/f/xlgpzreo"
             method="POST">
 
         <!-- Hidden subject line -->
@@ -317,37 +470,6 @@
 
     </div>
   </section>
-
-<!-- COMPLIANCE / NFPA -->
-<section class="compliance-section">
-  <div class="section-inner">
-    <div class="compliance-slider">
-
-      <!-- NFPA PANEL -->
-      <div class="compliance-panel" id="panel-nfpa">
-        <div class="compliance-content">
-          <div class="compliance-eyebrow nfpa-eyebrow">Fire Safety Standard</div>
-          <h2>Don't Risk a Fine You Don't Need!</h2>
-          <p>Businesses that operate commercial kitchens are legally required to maintain their exhaust hood and ventilation systems to reduce the risk of fire hazards. Over time, grease and combustible residue build up inside the hood, ductwork, and exhaust fan. If these systems are not cleaned regularly, the buildup can become extremely dangerous and significantly increase the risk of a kitchen fire. Failure to properly maintain these systems can also lead to serious consequences, including costly fines, insurance violations, failed inspections, or even temporary closure of the business by local authorities.</p>
-          <p>To ensure the highest level of safety and compliance, we strictly follow the cleaning and inspection standards established by the <a href="https://www.nfpa.org" target="_blank"><strong>National Fire Protection Association (NFPA)</strong></a>. Founded in 1896, the NFPA is the leading authority in fire prevention and safety codes used throughout the United States and around the world. Their guidelines—particularly NFPA 96, which focuses on ventilation control and fire protection for commercial cooking operations—are the industry standard used by fire inspectors, insurance companies, and regulatory agencies.</p>
-          <p>By following NFPA standards, we ensure that every cleaning is performed thoroughly and according to the proper safety procedures. Our goal is not only to keep your kitchen compliant with fire codes but also to protect your staff, your customers, and your business from the serious dangers associated with grease fires. Maintaining a clean exhaust system helps improve ventilation efficiency, reduce fire risk, and keep your kitchen operating safely and professionally.</p>
-          <div class="cert-badge nfpa-badge-card glowing-badge nfpa-glow">
-            <img src="images/NFPAlogo.png" alt="NFPA" class="cert-badge-logo" onerror="this.style.display='none'">
-            <div class="cert-badge-text">
-              <div class="cert-badge-label">Proud Member</div>
-              <div class="cert-badge-name">National Fire Protection Association</div>
-              <div class="cert-badge-sub">NFPA Certified</div>
-            </div>
-          </div>
-        </div>
-        <div class="panel-peek nfpa-peek" onclick="switchPanel('mfs')">
-          <div class="peek-arrow-col">
-            <div class="peek-arrow">›</div>
-            <img src="images/mfslogo.png" alt="MFS" class="peek-logo" onerror="this.style.display='none'">
-            <div class="peek-logo-label">MFS School</div>
-          </div>
-        </div>
-      </div>
 
       <!-- MFS PANEL -->
       <div class="compliance-panel hidden left-layout" id="panel-mfs">
@@ -508,7 +630,7 @@
           <ul>
             <li><a href="about.html">About</a></li>
             <li><a href="serviceareas.html">Service Areas</a></li>
-            <li><a href="mailto:karlaram2005@gmail.com">Contact Us</a></li>
+            <li><a href="/cdn-cgi/l/email-protection#3b505a49575a495a56090b0b0e7b5c565a525715585456">Contact Us</a></li>
           </ul>
         </div>
       </div>
@@ -528,7 +650,7 @@
 
   <div class="custom-cursor" id="cursor"></div>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ── CURSOR ──
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
@@ -547,6 +669,7 @@
     const mainNav = document.getElementById('mainNav');
     mobileToggle.addEventListener('click', function() {
       mainNav.classList.toggle('nav-open');
+      mobileToggle.classList.toggle('is-open');
       mobileToggle.textContent = mainNav.classList.contains('nav-open') ? '✕' : '☰';
     });
     // Close nav when a link is clicked
