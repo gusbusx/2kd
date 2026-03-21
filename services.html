@@ -9,581 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-
-    /* ── SERVICES HERO ── */
-    .srv-hero {
-      position: relative;
-      height: 52vh;
-      min-height: 380px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0a0a 100%);
-    }
-
-    .srv-hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: repeating-linear-gradient(
-        0deg, transparent, transparent 2px,
-        rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 4px
-      );
-    }
-
-    .srv-hero-accent {
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 6px;
-      background: var(--red);
-      box-shadow: 0 0 24px rgba(197,30,48,0.8);
-    }
-
-    .srv-hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 0 24px;
-    }
-
-    .srv-hero-eyebrow {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-    }
-
-    .srv-hero-eyebrow::before,
-    .srv-hero-eyebrow::after {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: var(--red);
-    }
-
-    .srv-hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(48px, 8vw, 88px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      line-height: 0.95;
-      color: #fff;
-      margin-bottom: 16px;
-    }
-
-    .srv-hero h1 em {
-      color: var(--red);
-      font-style: normal;
-    }
-
-    .srv-hero-sub {
-      font-size: 16px;
-      font-weight: 300;
-      color: #777;
-      max-width: 500px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    /* ── SERVICE CARDS GRID ── */
-    .srv-cards-section {
-      background: #0d0d0d;
-      padding: 80px 24px;
-    }
-
-    .srv-cards-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .srv-cards-label {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .srv-cards-label::before {
-      content: '';
-      width: 32px;
-      height: 2px;
-      background: var(--red);
-      display: block;
-    }
-
-    .srv-cards-title {
-      font-family: var(--font-display);
-      font-size: clamp(32px, 4vw, 48px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      color: #fff;
-      margin-bottom: 48px;
-      line-height: 1.0;
-    }
-
-    .srv-cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3px;
-    }
-
-    .srv-card {
-      background: #161616;
-      padding: 40px 36px;
-      border-top: 2px solid transparent;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.3s, background 0.3s;
-      cursor: pointer;
-    }
-
-    .srv-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, rgba(197,30,48,0.04) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .srv-card:hover::before { opacity: 1; }
-    .srv-card:hover { border-color: var(--red); background: #1a1a1a; }
-    .srv-card:hover .srv-card-arrow { transform: translateX(6px); color: var(--red); }
-
-    .srv-card-num {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 16px;
-      opacity: 0.7;
-    }
-
-    .srv-card-icon {
-      font-size: 32px;
-      margin-bottom: 16px;
-      display: block;
-    }
-
-    .srv-card-title {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #fff;
-      margin-bottom: 12px;
-      line-height: 1.1;
-    }
-
-    .srv-card-desc {
-      font-size: 13px;
-      color: #666;
-      line-height: 1.7;
-      margin-bottom: 24px;
-    }
-
-    .srv-card-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--red);
-      text-decoration: none;
-      transition: gap 0.2s;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .srv-card-btn:hover { gap: 14px; }
-
-    .srv-card-arrow {
-      font-size: 16px;
-      transition: transform 0.2s, color 0.2s;
-      color: #444;
-    }
-
-    /* ── DIVIDER ── */
-    .srv-divider {
-      position: relative;
-      height: 2px;
-      background: #0a0a0a;
-      overflow: visible;
-    }
-
-    .srv-divider::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 1px;
-      width: 100%;
-      background: linear-gradient(to right, transparent, var(--red), transparent);
-    }
-
-    /* ── SERVICE DETAIL SECTIONS ── */
-    .srv-detail {
-      padding: 100px 24px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .srv-detail:nth-child(odd) { background: #080808; }
-    .srv-detail:nth-child(even) { background: #0d0d0d; }
-
-    .srv-detail-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 72px;
-      align-items: start;
-    }
-
-    /* Alternating layout */
-    .srv-detail:nth-child(even) .srv-detail-inner {
-      direction: rtl;
-    }
-
-    .srv-detail:nth-child(even) .srv-detail-text,
-    .srv-detail:nth-child(even) .srv-detail-media {
-      direction: ltr;
-    }
-
-    /* Scroll animations */
-    .srv-detail-text {
-      opacity: 0;
-      transform: translateX(-60px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .srv-detail:nth-child(even) .srv-detail-text {
-      transform: translateX(60px);
-    }
-
-    .srv-detail-media {
-      opacity: 0;
-      transform: translateX(60px);
-      transition: opacity 0.8s ease 0.15s, transform 0.8s ease 0.15s;
-    }
-
-    .srv-detail:nth-child(even) .srv-detail-media {
-      transform: translateX(-60px);
-    }
-
-    .srv-detail.srv-visible .srv-detail-text,
-    .srv-detail.srv-visible .srv-detail-media {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    /* Cinematic left accent */
-    .srv-detail::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: linear-gradient(to bottom, transparent, var(--red), transparent);
-      opacity: 0;
-      transition: opacity 0.8s ease;
-    }
-
-    .srv-detail.srv-visible::before { opacity: 1; }
-
-    .srv-detail-num {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .srv-detail-num::before {
-      content: '';
-      display: block;
-      width: 24px;
-      height: 1px;
-      background: var(--red);
-    }
-
-    .srv-detail-title {
-      font-family: var(--font-display);
-      font-size: clamp(32px, 4vw, 52px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      color: #fff;
-      line-height: 1.0;
-      margin-bottom: 28px;
-    }
-
-    /* Illuminate text inside service */
-    .srv-illuminate {
-      font-family: var(--font-body);
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 1.85;
-      color: #222;
-    }
-
-    .srv-illuminate-word {
-      display: inline;
-      transition: color 0.3s ease;
-    }
-
-    .srv-detail-cta {
-      margin-top: 32px;
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    /* Before/After in service */
-    .srv-ba-wrap {
-      position: relative;
-    }
-
-    .srv-ba-slider {
-      position: relative;
-      overflow: hidden;
-      cursor: col-resize;
-      height: 380px;
-      border-radius: 4px;
-      user-select: none;
-      touch-action: none;
-      background: #111;
-    }
-
-    .srv-ba-after,
-    .srv-ba-before {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .srv-ba-before {
-      width: 50%;
-      overflow: hidden;
-      z-index: 2;
-    }
-
-    .srv-ba-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-family: var(--font-display);
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    .srv-ba-placeholder span { font-size: 24px; opacity: 0.25; }
-    .srv-ba-placeholder p { margin: 0; }
-
-    .srv-ba-placeholder.before {
-      background: #1a1a1a;
-      color: #444;
-      min-width: 200%;
-    }
-
-    .srv-ba-placeholder.after {
-      background: #0d1a0d;
-      color: #3a5a3a;
-    }
-
-    .srv-ba-placeholder img,
-    .srv-ba-after img,
-    .srv-ba-before img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      pointer-events: none;
-    }
-
-    .srv-ba-before img { min-width: 200%; }
-
-    .srv-ba-handle {
-      position: absolute;
-      top: 0; bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      pointer-events: none;
-    }
-
-    .srv-ba-line {
-      flex: 1;
-      width: 2px;
-      background: rgba(255,255,255,0.8);
-      box-shadow: 0 0 6px rgba(255,255,255,0.3);
-    }
-
-    .srv-ba-circle {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2px;
-      font-size: 10px;
-      color: #111;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.6);
-      flex-shrink: 0;
-    }
-
-    .srv-ba-labels {
-      position: absolute;
-      bottom: 12px;
-      left: 0; right: 0;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 12px;
-      z-index: 5;
-      pointer-events: none;
-    }
-
-    .srv-ba-label-b,
-    .srv-ba-label-a {
-      font-family: var(--font-display);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border-radius: 2px;
-    }
-
-    .srv-ba-label-b { background: rgba(0,0,0,0.65); color: #aaa; }
-    .srv-ba-label-a { background: rgba(197,30,48,0.75); color: #fff; }
-
-    /* Cinematic full-width image divider */
-    .srv-cinematic-div {
-      position: relative;
-      height: 220px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .srv-cinematic-div::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to right,
-        rgba(0,0,0,0.9) 0%,
-        rgba(0,0,0,0.5) 50%,
-        rgba(0,0,0,0.9) 100%
-      );
-      z-index: 1;
-    }
-
-    .srv-cinematic-bg {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #0a0505 0%, #1a0808 50%, #0a0505 100%);
-    }
-
-    .srv-cinematic-text {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      font-family: var(--font-display);
-      font-size: clamp(18px, 2.5vw, 28px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.15);
-    }
-
-    .srv-cinematic-text em {
-      color: rgba(197,30,48,0.5);
-      font-style: normal;
-    }
-
-    /* ── CTA BAND ── */
-    .srv-cta {
-      background: var(--red);
-      padding: 80px 24px;
-      text-align: center;
-    }
-
-    .srv-cta h2 {
-      font-family: var(--font-display);
-      font-size: clamp(32px, 5vw, 52px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #fff;
-      margin-bottom: 14px;
-      line-height: 1.0;
-    }
-
-    .srv-cta p {
-      font-size: 16px;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 32px;
-    }
-
-    /* ── MOBILE ── */
-    @media (max-width: 900px) {
-      .srv-cards-grid { grid-template-columns: repeat(2, 1fr); }
-      .srv-detail-inner { grid-template-columns: 1fr; gap: 40px; }
-      .srv-detail:nth-child(even) .srv-detail-inner { direction: ltr; }
-      .srv-detail-text { transform: translateY(40px) !important; }
-      .srv-detail-media { transform: translateY(40px) !important; }
-      .srv-ba-slider { height: 280px; }
-    }
-
-    @media (max-width: 560px) {
-      .srv-cards-grid { grid-template-columns: 1fr; }
-    }
-
-  </style>
 </head>
 <body>
 
@@ -593,7 +18,7 @@
       <a href="index.html" class="logo-img">
         <img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning">
       </a>
-      <nav>
+      <nav id="mainNav">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li>
@@ -616,7 +41,7 @@
         <a href="tel:9086037259" class="btn-phone">908-603-7259</a>
         <a href="index.html#quote" class="btn-quote">Get a Quote</a>
       </div>
-      <button class="mobile-toggle" aria-label="Open menu">☰</button>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu">☰</button>
     </div>
   </header>
 
@@ -689,9 +114,7 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════ -->
   <!-- SERVICE 1: HOOD CLEANING -->
-  <!-- ═══════════════════════════════════════ -->
   <div class="srv-cinematic-div" id="hood-cleaning">
     <div class="srv-cinematic-bg"></div>
     <div class="srv-cinematic-text">Service <em>01</em> — Exhaust Hood Cleaning</div>
@@ -710,29 +133,16 @@
       </div>
       <div class="srv-detail-media">
         <div class="srv-ba-slider" data-slider>
-          <div class="srv-ba-after">
-            <div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div>
-          </div>
-          <div class="srv-ba-before">
-            <div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div>
-          </div>
-          <div class="srv-ba-handle">
-            <div class="srv-ba-line"></div>
-            <div class="srv-ba-circle"><span>◀</span><span>▶</span></div>
-            <div class="srv-ba-line"></div>
-          </div>
-          <div class="srv-ba-labels">
-            <span class="srv-ba-label-b">Before</span>
-            <span class="srv-ba-label-a">After</span>
-          </div>
+          <div class="srv-ba-after"><div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div></div>
+          <div class="srv-ba-before"><div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div></div>
+          <div class="srv-ba-handle"><div class="srv-ba-line"></div><div class="srv-ba-circle"><span>◀</span><span>▶</span></div><div class="srv-ba-line"></div></div>
+          <div class="srv-ba-labels"><span class="srv-ba-label-b">Before</span><span class="srv-ba-label-a">After</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════ -->
   <!-- SERVICE 2: EXHAUST FAN -->
-  <!-- ═══════════════════════════════════════ -->
   <div class="srv-cinematic-div" id="exhaust-fan">
     <div class="srv-cinematic-bg"></div>
     <div class="srv-cinematic-text">Service <em>02</em> — Exhaust Fan Cleaning</div>
@@ -751,29 +161,16 @@
       </div>
       <div class="srv-detail-media">
         <div class="srv-ba-slider" data-slider>
-          <div class="srv-ba-after">
-            <div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div>
-          </div>
-          <div class="srv-ba-before">
-            <div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div>
-          </div>
-          <div class="srv-ba-handle">
-            <div class="srv-ba-line"></div>
-            <div class="srv-ba-circle"><span>◀</span><span>▶</span></div>
-            <div class="srv-ba-line"></div>
-          </div>
-          <div class="srv-ba-labels">
-            <span class="srv-ba-label-b">Before</span>
-            <span class="srv-ba-label-a">After</span>
-          </div>
+          <div class="srv-ba-after"><div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div></div>
+          <div class="srv-ba-before"><div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div></div>
+          <div class="srv-ba-handle"><div class="srv-ba-line"></div><div class="srv-ba-circle"><span>◀</span><span>▶</span></div><div class="srv-ba-line"></div></div>
+          <div class="srv-ba-labels"><span class="srv-ba-label-b">Before</span><span class="srv-ba-label-a">After</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════ -->
   <!-- SERVICE 3: FAN BELT -->
-  <!-- ═══════════════════════════════════════ -->
   <div class="srv-cinematic-div" id="fan-belt">
     <div class="srv-cinematic-bg"></div>
     <div class="srv-cinematic-text">Service <em>03</em> — Fan Belt Service</div>
@@ -792,29 +189,16 @@
       </div>
       <div class="srv-detail-media">
         <div class="srv-ba-slider" data-slider>
-          <div class="srv-ba-after">
-            <div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div>
-          </div>
-          <div class="srv-ba-before">
-            <div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div>
-          </div>
-          <div class="srv-ba-handle">
-            <div class="srv-ba-line"></div>
-            <div class="srv-ba-circle"><span>◀</span><span>▶</span></div>
-            <div class="srv-ba-line"></div>
-          </div>
-          <div class="srv-ba-labels">
-            <span class="srv-ba-label-b">Before</span>
-            <span class="srv-ba-label-a">After</span>
-          </div>
+          <div class="srv-ba-after"><div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div></div>
+          <div class="srv-ba-before"><div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div></div>
+          <div class="srv-ba-handle"><div class="srv-ba-line"></div><div class="srv-ba-circle"><span>◀</span><span>▶</span></div><div class="srv-ba-line"></div></div>
+          <div class="srv-ba-labels"><span class="srv-ba-label-b">Before</span><span class="srv-ba-label-a">After</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════ -->
   <!-- SERVICE 4: FILTER EXCHANGE -->
-  <!-- ═══════════════════════════════════════ -->
   <div class="srv-cinematic-div" id="filter-exchange">
     <div class="srv-cinematic-bg"></div>
     <div class="srv-cinematic-text">Service <em>04</em> — Filter Exchange</div>
@@ -833,29 +217,16 @@
       </div>
       <div class="srv-detail-media">
         <div class="srv-ba-slider" data-slider>
-          <div class="srv-ba-after">
-            <div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div>
-          </div>
-          <div class="srv-ba-before">
-            <div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div>
-          </div>
-          <div class="srv-ba-handle">
-            <div class="srv-ba-line"></div>
-            <div class="srv-ba-circle"><span>◀</span><span>▶</span></div>
-            <div class="srv-ba-line"></div>
-          </div>
-          <div class="srv-ba-labels">
-            <span class="srv-ba-label-b">Before</span>
-            <span class="srv-ba-label-a">After</span>
-          </div>
+          <div class="srv-ba-after"><div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div></div>
+          <div class="srv-ba-before"><div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div></div>
+          <div class="srv-ba-handle"><div class="srv-ba-line"></div><div class="srv-ba-circle"><span>◀</span><span>▶</span></div><div class="srv-ba-line"></div></div>
+          <div class="srv-ba-labels"><span class="srv-ba-label-b">Before</span><span class="srv-ba-label-a">After</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════ -->
   <!-- SERVICE 5: DUMPSTER PAD -->
-  <!-- ═══════════════════════════════════════ -->
   <div class="srv-cinematic-div" id="dumpster-pad">
     <div class="srv-cinematic-bg"></div>
     <div class="srv-cinematic-text">Service <em>05</em> — Dumpster Pad Cleaning</div>
@@ -874,29 +245,16 @@
       </div>
       <div class="srv-detail-media">
         <div class="srv-ba-slider" data-slider>
-          <div class="srv-ba-after">
-            <div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div>
-          </div>
-          <div class="srv-ba-before">
-            <div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div>
-          </div>
-          <div class="srv-ba-handle">
-            <div class="srv-ba-line"></div>
-            <div class="srv-ba-circle"><span>◀</span><span>▶</span></div>
-            <div class="srv-ba-line"></div>
-          </div>
-          <div class="srv-ba-labels">
-            <span class="srv-ba-label-b">Before</span>
-            <span class="srv-ba-label-a">After</span>
-          </div>
+          <div class="srv-ba-after"><div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div></div>
+          <div class="srv-ba-before"><div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div></div>
+          <div class="srv-ba-handle"><div class="srv-ba-line"></div><div class="srv-ba-circle"><span>◀</span><span>▶</span></div><div class="srv-ba-line"></div></div>
+          <div class="srv-ba-labels"><span class="srv-ba-label-b">Before</span><span class="srv-ba-label-a">After</span></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════ -->
   <!-- SERVICE 6: PRESSURE WASHING -->
-  <!-- ═══════════════════════════════════════ -->
   <div class="srv-cinematic-div" id="pressure-washing">
     <div class="srv-cinematic-bg"></div>
     <div class="srv-cinematic-text">Service <em>06</em> — Pressure Washing</div>
@@ -915,21 +273,10 @@
       </div>
       <div class="srv-detail-media">
         <div class="srv-ba-slider" data-slider>
-          <div class="srv-ba-after">
-            <div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div>
-          </div>
-          <div class="srv-ba-before">
-            <div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div>
-          </div>
-          <div class="srv-ba-handle">
-            <div class="srv-ba-line"></div>
-            <div class="srv-ba-circle"><span>◀</span><span>▶</span></div>
-            <div class="srv-ba-line"></div>
-          </div>
-          <div class="srv-ba-labels">
-            <span class="srv-ba-label-b">Before</span>
-            <span class="srv-ba-label-a">After</span>
-          </div>
+          <div class="srv-ba-after"><div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div></div>
+          <div class="srv-ba-before"><div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div></div>
+          <div class="srv-ba-handle"><div class="srv-ba-line"></div><div class="srv-ba-circle"><span>◀</span><span>▶</span></div><div class="srv-ba-line"></div></div>
+          <div class="srv-ba-labels"><span class="srv-ba-label-b">Before</span><span class="srv-ba-label-a">After</span></div>
         </div>
       </div>
     </div>
@@ -952,7 +299,9 @@
   <footer id="footer">
     <div class="footer-main">
       <div class="footer-brand-left">
-        <a href="index.html"><img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning" height="64"></a>
+        <a href="index.html">
+          <img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning" height="64">
+        </a>
         <p>Commercial hood cleaning, exhaust system maintenance, and fire safety compliance for restaurants and businesses across New Jersey.</p>
         <div class="footer-inquiry">
           <div class="footer-inquiry-title">Get In Touch</div>
@@ -978,7 +327,7 @@
           <ul>
             <li><a href="about.html">About</a></li>
             <li><a href="serviceareas.html">Service Areas</a></li>
-            <li><a href="mailto:YOUREMAIL@gmail.com">Contact Us</a></li>
+            <li><a href="mailto:karlaram2005@gmail.com">Contact Us</a></li>
           </ul>
         </div>
       </div>
@@ -996,20 +345,24 @@
     </div>
   </footer>
 
-  <div class="custom-cursor" id="cursor"></div>
-
   <script>
-    // ── CURSOR ──
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+
+    // ── MOBILE NAV ──
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mainNav      = document.getElementById('mainNav');
+
+    mobileToggle.addEventListener('click', function () {
+      mainNav.classList.toggle('nav-open');
+      mobileToggle.classList.toggle('is-open');
+      mobileToggle.textContent = mainNav.classList.contains('nav-open') ? '✕' : '☰';
     });
-    document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
-    document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
-    document.querySelectorAll('a, button, .srv-card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('nav-open');
+        mobileToggle.classList.remove('is-open');
+        mobileToggle.textContent = '☰';
+      });
     });
 
     // ── SCROLL TO SERVICE ──
@@ -1018,7 +371,7 @@
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    // ── ILLUMINATE TEXT PER SERVICE ──
+    // ── ILLUMINATE TEXT ──
     document.querySelectorAll('.srv-illuminate[data-illuminate]').forEach(el => {
       const text = el.getAttribute('data-illuminate');
       el.innerHTML = text.split(' ').map(w =>
@@ -1029,15 +382,13 @@
     function updateIlluminateAll() {
       const vh = window.innerHeight;
       document.querySelectorAll('.srv-illuminate-word').forEach(word => {
-        const rect = word.getBoundingClientRect();
-        const center = rect.top + rect.height / 2;
-        const dist = Math.abs(center - vh * 0.52);
-        const maxDist = vh * 0.42;
+        const rect       = word.getBoundingClientRect();
+        const center     = rect.top + rect.height / 2;
+        const dist       = Math.abs(center - vh * 0.52);
+        const maxDist    = vh * 0.42;
         const brightness = Math.max(0, 1 - dist / maxDist);
-        const r = Math.round(34 + brightness * 187);
-        const g = Math.round(34 + brightness * 187);
-        const b = Math.round(34 + brightness * 187);
-        word.style.color = `rgb(${r},${g},${b})`;
+        const v          = Math.round(34 + brightness * 187);
+        word.style.color = `rgb(${v},${v},${v})`;
       });
     }
 
@@ -1045,7 +396,6 @@
     updateIlluminateAll();
 
     // ── SECTION SCROLL ANIMATIONS ──
-    const srvSections = document.querySelectorAll('[data-srv]');
     const srvObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('srv-visible');
@@ -1053,44 +403,62 @@
       });
     }, { threshold: 0.15 });
 
-    srvSections.forEach(s => srvObserver.observe(s));
+    document.querySelectorAll('[data-srv]').forEach(s => srvObserver.observe(s));
 
     // ── BEFORE/AFTER SLIDERS ──
-    document.querySelectorAll('[data-slider]').forEach((slider, i) => {
+    document.querySelectorAll('[data-slider]').forEach(slider => {
       const before = slider.querySelector('.srv-ba-before');
       const handle = slider.querySelector('.srv-ba-handle');
-      let dragging = false;
+      let dragging  = false;
 
       function setPos(x) {
         const rect = slider.getBoundingClientRect();
-        let pct = (x - rect.left) / rect.width;
-        pct = Math.min(Math.max(pct, 0.02), 0.98);
-        before.style.width = (pct * 100) + '%';
-        handle.style.left = (pct * 100) + '%';
-        handle.style.transform = 'translateX(-50%)';
+        let pct    = Math.min(Math.max((x - rect.left) / rect.width, 0.02), 0.98);
+        before.style.width      = (pct * 100) + '%';
+        handle.style.left       = (pct * 100) + '%';
+        handle.style.transform  = 'translateX(-50%)';
       }
 
-      slider.addEventListener('mousedown', e => { dragging = true; setPos(e.clientX); e.preventDefault(); });
-      window.addEventListener('mouseup', () => dragging = false);
-      window.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
-      slider.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
-      window.addEventListener('touchend', () => dragging = false);
-      window.addEventListener('touchmove', e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+      slider.addEventListener('mousedown',  e  => { dragging = true;  setPos(e.clientX); e.preventDefault(); });
+      window.addEventListener('mouseup',    ()  => { dragging = false; });
+      window.addEventListener('mousemove',  e   => { if (dragging) setPos(e.clientX); });
+      slider.addEventListener('touchstart', e   => { dragging = true;  setPos(e.touches[0].clientX); }, { passive: true });
+      window.addEventListener('touchend',   ()  => { dragging = false; });
+      window.addEventListener('touchmove',  e   => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
     });
 
-    // ── INQUIRY ──
-    function sendInquiry() {
-      const email = document.querySelector('.footer-inquiry-email').value;
+    // ── FOOTER INQUIRY (Formspree) ──
+    async function sendInquiry() {
+      const email   = document.querySelector('.footer-inquiry-email').value;
       const message = document.querySelector('.footer-inquiry-box').value;
       if (!email || !message) { alert('Please fill in both your email and message.'); return; }
-      window.location.href = `mailto:YOUREMAIL@gmail.com?subject=Website Inquiry from ${email}&body=${encodeURIComponent(message)}%0A%0AFrom: ${email}`;
+
+      const btn       = document.querySelector('.footer-inquiry-btn');
+      btn.textContent = 'Sending...';
+      btn.disabled    = true;
+
+      try {
+        const res = await fetch('https://formspree.io/f/mlgpzrdo', {
+          method:  'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ email, message })
+        });
+        if (res.ok) {
+          btn.textContent = 'Sent ✓';
+          document.querySelector('.footer-inquiry-email').value = '';
+          document.querySelector('.footer-inquiry-box').value   = '';
+        } else {
+          btn.textContent = 'Send';
+          btn.disabled    = false;
+          alert('Something went wrong. Please try again.');
+        }
+      } catch {
+        btn.textContent = 'Send';
+        btn.disabled    = false;
+        alert('Something went wrong. Please try again.');
+      }
     }
 
-    // ── MOBILE TOGGLE ──
-    document.querySelector('.mobile-toggle').addEventListener('click', function() {
-      document.querySelector('nav').classList.toggle('nav-open');
-    });
   </script>
-
 </body>
 </html>
