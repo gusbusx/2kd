@@ -210,10 +210,10 @@
 
         <div class="ba-slider" id="baSlider1">
           <div class="ba-after">
-            <div class="ba-img-placeholder after"><span>📷</span><p>After</p></div>
+            <img src="images/ductafter.PNG" alt="After">
           </div>
           <div class="ba-before">
-            <div class="ba-img-placeholder before"><span>📷</span><p>Before</p></div>
+            <img src="images/ductbefore.PNG" alt="After">
           </div>
           <div class="ba-handle" id="baHandle1">
             <div class="ba-handle-line"></div>
@@ -227,16 +227,16 @@
         </div>
 
         <div class="about-photo-item">
-          <div class="about-photo-placeholder"><span>📷</span>Hood Cleaning</div>
+          <img src="images/abouthood.PNG" alt="hood cleaning">
         </div>
         <div class="about-photo-item">
-          <div class="about-photo-placeholder"><span>📷</span>The Team</div>
+          <img src="images/aboutteam.jpeg" alt="the team">
         </div>
         <div class="about-photo-item">
-          <div class="about-photo-placeholder"><span>📷</span>Fan Service</div>
+          <img src="images/aboutfan.PNG" alt="fan">
         </div>
         <div class="about-photo-item">
-          <div class="about-photo-placeholder"><span>📷</span>Equipment</div>
+          <img src="images/aboutequipment.jpeg" alt="equipment">
         </div>
 
       </div>
@@ -310,23 +310,7 @@
     </div>
   </footer>
 
-  <div class="custom-cursor" id="cursor"></div>
-
   <script>
-
-    // ── CURSOR ──
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top  = e.clientY + 'px';
-    });
-    document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
-    document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
-    document.querySelectorAll('a, button, .about-value-card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
-    });
-
     // ── MOBILE NAV ──
     const mobileToggle = document.getElementById('mobileToggle');
     const mainNav      = document.getElementById('mainNav');
@@ -383,24 +367,37 @@
 
     // ── BEFORE/AFTER SLIDER ──
     function initSlider(sliderId, handleId) {
-      const slider = document.getElementById(sliderId);
-      const handle = document.getElementById(handleId);
-      const before = slider.querySelector('.ba-before');
-      let dragging  = false;
+      const slider    = document.getElementById(sliderId);
+      const handle    = document.getElementById(handleId);
+      const beforeImg = slider.querySelector('.ba-before img');
+      const afterImg  = slider.querySelector('.ba-after img');
+      let pct      = 0.5;
+      let dragging = false;
 
-      function setPos(x) {
-        const rect = slider.getBoundingClientRect();
-        let pct    = Math.min(Math.max((x - rect.left) / rect.width, 0.02), 0.98);
-        before.style.width = (pct * 100) + '%';
-        handle.style.left  = (pct * 100) + '%';
+      function applyClip(p) {
+        const w  = slider.offsetWidth;
+        const h  = slider.offsetHeight;
+        const cw = Math.round(p * w);
+        if (beforeImg) beforeImg.style.clip = `rect(0, ${cw}px, ${h}px, 0)`;
+        if (afterImg)  afterImg.style.clip  = `rect(0, ${w}px, ${h}px, ${cw}px)`;
+        handle.style.left      = cw + 'px';
+        handle.style.transform = 'translateX(-50%)';
       }
 
-      slider.addEventListener('mousedown',  e  => { dragging = true;  setPos(e.clientX); });
-      window.addEventListener('mouseup',    ()  => { dragging = false; });
-      window.addEventListener('mousemove',  e   => { if (dragging) setPos(e.clientX); });
-      slider.addEventListener('touchstart', e   => { dragging = true;  setPos(e.touches[0].clientX); }, { passive: true });
-      window.addEventListener('touchend',   ()  => { dragging = false; });
-      window.addEventListener('touchmove',  e   => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+      function getPos(clientX) {
+        const rect = slider.getBoundingClientRect();
+        return Math.min(Math.max((clientX - rect.left) / rect.width, 0.02), 0.98);
+      }
+
+      applyClip(pct);
+      window.addEventListener('resize', () => applyClip(pct));
+
+      slider.addEventListener('mousedown',  e => { dragging = true;  pct = getPos(e.clientX); applyClip(pct); e.preventDefault(); });
+      window.addEventListener('mouseup',    () => { dragging = false; });
+      window.addEventListener('mousemove',  e => { if (dragging) { pct = getPos(e.clientX); applyClip(pct); } });
+      slider.addEventListener('touchstart', e => { dragging = true;  pct = getPos(e.touches[0].clientX); applyClip(pct); }, { passive: true });
+      window.addEventListener('touchend',   () => { dragging = false; });
+      window.addEventListener('touchmove',  e => { if (dragging) { pct = getPos(e.touches[0].clientX); applyClip(pct); } }, { passive: true });
     }
 
     initSlider('baSlider1', 'baHandle1');
