@@ -9,765 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-
-    /* ── CINEMATIC HERO ── */
-    .about-hero {
-      position: relative;
-      height: 100vh;
-      min-height: 600px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      background: #000;
-    }
-
-    .about-hero-video {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.4;
-      filter: brightness(0.6) saturate(0.7);
-    }
-
-    .about-hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.3) 0%,
-        rgba(0,0,0,0.1) 40%,
-        rgba(0,0,0,0.7) 100%
-      );
-    }
-
-    .about-hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 0 24px;
-      max-width: 800px;
-    }
-
-    .about-hero-eyebrow {
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      animation: fadeUp 0.8s ease 0.2s both;
-    }
-
-    .about-hero-eyebrow::before,
-    .about-hero-eyebrow::after {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 1px;
-      background: var(--red);
-    }
-
-    .about-hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(52px, 8vw, 96px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      line-height: 0.95;
-      color: #fff;
-      margin-bottom: 24px;
-      animation: fadeUp 0.8s ease 0.4s both;
-    }
-
-    .about-hero h1 em {
-      color: var(--red);
-      font-style: normal;
-    }
-
-    .about-hero-sub {
-      font-size: 17px;
-      font-weight: 300;
-      color: #aaa;
-      line-height: 1.7;
-      animation: fadeUp 0.8s ease 0.6s both;
-    }
-
-    .about-hero-scroll {
-      position: absolute;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      animation: fadeUp 0.8s ease 1s both;
-    }
-
-    .about-hero-scroll span {
-      font-family: var(--font-display);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #555;
-    }
-
-    .about-scroll-line {
-      width: 1px;
-      height: 48px;
-      background: linear-gradient(to bottom, #c51e30, transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes scrollPulse {
-      0%, 100% { opacity: 0.4; transform: scaleY(1); }
-      50% { opacity: 1; transform: scaleY(1.2); }
-    }
-
-    /* ── STATS BAND ── */
-    .about-stats-band {
-      background: #0a0a0a;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      padding: 0;
-    }
-
-    .about-stats-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .about-stat-item {
-      padding: 36px 32px;
-      border-right: 1px solid rgba(255,255,255,0.06);
-      text-align: center;
-    }
-
-    .about-stat-item:last-child { border-right: none; }
-
-    .about-stat-num {
-      font-family: var(--font-display);
-      font-size: 52px;
-      font-weight: 900;
-      color: var(--red);
-      line-height: 1;
-      letter-spacing: 0.02em;
-      margin-bottom: 6px;
-    }
-
-    .about-stat-label {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #555;
-    }
-
-    /* ── ILLUMINATE SECTION ── */
-    .illuminate-section {
-      background: #050505;
-      padding: 120px 24px;
-    }
-
-    .illuminate-inner {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .illuminate-label {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 48px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .illuminate-label::before {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 2px;
-      background: var(--red);
-    }
-
-    .illuminate-text {
-      font-family: var(--font-display);
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      line-height: 1.25;
-      color: #fff;
-    }
-
-    .illuminate-word {
-      display: inline-block;
-      color: #222;
-      transition: color 0.4s ease;
-      margin-right: 0.22em;
-    }
-
-    .illuminate-word.lit { color: #ffffff; }
-    .illuminate-word.dim { color: #222; }
-
-    /* ── TIMELINE ── */
-    .timeline-section {
-      background: #0a0a0a;
-      padding: 100px 24px;
-    }
-
-    .timeline-inner {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .timeline-header {
-      margin-bottom: 72px;
-    }
-
-    .timeline-label {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .timeline-label::before {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 2px;
-      background: var(--red);
-    }
-
-    .timeline-title {
-      font-family: var(--font-display);
-      font-size: clamp(36px, 5vw, 56px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      color: #fff;
-      line-height: 1.0;
-    }
-
-    .timeline {
-      position: relative;
-      padding-left: 48px;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 6px;
-      top: 8px;
-      bottom: 8px;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--red), rgba(197,30,48,0.1));
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 64px;
-      opacity: 0.25;
-      transform: translateX(-16px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .timeline-item.tl-visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .timeline-item:last-child { margin-bottom: 0; }
-
-    .timeline-dot {
-      position: absolute;
-      left: -45px;
-      top: 6px;
-      width: 13px;
-      height: 13px;
-      border-radius: 50%;
-      background: var(--red);
-      border: 2px solid #050505;
-      box-shadow: 0 0 12px rgba(197,30,48,0.6);
-      transition: box-shadow 0.5s ease;
-    }
-
-    .timeline-item.tl-visible .timeline-dot {
-      box-shadow: 0 0 20px rgba(197,30,48,1);
-    }
-
-    .timeline-year {
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 8px;
-    }
-
-    .timeline-event {
-      font-family: var(--font-display);
-      font-size: clamp(22px, 3vw, 30px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      color: #fff;
-      margin-bottom: 10px;
-      line-height: 1.1;
-    }
-
-    .timeline-desc {
-      font-size: 14px;
-      color: #777;
-      line-height: 1.75;
-      max-width: 560px;
-    }
-
-    /* ── VIDEO SECTION ── */
-    .about-video-section {
-      position: relative;
-      height: 70vh;
-      min-height: 480px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .about-video-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.35) saturate(0.6);
-    }
-
-    .about-video-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        135deg,
-        rgba(0,0,0,0.7) 0%,
-        rgba(197,30,48,0.05) 50%,
-        rgba(0,0,0,0.7) 100%
-      );
-    }
-
-    .about-video-content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 0 24px;
-      max-width: 700px;
-    }
-
-    .about-video-quote {
-      font-family: var(--font-display);
-      font-size: clamp(28px, 4vw, 48px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #fff;
-      line-height: 1.1;
-      margin-bottom: 20px;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.8);
-    }
-
-    .about-video-quote em {
-      color: var(--red);
-      font-style: normal;
-    }
-
-    .about-video-attr {
-      font-family: var(--font-display);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #666;
-    }
-
-    /* ── VALUES SECTION ── */
-    .about-values-section {
-      background: #111;
-      padding: 100px 24px;
-    }
-
-    .about-values-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .about-values-header {
-      margin-bottom: 60px;
-    }
-
-    .about-values-label {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .about-values-label::before {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 2px;
-      background: var(--red);
-    }
-
-    .about-values-title {
-      font-family: var(--font-display);
-      font-size: clamp(36px, 5vw, 52px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      color: #fff;
-      line-height: 1.0;
-    }
-
-    .about-values-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-    }
-
-    .about-value-card {
-      background: #1a1a1a;
-      padding: 40px 36px;
-      border-top: 2px solid transparent;
-      transition: border-color 0.3s, background 0.3s;
-    }
-
-    .about-value-card:hover {
-      background: #1e1e1e;
-      border-color: var(--red);
-    }
-
-    .about-value-icon {
-      font-size: 28px;
-      margin-bottom: 16px;
-      display: block;
-    }
-
-    .about-value-title {
-      font-family: var(--font-display);
-      font-size: 18px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-
-    .about-value-desc {
-      font-size: 14px;
-      color: #666;
-      line-height: 1.7;
-    }
-
-    /* ── PHOTO GRID ── */
-    .about-media-section {
-      background: #0a0a0a;
-      padding: 80px 24px;
-    }
-
-    .about-media-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .about-media-label {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .about-media-label::before {
-      content: '';
-      width: 32px;
-      height: 2px;
-      background: var(--red);
-      display: block;
-    }
-
-    .about-media-title {
-      font-family: var(--font-display);
-      font-size: clamp(32px, 4vw, 48px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      color: #fff;
-      margin-bottom: 40px;
-      line-height: 1.0;
-    }
-
-    .about-photo-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      grid-template-rows: 260px 260px;
-      gap: 4px;
-    }
-
-    .about-photo-item {
-      background: #1a1a1a;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .about-photo-item:first-child {
-      grid-row: 1 / 3;
-    }
-
-    .about-photo-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease, filter 0.4s ease;
-      filter: brightness(0.7) saturate(0.8);
-    }
-
-    .about-photo-item:hover img {
-      transform: scale(1.04);
-      filter: brightness(0.85) saturate(1);
-    }
-
-    .about-photo-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: #161616;
-      color: #333;
-      font-family: var(--font-display);
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    .about-photo-placeholder span { font-size: 32px; opacity: 0.3; }
-
-    /* ── CTA ── */
-    .about-cta-section {
-      background: var(--red);
-      padding: 80px 24px;
-      text-align: center;
-    }
-
-    .about-cta-section h2 {
-      font-family: var(--font-display);
-      font-size: clamp(32px, 5vw, 56px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #fff;
-      margin-bottom: 16px;
-      line-height: 1.0;
-    }
-
-    .about-cta-section p {
-      font-size: 16px;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 36px;
-    }
-
-    /* ── MOBILE ── */
-    @media (max-width: 860px) {
-      .about-stats-inner { grid-template-columns: repeat(2, 1fr); }
-      .about-stat-item:nth-child(2) { border-right: none; }
-      .about-values-grid { grid-template-columns: 1fr; gap: 2px; }
-      .about-photo-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 200px 200px 200px;
-      }
-      .about-photo-item:first-child { grid-row: auto; }
-    }
-
-    @media (max-width: 560px) {
-      .about-stats-inner { grid-template-columns: 1fr 1fr; }
-      .about-photo-grid { grid-template-columns: 1fr; grid-template-rows: repeat(5, 200px); }
-    }
-
-    /* ── BEFORE/AFTER SLIDER ── */
-    .ba-slider {
-      position: relative;
-      overflow: hidden;
-      cursor: col-resize;
-      background: #111;
-      grid-row: 1 / 3;
-      user-select: none;
-      touch-action: none;
-    }
-
-    .ba-after,
-    .ba-before {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .ba-before {
-      width: 50%;
-      overflow: hidden;
-      z-index: 2;
-    }
-
-    .ba-img-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-family: var(--font-display);
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    .ba-img-placeholder span { font-size: 28px; opacity: 0.3; }
-    .ba-img-placeholder p { margin: 0; }
-
-    .ba-img-placeholder.before {
-      background: #1a1a1a;
-      color: #555;
-      min-width: 200%;
-    }
-
-    .ba-img-placeholder.after {
-      background: #0f1a0f;
-      color: #3a5a3a;
-    }
-
-    .ba-after img,
-    .ba-before img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      pointer-events: none;
-    }
-
-    .ba-before img { min-width: 200%; }
-
-    .ba-handle {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      pointer-events: none;
-    }
-
-    .ba-handle-line {
-      flex: 1;
-      width: 2px;
-      background: rgba(255,255,255,0.8);
-      box-shadow: 0 0 8px rgba(255,255,255,0.3);
-    }
-
-    .ba-handle-circle {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.95);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2px;
-      font-size: 11px;
-      color: #111;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.5);
-      flex-shrink: 0;
-    }
-
-    .ba-labels {
-      position: absolute;
-      bottom: 16px;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 16px;
-      z-index: 5;
-      pointer-events: none;
-    }
-
-    .ba-label-before,
-    .ba-label-after {
-      font-family: var(--font-display);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 3px;
-    }
-
-    .ba-label-before {
-      background: rgba(0,0,0,0.6);
-      color: #aaa;
-    }
-
-    .ba-label-after {
-      background: rgba(197,30,48,0.7);
-      color: #fff;
-    }
-
-  </style>
 </head>
 <body>
 
@@ -777,7 +18,7 @@
       <a href="index.html" class="logo-img">
         <img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning">
       </a>
-      <nav>
+      <nav id="mainNav">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li>
@@ -800,11 +41,11 @@
         <a href="tel:9086037259" class="btn-phone">908-603-7259</a>
         <a href="index.html#quote" class="btn-quote">Get a Quote</a>
       </div>
-      <button class="mobile-toggle" aria-label="Open menu">☰</button>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu">☰</button>
     </div>
   </header>
 
-  <!-- CINEMATIC HERO -->
+  <!-- HERO -->
   <section class="about-hero">
     <video class="about-hero-video" autoplay muted loop playsinline>
       <source src="videos/aboutvideo.mp4" type="video/mp4">
@@ -843,13 +84,11 @@
     </div>
   </div>
 
-  <!-- ILLUMINATE SECTION -->
+  <!-- ILLUMINATE -->
   <section class="illuminate-section">
     <div class="illuminate-inner">
       <div class="illuminate-label">Who We Are</div>
-      <div class="illuminate-text" id="illuminateText">
-        <!-- words injected by JS -->
-      </div>
+      <div class="illuminate-text" id="illuminateText"></div>
     </div>
   </section>
 
@@ -908,7 +147,7 @@
     </div>
   </section>
 
-  <!-- VIDEO CINEMATIC BREAK -->
+  <!-- VIDEO BREAK -->
   <section class="about-video-section">
     <video class="about-video-bg" autoplay muted loop playsinline>
       <source src="videos/aboutvideo2.mp4" type="video/mp4">
@@ -969,7 +208,6 @@
       <div class="about-media-title">See The Difference</div>
       <div class="about-photo-grid">
 
-        <!-- BEFORE/AFTER SLIDER -->
         <div class="ba-slider" id="baSlider1">
           <div class="ba-after">
             <div class="ba-img-placeholder after"><span>📷</span><p>After</p></div>
@@ -1008,16 +246,16 @@
   <!-- CTA -->
   <section class="about-cta-section">
     <h2 class="wave-text">
-  <span>R</span><span>e</span><span>a</span><span>d</span><span>y</span>
-  <span>&nbsp;</span>
-  <span>T</span><span>o</span>
-  <span>&nbsp;</span>
-  <span>W</span><span>o</span><span>r</span><span>k</span>
-  <span>&nbsp;</span>
-  <span>W</span><span>i</span><span>t</span><span>h</span>
-  <span>&nbsp;</span>
-  <span>U</span><span>s</span><span>?</span>
-</h2>
+      <span>R</span><span>e</span><span>a</span><span>d</span><span>y</span>
+      <span>&nbsp;</span>
+      <span>T</span><span>o</span>
+      <span>&nbsp;</span>
+      <span>W</span><span>o</span><span>r</span><span>k</span>
+      <span>&nbsp;</span>
+      <span>W</span><span>i</span><span>t</span><span>h</span>
+      <span>&nbsp;</span>
+      <span>U</span><span>s</span><span>?</span>
+    </h2>
     <p>Get a free estimate today — we're available 24/7 across all of New Jersey.</p>
     <a href="index.html#quote" class="btn-cta-white">Request a Quote</a>
   </section>
@@ -1026,7 +264,9 @@
   <footer id="footer">
     <div class="footer-main">
       <div class="footer-brand-left">
-        <a href="index.html"><img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning" height="64"></a>
+        <a href="index.html">
+          <img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning" height="64">
+        </a>
         <p>Commercial hood cleaning, exhaust system maintenance, and fire safety compliance for restaurants and businesses across New Jersey.</p>
         <div class="footer-inquiry">
           <div class="footer-inquiry-title">Get In Touch</div>
@@ -1039,12 +279,12 @@
         <div class="footer-col-centered">
           <h4>Services</h4>
           <ul>
-            <li><a href="/services/exhaust-hood-cleaning/">Hood Cleaning</a></li>
-            <li><a href="/services/exhaust-fan-cleaning/">Exhaust Fan Cleaning</a></li>
-            <li><a href="/services/fan-belt-service/">Fan Belt Service</a></li>
-            <li><a href="/services/filter-exchange/">Filter Exchange</a></li>
-            <li><a href="/services/dumpster-pad-cleaning/">Dumpster Pad Cleaning</a></li>
-            <li><a href="/services/pressure-washing/">Pressure Washing</a></li>
+            <li><a href="services.html#hood-cleaning">Hood Cleaning</a></li>
+            <li><a href="services.html#exhaust-fan">Exhaust Fan Cleaning</a></li>
+            <li><a href="services.html#fan-belt">Fan Belt Service</a></li>
+            <li><a href="services.html#filter-exchange">Filter Exchange</a></li>
+            <li><a href="services.html#dumpster-pad">Dumpster Pad Cleaning</a></li>
+            <li><a href="services.html#pressure-washing">Pressure Washing</a></li>
           </ul>
         </div>
         <div class="footer-col-centered">
@@ -1052,7 +292,7 @@
           <ul>
             <li><a href="about.html">About</a></li>
             <li><a href="serviceareas.html">Service Areas</a></li>
-            <li><a href="/cdn-cgi/l/email-protection#da83958f889f979b93969abdb7bbb3b6f4b9b5b7">Contact Us</a></li>
+            <li><a href="mailto:karlaram2005@gmail.com">Contact Us</a></li>
           </ul>
         </div>
       </div>
@@ -1072,99 +312,131 @@
 
   <div class="custom-cursor" id="cursor"></div>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-<script>
-  // ── CURSOR ──
-  const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-  });
-  document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
-  document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
-  document.querySelectorAll('a, button, .about-value-card').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
-  });
+  <script>
 
-  // ── ILLUMINATE TEXT ──
-  const illuminateString = "2KD Hood Cleaning is a family-owned business founded in 2022 in Kenilworth, New Jersey. We believe every commercial kitchen — whether it's a five-star restaurant or a small neighborhood diner — deserves to operate safely and in full compliance. What started as one crew with one van has grown into a trusted name across all of New Jersey. We show up on time, we do the job right, and we treat every single client like family.";
-
-  const illuminateEl = document.getElementById('illuminateText');
-  const words = illuminateString.split(' ');
-  illuminateEl.innerHTML = words.map(w =>
-    `<span class="illuminate-word">${w}</span>`
-  ).join(' ');
-
-  const wordEls = illuminateEl.querySelectorAll('.illuminate-word');
-
-  function updateIlluminate() {
-    const vh = window.innerHeight;
-    wordEls.forEach(word => {
-      const rect = word.getBoundingClientRect();
-      const center = rect.top + rect.height / 2;
-      const dist = Math.abs(center - vh * 0.5);
-      const maxDist = vh * 0.45;
-      const brightness = Math.max(0, 1 - dist / maxDist);
-      const r = Math.round(34 + brightness * 221);
-      const g = Math.round(34 + brightness * 221);
-      const b = Math.round(34 + brightness * 221);
-      word.style.color = `rgb(${r},${g},${b})`;
+    // ── CURSOR ──
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
     });
-  }
-
-  window.addEventListener('scroll', updateIlluminate, { passive: true });
-  updateIlluminate();
-
-  // ── TIMELINE ANIMATION ──
-  const tlItems = document.querySelectorAll('[data-tl]');
-  const tlObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('tl-visible');
-      } else {
-        entry.target.classList.remove('tl-visible');
-      }
+    document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
+    document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
+    document.querySelectorAll('a, button, .about-value-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
     });
-  }, { threshold: 0.3 });
 
-  tlItems.forEach(item => tlObserver.observe(item));
+    // ── MOBILE NAV ──
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mainNav      = document.getElementById('mainNav');
 
-  // ── BEFORE/AFTER SLIDER ──
-  function initSlider(sliderId, handleId) {
-    const slider = document.getElementById(sliderId);
-    const handle = document.getElementById(handleId);
-    const before = slider.querySelector('.ba-before');
-    let dragging = false;
+    mobileToggle.addEventListener('click', function () {
+      mainNav.classList.toggle('nav-open');
+      mobileToggle.classList.toggle('is-open');
+      mobileToggle.textContent = mainNav.classList.contains('nav-open') ? '✕' : '☰';
+    });
 
-    function setPos(x) {
-      const rect = slider.getBoundingClientRect();
-      let pct = (x - rect.left) / rect.width;
-      pct = Math.min(Math.max(pct, 0.02), 0.98);
-      before.style.width = (pct * 100) + '%';
-      handle.style.left = (pct * 100) + '%';
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('nav-open');
+        mobileToggle.classList.remove('is-open');
+        mobileToggle.textContent = '☰';
+      });
+    });
+
+    // ── ILLUMINATE TEXT ──
+    const illuminateString = "2KD Hood Cleaning is a family-owned business founded in 2022 in Kenilworth, New Jersey. We believe every commercial kitchen — whether it's a five-star restaurant or a small neighborhood diner — deserves to operate safely and in full compliance. What started as one crew with one van has grown into a trusted name across all of New Jersey. We show up on time, we do the job right, and we treat every single client like family.";
+
+    const illuminateEl = document.getElementById('illuminateText');
+    illuminateEl.innerHTML = illuminateString.split(' ').map(w =>
+      `<span class="illuminate-word">${w}</span>`
+    ).join(' ');
+
+    const wordEls = illuminateEl.querySelectorAll('.illuminate-word');
+
+    function updateIlluminate() {
+      const vh = window.innerHeight;
+      wordEls.forEach(word => {
+        const rect       = word.getBoundingClientRect();
+        const center     = rect.top + rect.height / 2;
+        const dist       = Math.abs(center - vh * 0.5);
+        const maxDist    = vh * 0.45;
+        const brightness = Math.max(0, 1 - dist / maxDist);
+        const v          = Math.round(34 + brightness * 221);
+        word.style.color = `rgb(${v},${v},${v})`;
+      });
     }
 
-    slider.addEventListener('mousedown', e => { dragging = true; setPos(e.clientX); });
-    window.addEventListener('mouseup', () => dragging = false);
-    window.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
-    slider.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
-    window.addEventListener('touchend', () => dragging = false);
-    window.addEventListener('touchmove', e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
-  }
+    window.addEventListener('scroll', updateIlluminate, { passive: true });
+    updateIlluminate();
 
-  initSlider('baSlider1', 'baHandle1');
+    // ── TIMELINE ──
+    const tlObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('tl-visible');
+        else entry.target.classList.remove('tl-visible');
+      });
+    }, { threshold: 0.3 });
 
-  // ── INQUIRY ──
-  function sendInquiry() {
-    const email = document.querySelector('.footer-inquiry-email').value;
-    const message = document.querySelector('.footer-inquiry-box').value;
-    if (!email || !message) { alert('Please fill in both your email and message.'); return; }
-    window.location.href = `mailto:YOUREMAIL@gmail.com?subject=Website Inquiry from ${email}&body=${encodeURIComponent(message)}%0A%0AFrom: ${email}`;
-  }
+    document.querySelectorAll('[data-tl]').forEach(item => tlObserver.observe(item));
 
-  // ── MOBILE TOGGLE ──
-  document.querySelector('.mobile-toggle').addEventListener('click', function() {
-    document.querySelector('nav').classList.toggle('nav-open');
-  });
-</script>
+    // ── BEFORE/AFTER SLIDER ──
+    function initSlider(sliderId, handleId) {
+      const slider = document.getElementById(sliderId);
+      const handle = document.getElementById(handleId);
+      const before = slider.querySelector('.ba-before');
+      let dragging  = false;
+
+      function setPos(x) {
+        const rect = slider.getBoundingClientRect();
+        let pct    = Math.min(Math.max((x - rect.left) / rect.width, 0.02), 0.98);
+        before.style.width = (pct * 100) + '%';
+        handle.style.left  = (pct * 100) + '%';
+      }
+
+      slider.addEventListener('mousedown',  e  => { dragging = true;  setPos(e.clientX); });
+      window.addEventListener('mouseup',    ()  => { dragging = false; });
+      window.addEventListener('mousemove',  e   => { if (dragging) setPos(e.clientX); });
+      slider.addEventListener('touchstart', e   => { dragging = true;  setPos(e.touches[0].clientX); }, { passive: true });
+      window.addEventListener('touchend',   ()  => { dragging = false; });
+      window.addEventListener('touchmove',  e   => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+    }
+
+    initSlider('baSlider1', 'baHandle1');
+
+    // ── FOOTER INQUIRY (Formspree) ──
+    async function sendInquiry() {
+      const email   = document.querySelector('.footer-inquiry-email').value;
+      const message = document.querySelector('.footer-inquiry-box').value;
+      if (!email || !message) { alert('Please fill in both your email and message.'); return; }
+
+      const btn       = document.querySelector('.footer-inquiry-btn');
+      btn.textContent = 'Sending...';
+      btn.disabled    = true;
+
+      try {
+        const res = await fetch('https://formspree.io/f/mlgpzrdo', {
+          method:  'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ email, message })
+        });
+        if (res.ok) {
+          btn.textContent = 'Sent ✓';
+          document.querySelector('.footer-inquiry-email').value = '';
+          document.querySelector('.footer-inquiry-box').value   = '';
+        } else {
+          btn.textContent = 'Send';
+          btn.disabled    = false;
+          alert('Something went wrong. Please try again.');
+        }
+      } catch {
+        btn.textContent = 'Send';
+        btn.disabled    = false;
+        alert('Something went wrong. Please try again.');
+      }
+    }
+
+  </script>
+</body>
+</html>
