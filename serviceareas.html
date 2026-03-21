@@ -9,394 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* ── PAGE LAYOUT ── */
-    .sa-page {
-      display: flex;
-      height: calc(100vh - 90px);
-      overflow: hidden;
-      margin-top: 0;
-    }
-
-    /* ── LEFT: FIXED MAP PANEL ── */
-    .sa-map-col {
-      flex: 0 0 420px;
-      position: sticky;
-      top: 0px;
-      height: calc(100vh - 90px);
-      background: #0a0a0a;
-      border-right: 1px solid rgba(255,255,255,0.06);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .sa-map-header {
-      padding: 24px 28px 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      flex-shrink: 0;
-    }
-
-    .sa-map-label {
-      font-family: var(--font-display);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: #c8102e;
-      margin-bottom: 6px;
-    }
-
-    .sa-map-title {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #fff;
-      margin-bottom: 14px;
-    }
-
-    .sa-search {
-      position: relative;
-    }
-
-    .sa-search input {
-      width: 100%;
-      padding: 10px 16px 10px 36px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      color: #fff;
-      font-family: var(--font-body);
-      font-size: 13px;
-      outline: none;
-      backdrop-filter: blur(8px);
-      transition: border-color 0.2s;
-    }
-
-    .sa-search input::placeholder { color: #555; }
-    .sa-search input:focus { border-color: rgba(197,30,48,0.5); }
-
-    .sa-search-icon {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #555;
-      font-size: 13px;
-    }
-
-    .sa-search-results {
-      position: absolute;
-      top: calc(100% + 4px);
-      left: 0;
-      right: 0;
-      background: #1a1a1a;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      z-index: 50;
-      display: none;
-      max-height: 200px;
-      overflow-y: auto;
-    }
-
-    .sa-search-result-item {
-      padding: 10px 16px;
-      font-size: 13px;
-      color: #ccc;
-      cursor: pointer;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: background 0.15s;
-    }
-
-    .sa-search-result-item:hover { background: rgba(197,30,48,0.15); color: #fff; }
-    .sa-search-result-item span { color: #666; font-size: 11px; margin-left: 6px; }
-
-    .sa-map-svg-wrap {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px 20px;
-      overflow: hidden;
-    }
-
-    .sa-map-svg-wrap svg {
-      max-height: 100%;
-      width: auto;
-    }
-
-    .sa-county-path {
-      fill: #1e1e1e;
-      stroke: #3a3a3a;
-      stroke-width: 8;
-      cursor: pointer;
-      transition: fill 0.2s, filter 0.2s;
-    }
-
-    .sa-county-path:hover {
-      fill: #c8102e;
-      filter: drop-shadow(0 0 6px rgba(200,16,46,0.6));
-    }
-
-    .sa-county-path.sa-active {
-      fill: #c8102e;
-      filter: drop-shadow(0 0 12px rgba(200,16,46,0.9));
-    }
-
-    .sa-county-path.sa-dimmed {
-      fill: #111;
-      opacity: 0.4;
-    }
-
-    .sa-county-label {
-      font-size: 52px;
-      fill: #fff;
-      pointer-events: none;
-      text-anchor: middle;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    /* ── RIGHT: SCROLLABLE DETAILS ── */
-    .sa-detail-col {
-      flex: 1;
-      overflow-y: auto;
-      background: #111;
-      scroll-behavior: smooth;
-    }
-
-    .sa-detail-col::-webkit-scrollbar { width: 6px; }
-    .sa-detail-col::-webkit-scrollbar-track { background: #0a0a0a; }
-    .sa-detail-col::-webkit-scrollbar-thumb {
-      background: rgba(255,255,255,0.08);
-      border-radius: 999px;
-    }
-
-    /* Hero intro */
-    .sa-intro {
-      padding: 48px 48px 32px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      background: linear-gradient(135deg, #0d0d0d 0%, #1a0a0a 100%);
-    }
-
-    .sa-intro-label {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #c8102e;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .sa-intro-label::before {
-      content: '';
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: #c8102e;
-    }
-
-    .sa-intro h1 {
-      font-family: var(--font-display);
-      font-size: clamp(36px, 4vw, 56px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      color: #fff;
-      margin-bottom: 12px;
-      line-height: 1.0;
-    }
-
-    .sa-intro p {
-      font-size: 15px;
-      color: #888;
-      max-width: 520px;
-      line-height: 1.7;
-    }
-
-    .sa-disclaimer {
-      margin-top: 20px;
-      padding: 12px 18px;
-      background: rgba(255,200,0,0.05);
-      border: 1px solid rgba(255,200,0,0.15);
-      border-radius: 6px;
-      font-size: 12px;
-      color: #ffcc00;
-      max-width: 520px;
-    }
-
-    /* County sections */
-    .sa-county-section {
-      padding: 40px 48px;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      transition: background 0.3s;
-      scroll-margin-top: 0;
-    }
-
-    .sa-county-section.sa-highlighted {
-      background: rgba(197,30,48,0.04);
-    }
-
-    .sa-county-section-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      gap: 16px;
-    }
-
-    .sa-county-num {
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #c8102e;
-      margin-bottom: 4px;
-    }
-
-    .sa-county-name-large {
-      font-family: var(--font-display);
-      font-size: 32px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #fff;
-      line-height: 1;
-    }
-
-    .sa-county-badge {
-      flex-shrink: 0;
-      font-family: var(--font-display);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: rgba(197,30,48,0.15);
-      border: 1px solid rgba(197,30,48,0.3);
-      color: #c8102e;
-    }
-
-    .sa-county-badge.primary {
-      background: rgba(197,30,48,0.25);
-      border-color: #c8102e;
-      color: #ff6b6b;
-    }
-
-    .sa-city-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .sa-city-tag {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 6px;
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #ccc;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
-      cursor: default;
-    }
-
-    .sa-city-tag:hover {
-      background: rgba(197,30,48,0.1);
-      border-color: rgba(197,30,48,0.3);
-      color: #fff;
-    }
-
-    .sa-city-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #c8102e;
-      flex-shrink: 0;
-    }
-
-    .sa-county-cta {
-      margin-top: 20px;
-    }
-
-    .sa-county-cta a {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #c8102e;
-      text-decoration: none;
-      transition: gap 0.2s;
-    }
-
-    .sa-county-cta a:hover { gap: 14px; }
-
-    /* No results */
-    .sa-no-results {
-      padding: 48px;
-      text-align: center;
-      color: #555;
-      font-family: var(--font-display);
-      font-size: 16px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      display: none;
-    }
-
-        /* ── CTA ── */
-    .about-cta-section {
-      background: var(--red);
-      padding: 80px 24px;
-      text-align: center;
-    }
-
-    .about-cta-section h2 {
-      font-family: var(--font-display);
-      font-size: clamp(32px, 5vw, 56px);
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #fff;
-      margin-bottom: 16px;
-      line-height: 1.0;
-    }
-
-    .about-cta-section p {
-      font-size: 16px;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 36px;
-    }
-
-
-    /* Mobile */
-    @media (max-width: 860px) {
-      .sa-page { flex-direction: column; height: auto; overflow: auto; }
-      .sa-map-col { flex: none; position: relative; top: 0; height: 480px; width: 100%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
-      .sa-detail-col { overflow-y: visible; }
-      .sa-intro, .sa-county-section { padding: 32px 24px; }
-    }
-  </style>
 </head>
 <body>
 
@@ -406,7 +18,7 @@
       <a href="index.html" class="logo-img">
         <img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning">
       </a>
-      <nav>
+      <nav id="mainNav">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li>
@@ -429,13 +41,14 @@
         <a href="tel:9086037259" class="btn-phone">908-603-7259</a>
         <a href="index.html#quote" class="btn-quote">Get a Quote</a>
       </div>
-      <button class="mobile-toggle" aria-label="Open menu">☰</button>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu">☰</button>
     </div>
   </header>
 
+  <!-- MAP + COUNTY DETAIL -->
   <div class="sa-page">
 
-    <!-- LEFT: FIXED MAP -->
+    <!-- LEFT: MAP -->
     <div class="sa-map-col">
       <div class="sa-map-header">
         <div class="sa-map-label">Coverage Map</div>
@@ -448,76 +61,54 @@
       </div>
       <div class="sa-map-svg-wrap">
         <svg viewBox="0 0 1600 3400" xmlns="http://www.w3.org/2000/svg">
-
           <path class="sa-county-path" data-county="Monmouth" d="m 1121.6,1148.8 158.9,-5.4 44.3,-61.8 -0.9,-2.7 3.1,-3.7 6.8,0 13,6 24.9,32 26.8,85.2 7.3,30 0.6,2.4 8.1,60.3 2.2,26.2 1.4,55.5 2.7,184.4 -128.1,19.7 -32.4,0.9 -80.2,-57.3 -137.1,27.1 -112.6,150.1 -50.1,-67.1 -37.3,-50.5 50,-37 58,-68.5 0,-3.2 -5.3,-9.4 175.9,-313.2"/>
           <text class="sa-county-label" x="1250" y="1320">Monmouth</text>
-
           <path class="sa-county-path" data-county="Ocean" d="m 930.4,1697.7 112.6,-150.1 137.1,-27.1 80.2,57.3 32.4,-0.9 128.1,-19.7 -0.5,23.9 5.5,105.4 1.7,29.3 7.6,89.2 19.9,143.3 5,48.2 -0.8,5.1 -20.5,98.1 -54.7,192.4 -23.7,60.1 -29.4,30.6 -119.7,-54.2 13.5,-23.3 3.2,-31.5 -51.9,-224.9 -226.7,-325.5 -18.9,-25.7"/>
           <text class="sa-county-label" x="1180" y="1950">Ocean</text>
-
           <path class="sa-county-path" data-county="Essex" d="m 958.3,600.2 156.9,66.7 -6.8,46.5 43.7,138.3 -221,29.7 48.3,-221.8"/>
           <text class="sa-county-label" x="1010" y="720">Essex</text>
-
           <path class="sa-county-path sa-active" data-county="Union" d="m 910.1,822 221,-29.7 -14.4,44.7 -19.4,1.3 -4.5,1.5 -2.2,3.5 -9,18.9 6.7,48.3 -40.5,1.3 -10.8,-0.5 -44.6,1.3 -123.6,44.2 -24.8,3.7 -19.8,-96 64.8,-101.8"/>
           <text class="sa-county-label" x="1000" y="910">Union ★</text>
-
           <path class="sa-county-path" data-county="Hudson" d="m 1256.7,662 -9.1,121.2 -13,37 -96.9,76.2 14.4,-44.7 -43.7,-138.3 148.3,-51.4"/>
           <text class="sa-county-label" x="1230" y="760">Hudson</text>
-
           <path class="sa-county-path" data-county="Bergen" d="m 943.9,288.4 341.1,102 1.5,105.7 -4,48.8 -25.8,117.1 -148.3,51.4 6.8,-46.5 4.5,-4.5 5.9,-47.7 -1.4,-6.8 -39.2,-68.9 -23,-30.9 -41.9,-29.5 -97.4,-36.6 21.2,-153.6"/>
           <text class="sa-county-label" x="1120" y="480">Bergen</text>
-
           <path class="sa-county-path" data-county="Middlesex" d="m 1109.3,969.9 0.9,7.2 2.3,15.3 -0.9,21.1 -2.3,5.4 -6.3,0 -6.7,0.6 -13.6,15.7 -0.4,9.9 11.2,25.6 -13.8,31.2 -0.6,1.4 -1.3,14.4 9.9,20.2 7.7,7.7 25.7,3.2 0.5,0 -175.9,313.2 -164.5,-124.9 5.9,-1.7 11.7,-13.5 88.8,-155.2 -1.8,-31.8 -18.9,-6.5 -24.4,-19.8 -25.2,-27 -1.4,-9.4 6.3,-18.6 5.9,-7.2 36.9,-26.5 24.8,-3.7 123.6,-44.2 44.6,-1.3 10.8,0.5 40.5,-1.3"/>
           <text class="sa-county-label" x="1060" y="1120">Middlesex</text>
-
           <path class="sa-county-path" data-county="Somerset" d="m 845.2,923.8 19.8,96 -36.9,26.5 -5.9,7.2 -6.3,18.6 1.4,9.4 25.2,27 24.4,19.8 18.9,6.5 1.8,31.8 -88.8,155.2 -11.7,13.5 -5.9,1.7 -5.7,-10.7 -28.9,-3.2 -63.2,36.1 -38.7,-56.3 -6,-8.1 -42.2,-87.5 16.2,-69 6.7,-10.7 10.8,-83.8 -36.1,-102 -7.2,-13.5 -6.3,-4.6 150.1,-85.2 3.1,1.9 6.8,11.2 1.9,8.2 50.4,109.5 52.3,-45.6"/>
           <text class="sa-county-label" x="820" y="1080">Somerset</text>
-
           <path class="sa-county-path" data-county="Morris" d="m 685.3,411.8 91.4,58.6 61.8,3.2 62.2,-0.4 57.6,127 -48.3,221.8 -64.8,101.8 -52.3,45.6 -50.4,-109.5 -1.9,-8.2 -6.8,-11.2 -3.1,-1.9 -150.1,85.2 -174.9,-50.8 79.8,-183.5 199.8,-277.7"/>
           <text class="sa-county-label" x="720" y="650">Morris</text>
-
           <path class="sa-county-path" data-county="Passaic" d="m 921.4,281.6 22.5,6.8 -21.2,153.6 97.4,36.6 41.9,29.5 23,30.9 39.2,68.9 1.4,6.8 -5.9,47.7 -4.5,4.5 -156.9,-66.7 -57.6,-127 -62.2,0.4 -61.8,-3.2 -91.4,-58.6 95,-178 141.1,47.8"/>
           <text class="sa-county-label" x="910" y="360">Passaic</text>
-
           <path class="sa-county-path" data-county="Sussex" d="m 780.3,233.8 -95,178 -199.8,277.7 -244.3,-192.5 -5.4,-6.7 38.4,-54 26.6,-62.7 5.8,-38.8 -1.8,-21.2 -4,-4.1 1.8,-17.6 11.7,-50 4.9,-14.4 23,-47.3 27,-29.3 56.9,-41 354.2,123.9"/>
           <text class="sa-county-label" x="600" y="320">Sussex</text>
-
           <path class="sa-county-path" data-county="Warren" d="m 241.2,497 244.3,192.5 -79.8,183.5 -9.3,24.7 -42,80.7 -7.7,10.4 -54.9,55.1 -94.7,105.7 -21.1,36.1 -10.5,-20.3 -6.4,-11.7 -23.8,-92 -10,-77.8 16.4,-38.5 7.6,-2.1 14.4,1.4 14.6,-2 19.7,-27.3 32.4,-99.3 0.5,-7.6 -3.2,-7.6 -91.5,-107.8 105,-196.1"/>
           <text class="sa-county-label" x="280" y="720">Warren</text>
-
           <path class="sa-county-path" data-county="Hunterdon" d="m 405.7,873 174.9,50.8 6.3,4.6 7.2,13.5 36.1,102 -10.8,83.8 -6.7,10.7 -16.2,69 42.2,87.5 6,8.1 -51.5,32.4 -28.5,89.6 -67.9,24.4 -9.4,0 -6.4,-3.6 -93.7,-56.8 -73,-146.9 -138.3,-56.4 21.1,-36.1 94.7,-105.7 54.9,-55.1 7.7,-10.4 42,-80.7 9.3,-24.7"/>
           <text class="sa-county-label" x="400" y="1050">Hunterdon</text>
-
           <path class="sa-county-path" data-county="Mercer" d="m 644.7,1303 38.7,56.3 63.2,-36.1 28.9,3.2 5.7,10.7 164.5,124.9 5.3,9.4 0,3.2 -58,68.5 -50,37 37.3,50.5 -132.9,18.5 -260,-199.7 9.4,0 67.9,-24.4 28.5,-89.6 51.5,-32.4"/>
           <text class="sa-county-label" x="680" y="1420">Mercer</text>
-
           <path class="sa-county-path" data-county="Camden" d="m 400.4,2055.1 73.4,-136.5 382.6,261.8 -101,184.4 -124.8,-98.3 -140.1,-153.7 -52.7,-38.4 -37.4,-19.3"/>
           <text class="sa-county-label" x="520" y="2100">Camden</text>
-
           <path class="sa-county-path" data-county="Gloucester" d="m 361.9,2110.1 38.5,-55 37.4,19.3 52.7,38.4 140.1,153.7 124.8,98.3 -76.9,142.5 -89.3,-51.9 -429.5,-178.1 23.9,-42.4 178.3,-124.8"/>
           <text class="sa-county-label" x="320" y="2250">Gloucester</text>
-
           <path class="sa-county-path" data-county="Salem" d="m 159.7,2277.3 429.5,178.1 11.8,112.6 0,26.7 -1.4,6.3 -178.9,-95.1 -95.6,158.1 -15.3,102.8 -207.4,-253.3 -9.8,-29.8 31.9,-81.5 35.2,-124.9"/>
           <text class="sa-county-label" x="220" y="2450">Salem</text>
-
           <path class="sa-county-path" data-county="Cumberland" d="m 852.8,2722.7 -9.8,196.9 -196.5,-1 -67.7,-15.6 -130.1,-44.8 -116.9,-65.2 -5.8,-6.3 -16.2,-19.9 15.3,-102.8 95.6,-158.1 178.9,95.1 1.4,-6.3 0,-26.7 -11.8,-112.6 89.3,51.9 174.3,215.4"/>
           <text class="sa-county-label" x="480" y="2650">Cumberland</text>
-
           <path class="sa-county-path" data-county="Cape May" d="m 852.8,2722.7 314.3,-39.3 -41.1,63.6 -12.2,21.7 -13.9,34.6 -22.1,59.9 -24.3,85.8 0,4 0.4,0.8 1.3,1.4 -36.5,130.3 -26.5,64.4 -33.9,58.2 -50,27.9 -12.6,3.6 -29.7,3.2 -4.6,-2.3 -6.3,-7.7 -1.4,-80.6 1.8,-19.9 5,-27 19,-73.9 2.2,-15.7 0.9,-19.5 -2.3,-40.1 -5.3,-19 -22.2,-16.2 -9.8,-1.3 9.8,-196.9"/>
           <text class="sa-county-label" x="920" y="2950">Cape May</text>
-
           <path class="sa-county-path" data-county="Atlantic" d="m 1330.9,2382.8 -163.8,300.6 -314.3,39.3 -174.3,-215.4 76.9,-142.5 101,-184.4 13.6,7.2 55.3,28.4 71.4,70.4 89.2,41.4 23.9,7.2 43.2,8.6 58.2,-15 119.7,54.2"/>
           <text class="sa-county-label" x="1020" y="2550">Atlantic</text>
-
           <path class="sa-county-path" data-county="Burlington" d="m 747.4,1649.1 132.9,-18.5 50.1,67.1 18.9,25.7 226.7,325.5 51.9,224.9 -3.2,31.5 -13.5,23.3 -58.2,15 -43.2,-8.6 -23.9,-7.2 -89.2,-41.4 -71.4,-70.4 -55.3,-28.4 -13.6,-7.2 -382.6,-261.8 62.2,-90.6 211.4,-178.9"/>
           <text class="sa-county-label" x="780" y="2000">Burlington</text>
-
         </svg>
       </div>
     </div>
 
-    <!-- RIGHT: SCROLLABLE DETAILS -->
-    <div class="sa-detail-col" id="saDetailCol">
+    <!-- RIGHT: COUNTY DETAILS -->
+<div class="sa-detail-col" id="saDetailCol">
 
       <div class="sa-intro">
         <div class="sa-intro-label">Service Coverage</div>
@@ -530,6 +121,13 @@
 
       <div class="sa-no-results" id="saNoResults">No cities found matching your search.</div>
 
+      <!-- Click prompt shown before any county selected -->
+      <div class="sa-click-prompt" id="saClickPrompt">
+        <div class="sa-click-prompt-arrow">←</div>
+        <div class="sa-click-prompt-text">Select a County</div>
+        <div class="sa-click-prompt-sub">Click any county on the map to see the cities we service in that area.</div>
+      </div>
+
       <!-- Union -->
       <div class="sa-county-section" id="section-Union" data-county="Union">
         <div class="sa-county-section-header">
@@ -540,16 +138,27 @@
           <div class="sa-county-badge primary">★ Home Base</div>
         </div>
         <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Berkeley Heights Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Clark Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cranford Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Elizabeth</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Fanwood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Garwood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hillside Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Kenilworth</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Linden</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mountainside</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>New Providence</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Plainfield</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Westfield</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Summit</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cranford</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Rahway</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Roselle</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Clark</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Roselle Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Scotch Plains Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Springfield Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Summit</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Union Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Westfield</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Winfield Township</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -564,14 +173,28 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Newark</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Montclair</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Belleville</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bloomfield</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Belleville Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bloomfield Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Caldwell</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cedar Grove Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>East Orange</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Irvington</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Maplewood</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Millburn</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Essex Fells</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Fairfield Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Glen Ridge</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Irvington Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Livingston Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Maplewood Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Millburn Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Montclair Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Newark</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>North Caldwell</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Nutley Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Orange</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Roseland</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>South Orange Village</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Verona Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>West Caldwell Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>West Orange Township</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -586,14 +209,75 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Fort Lee</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ridgewood</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Teaneck</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Garfield</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hackensack</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Paramus</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Englewood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Allendale</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Alpine</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Bergenfield</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bogota</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Carlstadt</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cliffside Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Closter</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cresskill</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Demarest</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Dumont</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>East Rutherford</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Edgewater</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Elmwood Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Emerson</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Englewood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Englewood Cliffs</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Fair Lawn</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Fairview</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Fort Lee</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Franklin Lakes</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Garfield</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Glen Rock</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hackensack</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Harrington Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hasbrouck Heights</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Haworth</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hillsdale</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ho-Ho-Kus</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Leonia</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Little Ferry</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lodi</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lyndhurst</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mahwah</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Maywood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Midland Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Montvale</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Moonachie</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>New Milford</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>North Arlington</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Northvale</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Norwood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Oakland</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Old Tappan</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Oradell</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Palisades Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Paramus</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Park Ridge</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ramsey</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ridgefield</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ridgefield Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ridgewood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>River Edge</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>River Vale</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Rochelle Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Rockleigh</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Rutherford</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Saddle Brook</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Saddle River</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>South Hackensack</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Teaneck</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Tenafly</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Teterboro</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Upper Saddle River</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Waldwick</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wallington</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Washington Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Westwood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wood-Ridge</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Woodcliff Lake</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -608,13 +292,22 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Paterson</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bloomingdale</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Clifton</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Passaic</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wayne</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lodi</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Haledon</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Hawthorne</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Little Falls Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>North Haledon</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Passaic</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Paterson</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Pompton Lakes</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Prospect Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ringwood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Totowa</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wanaque</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wayne Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>West Milford Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Woodland Park</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -629,14 +322,44 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Morristown</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Denville</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Dover</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Boonton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Boonton Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Butler</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Parsippany</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Rockaway</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Madison</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Chatham</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Chatham Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Chester</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Chester Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Denville Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Dover</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>East Hanover Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Florham Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hanover Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Harding Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Jefferson Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Kinnelon</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lincoln Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Long Hill Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mendham</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mendham Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mine Hill Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Montville Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Morris Plains</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Morris Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Morristown</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mountain Lakes</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mount Arlington</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mount Olive Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Netcong</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Parsippany-Troy Hills Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pequannock Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Randolph Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Riverdale</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Rockaway</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Rockaway Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Roxbury Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Victory Gardens</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Washington Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wharton</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -651,13 +374,18 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Jersey City</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hoboken</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Bayonne</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Secaucus</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>East Newark</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Guttenberg</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Harrison</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hoboken</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Jersey City</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Kearny</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>North Bergen</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Weehawken</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>North Bergen Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Secaucus</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Union City</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Weehawken Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>West New York</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -672,11 +400,30 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Sparta</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Newton</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Vernon</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hardyston</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Andover</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Andover Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Branchville</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Byram Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Frankford Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Franklin</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Fredon Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Green Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Hamburg</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hampton Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hardyston Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hopatcong</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lafayette Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Montague Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Newton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ogdensburg</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Sandyston Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Sparta Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Stanhope</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Stillwater Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Sussex</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Vernon Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Walpack Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wantage Township</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -691,10 +438,29 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Phillipsburg</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Washington</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hackettstown</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Allamuchy Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Alpha</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Belvidere</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Blairstown Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Franklin Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Frelinghuysen Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Greenwich Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hackettstown</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hardwick Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Harmony Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hope Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Independence Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Knowlton Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Liberty Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lopatcong Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mansfield Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Oxford</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pahaquarry Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Phillipsburg</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pohatcong Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Washington</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Washington Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>White Township</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -709,11 +475,32 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Flemington</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Alexandria Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bethlehem Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bloomsbury</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Califon</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Clinton</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Raritan</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Clinton Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Delaware Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>East Amwell Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Flemington</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Franklin Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Frenchtown</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Glen Gardner</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hampton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>High Bridge</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Holland Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Kingwood Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Lambertville</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lebanon</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lebanon Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Milford</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Raritan Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Readington Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Stockton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Tewksbury Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Union Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>West Amwell Township</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -728,11 +515,27 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Somerville</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bridgewater</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bedminster Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bernards Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bernardsville</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Bound Brook</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bernards</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Branchburg Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bridgewater Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Far Hills</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Franklin Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Green Brook Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hillsborough Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Manville</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Millstone</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Montgomery Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>North Plainfield</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Peapack-Gladstone</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Raritan</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Rocky Hill</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Somerville</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>South Bound Brook</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Warren Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Watchung</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -747,13 +550,31 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Carteret</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cranbury Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Dunellen</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>East Brunswick Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Edison Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Helmetta</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Highland Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Jamesburg</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Metuchen</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Middlesex</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Milltown</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Monroe Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>New Brunswick</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Edison</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>North Brunswick Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Old Bridge Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Perth Amboy</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Woodbridge</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Piscataway</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Piscataway Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Plainsboro Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Sayreville</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>South Brunswick</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>South Amboy</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>South Brunswick Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>South Plainfield</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>South River</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Spotswood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Woodbridge Township</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -768,11 +589,18 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Trenton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>East Windsor Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ewing Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hamilton Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hightstown</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hopewell</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hopewell Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lawrence Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pennington</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Princeton</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hamilton</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lawrence</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ewing</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Robbinsville Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Trenton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>West Windsor Township</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -787,12 +615,59 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Aberdeen Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Allenhurst</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Allentown</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Asbury Park</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Red Bank</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Long Branch</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Atlantic Highlands</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Avon-by-the-Sea</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Belmar</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bradley Beach</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Brielle</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Colts Neck Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Deal</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Eatontown</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Englishtown</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Fair Haven</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Farmingdale</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Freehold</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Keyport</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Freehold Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hazlet Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Highlands</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Holmdel Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Howell Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Interlaken</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Keansburg</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Keyport</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lake Como</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Little Silver</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Loch Arbour</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Long Branch</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Manalapan Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Manasquan</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Marlboro Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Matawan</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Middletown Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Millstone Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Monmouth Beach</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Neptune City</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Neptune Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ocean Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Oceanport</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Red Bank</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Roosevelt</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Rumson</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Sea Bright</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Sea Girt</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Shrewsbury</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Shrewsbury Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Spring Lake</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Spring Lake Heights</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Tinton Falls</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Union Beach</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Upper Freehold Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wall Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>West Long Branch</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -807,11 +682,46 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bass River Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Beverly</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bordentown</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bordentown Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Burlington</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mount Holly</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Moorestown</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Evesham</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Burlington Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Chesterfield Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cinnaminson Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Delanco Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Delran Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Eastampton Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Edgewater Park Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Evesham Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Fieldsboro</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Florence Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hainesport Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lumberton Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mansfield Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Maple Shade Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Medford</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Medford Lakes</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Moorestown Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mount Holly Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mount Laurel Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>New Hanover Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>North Hanover Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Palmyra</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pemberton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pemberton Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Riverside Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Riverton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Shamong Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Southampton Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Springfield Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Tabernacle Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Washington Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Westampton Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Willingboro Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Woodland Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wrightstown</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -826,11 +736,39 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Toms River</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lakewood</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Brick</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Barnegat</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Jackson</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Barnegat Light</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Barnegat Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bay Head</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Beach Haven</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Beachwood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Berkeley Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Brick Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Eagleswood Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Harvey Cedars</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Island Heights</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Jackson Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lacey Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lakehurst</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lakewood Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lavallette</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Little Egg Harbor Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Long Beach Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Manchester Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mantoloking</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ocean Gate</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ocean Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pine Beach</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Plumsted Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Point Pleasant</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Point Pleasant Beach</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Seaside Heights</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Seaside Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ship Bottom</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>South Toms River</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Stafford Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Surf City</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Toms River Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Tuckerton</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -845,10 +783,43 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Audubon</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Audubon Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Barrington</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Bellmawr</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Berlin</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Berlin Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Brooklawn</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Camden</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cherry Hill</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cherry Hill Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Chesilhurst</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Clementon</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Collingswood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Gibbsboro</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Gloucester City</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Voorhees</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Gloucester Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Haddon Heights</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Haddon Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Haddonfield</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hi-Nella</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Laurel Springs</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lawnside</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lindenwold</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Magnolia</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Merchantville</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mount Ephraim</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Oaklyn</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pennsauken Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pine Hill</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pine Valley</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Runnemede</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Somerdale</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Stratford</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Tavistock</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Voorhees Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Waterford Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Winslow Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Woodlynne</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -863,10 +834,30 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Woodbury</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Washington Twp</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Clayton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Deptford Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>East Greenwich Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Elk Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Franklin Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Glassboro</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Deptford</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Greenwich Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Harrison Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Logan Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mantua Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Monroe Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>National Park</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Newfield</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Paulsboro</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pitman</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>South Harrison Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Swedesboro</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Washington Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wenonah</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>West Deptford Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Westville</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Woodbury</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Woodbury Heights</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Woolwich Township</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -881,10 +872,20 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Alloway Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Carneys Point Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Elsinboro Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lower Alloways Creek Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mannington Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Oldmans Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Penns Grove</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pennsville Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pilesgrove Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pittsgrove Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Quinton Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Salem</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pennsville</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Upper Pittsgrove Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Woodstown</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Carneys Point</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -899,11 +900,29 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Atlantic City</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Egg Harbor</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hammonton</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Galloway</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Absecon</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Atlantic City</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Brigantine</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Buena</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Buena Vista Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Corbin City</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Egg Harbor City</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Egg Harbor Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Estell Manor</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Folsom</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Galloway Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hamilton Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hammonton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Linwood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Longport</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Margate City</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Mullica Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Northfield</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Pleasantville</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Port Republic</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Somers Point</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ventnor City</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Weymouth Township</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -918,10 +937,20 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Vineland</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Bridgeton</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Commercial Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Deerfield Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Downe Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Fairfield Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Greenwich Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Hopewell Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lawrence Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Maurice River Township</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Millville</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Greenwich</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Shiloh</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Stow Creek Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Upper Deerfield Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Vineland</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -936,11 +965,23 @@
           <div class="sa-county-badge">Serviced</div>
         </div>
         <div class="sa-city-grid">
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cape May</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wildwood</div>
-          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ocean City</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Avalon</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cape May</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cape May Court House</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Cape May Point</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Dennis Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Lower Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Middle Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>North Wildwood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Ocean City</div>
           <div class="sa-city-tag"><div class="sa-city-dot"></div>Sea Isle City</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Stone Harbor</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Upper Township</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>West Cape May</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>West Wildwood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wildwood</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Wildwood Crest</div>
+          <div class="sa-city-tag"><div class="sa-city-dot"></div>Woodbine</div>
         </div>
         <div class="sa-county-cta"><a href="index.html#quote">Request a Quote →</a></div>
       </div>
@@ -948,19 +989,21 @@
     </div>
   </div>
 
-    <!-- CTA -->
+  </div>
+
+  <!-- CTA -->
   <section class="about-cta-section">
     <h2 class="wave-text">
-  <span>R</span><span>e</span><span>a</span><span>d</span><span>y</span>
-  <span>&nbsp;</span>
-  <span>T</span><span>o</span>
-  <span>&nbsp;</span>
-  <span>W</span><span>o</span><span>r</span><span>k</span>
-  <span>&nbsp;</span>
-  <span>W</span><span>i</span><span>t</span><span>h</span>
-  <span>&nbsp;</span>
-  <span>U</span><span>s</span><span>?</span>
-</h2>
+      <span>R</span><span>e</span><span>a</span><span>d</span><span>y</span>
+      <span>&nbsp;</span>
+      <span>T</span><span>o</span>
+      <span>&nbsp;</span>
+      <span>W</span><span>o</span><span>r</span><span>k</span>
+      <span>&nbsp;</span>
+      <span>W</span><span>i</span><span>t</span><span>h</span>
+      <span>&nbsp;</span>
+      <span>U</span><span>s</span><span>?</span>
+    </h2>
     <p>Get a free estimate today — we're available 24/7 across all of New Jersey.</p>
     <a href="index.html#quote" class="btn-cta-white">Request a Quote</a>
   </section>
@@ -969,19 +1012,27 @@
   <footer id="footer">
     <div class="footer-main">
       <div class="footer-brand-left">
-        <a href="index.html"><img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning" height="64"></a>
+        <a href="index.html">
+          <img src="images/2kdlogo-removebg-preview.png" alt="2KD Hood Cleaning" height="64">
+        </a>
         <p>Commercial hood cleaning, exhaust system maintenance, and fire safety compliance for restaurants and businesses across New Jersey.</p>
+        <div class="footer-inquiry">
+          <div class="footer-inquiry-title">Get In Touch</div>
+          <input type="email" class="footer-inquiry-email" placeholder="Your email address..." required>
+          <textarea class="footer-inquiry-box" placeholder="Write any questions you have here..."></textarea>
+          <button class="footer-inquiry-btn" onclick="sendInquiry()">Send</button>
+        </div>
       </div>
       <div class="footer-top-grid">
         <div class="footer-col-centered">
           <h4>Services</h4>
           <ul>
-            <li><a href="/services/exhaust-hood-cleaning/">Hood Cleaning</a></li>
-            <li><a href="/services/exhaust-fan-cleaning/">Exhaust Fan Cleaning</a></li>
-            <li><a href="/services/fan-belt-service/">Fan Belt Service</a></li>
-            <li><a href="/services/filter-exchange/">Filter Exchange</a></li>
-            <li><a href="/services/dumpster-pad-cleaning/">Dumpster Pad Cleaning</a></li>
-            <li><a href="/services/pressure-washing/">Pressure Washing</a></li>
+            <li><a href="services.html#hood-cleaning">Hood Cleaning</a></li>
+            <li><a href="services.html#exhaust-fan">Exhaust Fan Cleaning</a></li>
+            <li><a href="services.html#fan-belt">Fan Belt Service</a></li>
+            <li><a href="services.html#filter-exchange">Filter Exchange</a></li>
+            <li><a href="services.html#dumpster-pad">Dumpster Pad Cleaning</a></li>
+            <li><a href="services.html#pressure-washing">Pressure Washing</a></li>
           </ul>
         </div>
         <div class="footer-col-centered">
@@ -989,7 +1040,7 @@
           <ul>
             <li><a href="about.html">About</a></li>
             <li><a href="serviceareas.html">Service Areas</a></li>
-            <li><a href="mailto:YOUREMAIL@gmail.com">Contact Us</a></li>
+            <li><a href="mailto:karlaram2005@gmail.com">Contact Us</a></li>
           </ul>
         </div>
       </div>
@@ -1007,59 +1058,54 @@
     </div>
   </footer>
 
-  <div class="custom-cursor" id="cursor"></div>
-
   <script>
-    // ── CURSOR ──
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-    document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
-    document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
-    document.querySelectorAll('a, button, .sa-county-path, .sa-city-tag').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    // ── MOBILE NAV ──
+    const mobileToggle = document.getElementById('mobileToggle');
+    const mainNav      = document.getElementById('mainNav');
+
+    mobileToggle.addEventListener('click', function () {
+      mainNav.classList.toggle('nav-open');
+      mobileToggle.classList.toggle('is-open');
+      mobileToggle.textContent = mainNav.classList.contains('nav-open') ? '✕' : '☰';
     });
 
-    // ── MAP + SCROLL SYNC ──
+    mainNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('nav-open');
+        mobileToggle.classList.remove('is-open');
+        mobileToggle.textContent = '☰';
+      });
+    });
+
+    // ── COUNTY CLICK (fade in) ──
     const sections = document.querySelectorAll('.sa-county-section');
-    const paths = document.querySelectorAll('.sa-county-path');
-    const detailCol = document.getElementById('saDetailCol');
+    const paths    = document.querySelectorAll('.sa-county-path');
 
-    // Click map → scroll to section
-    paths.forEach(path => {
-      path.addEventListener('click', () => {
-        const county = path.dataset.county;
-        const section = document.getElementById('section-' + county);
-        if (!section) return;
-        paths.forEach(p => p.classList.remove('sa-active', 'sa-dimmed'));
-        paths.forEach(p => {
-          if (p.dataset.county !== county) p.classList.add('sa-dimmed');
-        });
-        path.classList.add('sa-active');
-        sections.forEach(s => s.classList.remove('sa-highlighted'));
-        section.classList.add('sa-highlighted');
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    function showCounty(county) {
+      paths.forEach(p => {
+        p.classList.remove('sa-active', 'sa-dimmed');
+        if (p.dataset.county !== county) p.classList.add('sa-dimmed');
+        else p.classList.add('sa-active');
       });
-    });
 
-    // Scroll right → highlight map county
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const county = entry.target.dataset.county;
-          paths.forEach(p => p.classList.remove('sa-active', 'sa-dimmed'));
-          paths.forEach(p => {
-            if (p.dataset.county !== county) p.classList.add('sa-dimmed');
-            else p.classList.add('sa-active');
-          });
-        }
+      const prompt = document.getElementById('saClickPrompt');
+      if (prompt) prompt.style.display = 'none';
+
+      sections.forEach(s => {
+        s.classList.remove('sa-highlighted', 'sa-fade-in');
+        s.style.display = 'none';
       });
-    }, { root: detailCol, threshold: 0.4 });
 
-    sections.forEach(s => observer.observe(s));
+      const section = document.getElementById('section-' + county);
+      if (!section) return;
+      section.style.display = 'block';
+      section.classList.add('sa-highlighted');
+      void section.offsetWidth;
+      section.classList.add('sa-fade-in');
+    }
+
+    paths.forEach(path => path.addEventListener('click', () => showCounty(path.dataset.county)));
+    sections.forEach(s => s.style.display = 'none');
 
     // ── SEARCH ──
     const cityIndex = [];
@@ -1070,15 +1116,17 @@
       });
     });
 
-    const searchInput = document.getElementById('saSearch');
+    const searchInput   = document.getElementById('saSearch');
     const searchResults = document.getElementById('saSearchResults');
 
     searchInput.addEventListener('input', () => {
       const q = searchInput.value.trim().toLowerCase();
       if (!q) { searchResults.style.display = 'none'; return; }
+
       const matches = cityIndex.filter(item =>
         item.city.toLowerCase().includes(q) || item.county.toLowerCase().includes(q)
       );
+
       if (matches.length === 0) {
         searchResults.innerHTML = '<div class="sa-search-result-item" style="color:#555;cursor:default;">No results found</div>';
       } else {
@@ -1087,19 +1135,9 @@
         ).join('');
         searchResults.querySelectorAll('.sa-search-result-item[data-county]').forEach(item => {
           item.addEventListener('click', () => {
-            const county = item.dataset.county;
             searchInput.value = item.firstChild.textContent.trim();
             searchResults.style.display = 'none';
-            const section = document.getElementById('section-' + county);
-            const path = document.querySelector(`.sa-county-path[data-county="${county}"]`);
-            if (section) {
-              paths.forEach(p => p.classList.remove('sa-active', 'sa-dimmed'));
-              paths.forEach(p => { if (p.dataset.county !== county) p.classList.add('sa-dimmed'); });
-              if (path) path.classList.add('sa-active');
-              sections.forEach(s => s.classList.remove('sa-highlighted'));
-              section.classList.add('sa-highlighted');
-              section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+            showCounty(item.dataset.county);
           });
         });
       }
@@ -1110,11 +1148,38 @@
       if (!e.target.closest('.sa-search')) searchResults.style.display = 'none';
     });
 
-    // Mobile toggle
-    document.querySelector('.mobile-toggle').addEventListener('click', function() {
-      document.querySelector('nav').classList.toggle('nav-open');
-    });
-  </script>
+    // ── FOOTER INQUIRY (Formspree) ──
+    async function sendInquiry() {
+      const email   = document.querySelector('.footer-inquiry-email').value;
+      const message = document.querySelector('.footer-inquiry-box').value;
+      if (!email || !message) { alert('Please fill in both your email and message.'); return; }
 
+      const btn       = document.querySelector('.footer-inquiry-btn');
+      btn.textContent = 'Sending...';
+      btn.disabled    = true;
+
+      try {
+        const res = await fetch('https://formspree.io/f/mlgpzrdo', {
+          method:  'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ email, message })
+        });
+        if (res.ok) {
+          btn.textContent = 'Sent ✓';
+          document.querySelector('.footer-inquiry-email').value = '';
+          document.querySelector('.footer-inquiry-box').value   = '';
+        } else {
+          btn.textContent = 'Send';
+          btn.disabled    = false;
+          alert('Something went wrong. Please try again.');
+        }
+      } catch {
+        btn.textContent = 'Send';
+        btn.disabled    = false;
+        alert('Something went wrong. Please try again.');
+      }
+    }
+
+  </script>
 </body>
 </html>
