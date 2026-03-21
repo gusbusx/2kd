@@ -133,8 +133,8 @@
       </div>
       <div class="srv-detail-media">
         <div class="srv-ba-slider" data-slider>
-          <div class="srv-ba-after"><div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div></div>
-          <div class="srv-ba-before"><div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div></div>
+          <div class="srv-ba-after"><img src="images/hoodcleaningafter.PNG" alt="After exhaust hood cleaning"></div>
+          <div class="srv-ba-before"><img src="images/hoodcleaningbefore.PNG" alt="Before exhaust hood cleaning"></div>
           <div class="srv-ba-handle"><div class="srv-ba-line"></div><div class="srv-ba-circle"><span>◀</span><span>▶</span></div><div class="srv-ba-line"></div></div>
           <div class="srv-ba-labels"><span class="srv-ba-label-b">Before</span><span class="srv-ba-label-a">After</span></div>
         </div>
@@ -161,8 +161,8 @@
       </div>
       <div class="srv-detail-media">
         <div class="srv-ba-slider" data-slider>
-          <div class="srv-ba-after"><div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div></div>
-          <div class="srv-ba-before"><div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div></div>
+          <div class="srv-ba-after"><img src="images/fancleaningafter.png" alt="After exhaust fan cleaning"></div>
+          <div class="srv-ba-before"><img src="images/fancleaningbefore.png" alt="Before exhaust fan cleaning"></div>
           <div class="srv-ba-handle"><div class="srv-ba-line"></div><div class="srv-ba-circle"><span>◀</span><span>▶</span></div><div class="srv-ba-line"></div></div>
           <div class="srv-ba-labels"><span class="srv-ba-label-b">Before</span><span class="srv-ba-label-a">After</span></div>
         </div>
@@ -189,8 +189,8 @@
       </div>
       <div class="srv-detail-media">
         <div class="srv-ba-slider" data-slider>
-          <div class="srv-ba-after"><div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div></div>
-          <div class="srv-ba-before"><div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div></div>
+          <div class="srv-ba-after"><img src="images/fanbeltafter.jpeg" alt="After fan belt service"></div>
+          <div class="srv-ba-before"><img src="images/fanbeltbefore.jpeg" alt="Before fan belt service"></div>
           <div class="srv-ba-handle"><div class="srv-ba-line"></div><div class="srv-ba-circle"><span>◀</span><span>▶</span></div><div class="srv-ba-line"></div></div>
           <div class="srv-ba-labels"><span class="srv-ba-label-b">Before</span><span class="srv-ba-label-a">After</span></div>
         </div>
@@ -217,8 +217,8 @@
       </div>
       <div class="srv-detail-media">
         <div class="srv-ba-slider" data-slider>
-          <div class="srv-ba-after"><div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div></div>
-          <div class="srv-ba-before"><div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div></div>
+          <div class="srv-ba-after"><img src="images/.jpeg" alt="After filter exchange"></div>
+          <div class="srv-ba-before"><img src="images/.jpeg" alt="Before filter exchange"></div>
           <div class="srv-ba-handle"><div class="srv-ba-line"></div><div class="srv-ba-circle"><span>◀</span><span>▶</span></div><div class="srv-ba-line"></div></div>
           <div class="srv-ba-labels"><span class="srv-ba-label-b">Before</span><span class="srv-ba-label-a">After</span></div>
         </div>
@@ -245,8 +245,8 @@
       </div>
       <div class="srv-detail-media">
         <div class="srv-ba-slider" data-slider>
-          <div class="srv-ba-after"><div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div></div>
-          <div class="srv-ba-before"><div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div></div>
+          <div class="srv-ba-after"><img src="images/.jpeg" alt="After dumpsterpad"></div>
+          <div class="srv-ba-before"><img src="images/.jpeg" alt="Before dumpsterpad"></div>
           <div class="srv-ba-handle"><div class="srv-ba-line"></div><div class="srv-ba-circle"><span>◀</span><span>▶</span></div><div class="srv-ba-line"></div></div>
           <div class="srv-ba-labels"><span class="srv-ba-label-b">Before</span><span class="srv-ba-label-a">After</span></div>
         </div>
@@ -273,8 +273,8 @@
       </div>
       <div class="srv-detail-media">
         <div class="srv-ba-slider" data-slider>
-          <div class="srv-ba-after"><div class="srv-ba-placeholder after"><span>📷</span><p>After</p></div></div>
-          <div class="srv-ba-before"><div class="srv-ba-placeholder before"><span>📷</span><p>Before</p></div></div>
+          <div class="srv-ba-after"><img src="images/pwafter.png" alt="After pressure washing"></div>
+          <div class="srv-ba-before"><img src="images/pwbefore.png" alt="Before pressure washing"></div>
           <div class="srv-ba-handle"><div class="srv-ba-line"></div><div class="srv-ba-circle"><span>◀</span><span>▶</span></div><div class="srv-ba-line"></div></div>
           <div class="srv-ba-labels"><span class="srv-ba-label-b">Before</span><span class="srv-ba-label-a">After</span></div>
         </div>
@@ -407,24 +407,36 @@
 
     // ── BEFORE/AFTER SLIDERS ──
     document.querySelectorAll('[data-slider]').forEach(slider => {
-      const before = slider.querySelector('.srv-ba-before');
-      const handle = slider.querySelector('.srv-ba-handle');
-      let dragging  = false;
+      const beforeImg = slider.querySelector('.srv-ba-before img');
+      const afterImg  = slider.querySelector('.srv-ba-after img');
+      const handle    = slider.querySelector('.srv-ba-handle');
+      let pct      = 0.5;
+      let dragging = false;
 
-      function setPos(x) {
-        const rect = slider.getBoundingClientRect();
-        let pct    = Math.min(Math.max((x - rect.left) / rect.width, 0.02), 0.98);
-        before.style.width      = (pct * 100) + '%';
-        handle.style.left       = (pct * 100) + '%';
-        handle.style.transform  = 'translateX(-50%)';
+      function applyClip(p) {
+        const w  = slider.offsetWidth;
+        const h  = slider.offsetHeight;
+        const cw = Math.round(p * w);
+        if (beforeImg) beforeImg.style.clip = `rect(0, ${cw}px, ${h}px, 0)`;
+        if (afterImg)  afterImg.style.clip  = `rect(0, ${w}px, ${h}px, ${cw}px)`;
+        handle.style.left      = cw + 'px';
+        handle.style.transform = 'translateX(-50%)';
       }
 
-      slider.addEventListener('mousedown',  e  => { dragging = true;  setPos(e.clientX); e.preventDefault(); });
-      window.addEventListener('mouseup',    ()  => { dragging = false; });
-      window.addEventListener('mousemove',  e   => { if (dragging) setPos(e.clientX); });
-      slider.addEventListener('touchstart', e   => { dragging = true;  setPos(e.touches[0].clientX); }, { passive: true });
-      window.addEventListener('touchend',   ()  => { dragging = false; });
-      window.addEventListener('touchmove',  e   => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+      function getPos(clientX) {
+        const rect = slider.getBoundingClientRect();
+        return Math.min(Math.max((clientX - rect.left) / rect.width, 0.02), 0.98);
+      }
+
+      applyClip(pct);
+      window.addEventListener('resize', () => applyClip(pct));
+
+      slider.addEventListener('mousedown',  e => { dragging = true;  pct = getPos(e.clientX); applyClip(pct); e.preventDefault(); });
+      window.addEventListener('mouseup',    () => { dragging = false; });
+      window.addEventListener('mousemove',  e => { if (dragging) { pct = getPos(e.clientX); applyClip(pct); } });
+      slider.addEventListener('touchstart', e => { dragging = true;  pct = getPos(e.touches[0].clientX); applyClip(pct); }, { passive: true });
+      window.addEventListener('touchend',   () => { dragging = false; });
+      window.addEventListener('touchmove',  e => { if (dragging) { pct = getPos(e.touches[0].clientX); applyClip(pct); } }, { passive: true });
     });
 
     // ── FOOTER INQUIRY (Formspree) ──
